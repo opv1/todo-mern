@@ -1,0 +1,5 @@
+export const SET_LISTS = 'SET_LISTS'
+export const SET_SELECTED_LIST = 'SET_SELECTED_LIST'
+export const SET_SELECTED_TODOS = 'SET_SELECTED_TODOS'
+export const SET_CHOOSED_TODO = 'SET_CHOOSED_TODO'
+export const SET_TODOS = 'SET_TODOS'
