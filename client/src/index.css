@@ -1,9 +1,10 @@
 .app {
   width: 100vw;
   height: 100vh;
+  min-width: 320px;
 }
 
-.authentication-component {
+.auth-component {
   border: 1px solid #eeeeee;
   padding: 30px;
   border-radius: 10px;

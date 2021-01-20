@@ -37,7 +37,7 @@ router.post('/add', auth, async (req, res) => {
 
     await todo.save()
 
-    res.status(201).json({ todo })
+    return res.status(201).json({ todo })
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong' })
   }
@@ -48,7 +48,7 @@ router.get('/all', auth, async (req, res) => {
   try {
     const todos = await Todo.find({ owner: req.user.userId })
 
-    res.json(todos)
+    return res.json(todos)
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong' })
   }
@@ -59,7 +59,20 @@ router.get('/:id', auth, async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id)
 
-    res.json(todo)
+    return res.json(todo)
+  } catch (err) {
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
+// /api/todo/id
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const todo = await Todo.findById(req.params.id)
+
+    await todo.remove()
+
+    return res.json({ message: 'Todo deleted' })
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong' })
   }

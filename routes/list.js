@@ -55,6 +55,19 @@ router.get('/:id', auth, async (req, res) => {
   }
 })
 
+// /api/list/id
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const list = await List.findById(req.params.id)
+
+    await list.remove()
+
+    return res.json({ message: 'List deleted' })
+  } catch (err) {
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
 // /api/list/todos
 router.get('/todos/:id', auth, async (req, res) => {
   try {

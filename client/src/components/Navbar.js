@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { Navbar, Nav } from 'react-bootstrap'
 import { AppContext } from '../context/AppContext'
 
-function Navigation() {
+function NavbarComponent() {
   const { logout } = useContext(AppContext)
 
   return (
@@ -26,4 +26,4 @@ function Navigation() {
   )
 }
 
-export default Navigation
+export default NavbarComponent

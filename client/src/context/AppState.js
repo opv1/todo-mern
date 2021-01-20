@@ -10,8 +10,12 @@ import {
   SET_LISTS,
   SET_SELECTED_LIST,
   SET_SELECTED_TODOS,
-  SET_CHOOSED_TODO,
+  SET_SELECTED_TODO,
   SET_TODOS,
+  SET_SHOW_MODAL,
+  SET_DATA_MODAL,
+  SET_SHOW_ALERT,
+  SET_DATA_ALERT,
 } from './types'
 
 export const AppState = ({ children }) => {
@@ -21,11 +25,33 @@ export const AppState = ({ children }) => {
     selectedTodos: [],
     selectedTodo: {},
     todos: [],
+    showModal: false,
+    dataModal: {
+      type: '',
+      item: '',
+    },
+    showAlert: false,
+    dataAlert: {
+      type: '',
+      text: '',
+    },
+    timeoutTime: 3000,
   }
 
   const [state, dispatch] = useReducer(appReducer, initialState)
 
-  const { lists, selectedList, selectedTodos, selectedTodo, todos } = state
+  const {
+    lists,
+    selectedList,
+    selectedTodos,
+    selectedTodo,
+    todos,
+    showModal,
+    dataModal,
+    showAlert,
+    dataAlert,
+    timeoutTime,
+  } = state
 
   const history = useHistory()
   const { loading, error, request, clearError } = useHttp()
@@ -34,13 +60,45 @@ export const AppState = ({ children }) => {
   const isAuthenticated = !!token
   const routes = useRoutes(isAuthenticated)
 
+  const onShowAlert = (payload) => {
+    dispatch({
+      type: SET_SHOW_ALERT,
+      payload,
+    })
+  }
+
+  const onShowModal = (payload) => {
+    dispatch({
+      type: SET_SHOW_MODAL,
+      payload,
+    })
+  }
+
   const onSingup = async (form) => {
     try {
       const data = await request('/api/auth/singup', 'POST', { ...form })
 
-      alert(data.message)
+      onShowAlert(true)
+
+      dispatch({
+        type: SET_DATA_ALERT,
+        payload: { type: 'success', text: data.message },
+      })
+
+      setTimeout(() => {
+        onShowAlert(false)
+      }, timeoutTime)
     } catch (err) {
-      console.log(err)
+      onShowAlert(true)
+
+      dispatch({
+        type: SET_DATA_ALERT,
+        payload: { type: 'error', text: err.message },
+      })
+
+      setTimeout(() => {
+        onShowAlert(false)
+      }, timeoutTime)
     }
   }
 
@@ -48,9 +106,20 @@ export const AppState = ({ children }) => {
     try {
       const data = await request('/api/auth/login', 'POST', { ...form })
 
+      onShowAlert(false)
+
       login(data.token, data.userId)
     } catch (err) {
-      console.log(err)
+      onShowAlert(true)
+
+      dispatch({
+        type: SET_DATA_ALERT,
+        payload: { type: 'error', text: err.message },
+      })
+
+      setTimeout(() => {
+        onShowAlert(false)
+      }, timeoutTime)
     }
   }
 
@@ -115,7 +184,7 @@ export const AppState = ({ children }) => {
     })
 
     try {
-      const todos = await request(`api/list/todos/${list._id}`, 'GET', null, {
+      const todos = await request(`/api/list/todos/${list._id}`, 'GET', null, {
         Authorization: `Bearer ${token}`,
       })
 
@@ -154,11 +223,68 @@ export const AppState = ({ children }) => {
 
   const onSelectedTodo = (todo) => {
     dispatch({
-      type: SET_CHOOSED_TODO,
+      type: SET_SELECTED_TODO,
       payload: todo,
     })
 
     history.push(`/todo/${todo._id}`)
+  }
+
+  const onDeleteList = async (list) => {
+    try {
+      await request(`/api/list/${list._id}`, 'DELETE', null, {
+        Authorization: `Bearer ${token}`,
+      })
+
+      const copyLists = [...lists]
+
+      const filteredLists = copyLists.filter(
+        (copyList) => copyList._id !== list._id
+      )
+
+      dispatch({
+        type: SET_LISTS,
+        payload: filteredLists,
+      })
+
+      onShowModal(false)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const onDeleteTodo = async (todo) => {
+    try {
+      await request(`/api/todo/${todo._id}`, 'DELETE', null, {
+        Authorization: `Bearer ${token}`,
+      })
+
+      const copyTodos = [...selectedTodos]
+
+      const filteredTodos = copyTodos.filter(
+        (copyTodo) => copyTodo._id !== todo._id
+      )
+
+      dispatch({
+        type: SET_SELECTED_TODOS,
+        payload: filteredTodos,
+      })
+
+      onShowModal(false)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const onDisplayModal = (e, type, item) => {
+    e.stopPropagation()
+
+    onShowModal(true)
+
+    dispatch({
+      type: SET_DATA_MODAL,
+      payload: { type, item },
+    })
   }
 
   return (
@@ -169,6 +295,10 @@ export const AppState = ({ children }) => {
         selectedTodos,
         selectedTodo,
         todos,
+        showModal,
+        dataModal,
+        showAlert,
+        dataAlert,
         history,
         loading,
         error,
@@ -179,6 +309,8 @@ export const AppState = ({ children }) => {
         ready,
         isAuthenticated,
         routes,
+        onShowAlert,
+        onShowModal,
         onSingup,
         onLogin,
         fetchLists,
@@ -187,6 +319,9 @@ export const AppState = ({ children }) => {
         onSelectedList,
         onAddTodo,
         onSelectedTodo,
+        onDeleteList,
+        onDeleteTodo,
+        onDisplayModal,
       }}
     >
       {children}

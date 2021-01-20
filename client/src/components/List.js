@@ -1,11 +1,21 @@
 import React, { useContext, useState } from 'react'
-import { ListGroup, InputGroup, Button, FormControl } from 'react-bootstrap'
+import {
+  ListGroup,
+  InputGroup,
+  Button,
+  FormControl,
+  Badge,
+} from 'react-bootstrap'
 import { AppContext } from '../context/AppContext'
 
-function List() {
-  const { selectedList, selectedTodos, onAddTodo, onSelectedTodo } = useContext(
-    AppContext
-  )
+function ListComponent() {
+  const {
+    selectedList,
+    selectedTodos,
+    onAddTodo,
+    onSelectedTodo,
+    onDisplayModal,
+  } = useContext(AppContext)
 
   const [text, setText] = useState('')
   const [display, setDisplay] = useState(false)
@@ -22,6 +32,12 @@ function List() {
                 onClick={() => onSelectedTodo(todo)}
               >
                 {todo.text}
+                <Badge
+                  onClick={(event) => onDisplayModal(event, 'todo', todo)}
+                  variant='dark ml-2'
+                >
+                  &#10006;
+                </Badge>
               </ListGroup.Item>
             ))
           ) : (
@@ -68,4 +84,4 @@ function List() {
   )
 }
 
-export default List
+export default ListComponent

@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { AppContext } from '../context/AppContext'
 
-function Authentication() {
+function AuthComponent() {
   const { loading, error, clearError, alert, onSingup, onLogin } = useContext(
     AppContext
   )
@@ -22,7 +22,7 @@ function Authentication() {
   }
 
   return (
-    <div className='authentication-component'>
+    <div className='auth-component'>
       <Form>
         <Form.Group controlId='formBasicEmail'>
           <Form.Label>Email</Form.Label>
@@ -44,7 +44,7 @@ function Authentication() {
             value={form.password}
             type='password'
             name='password'
-            placeholder='Password'
+            placeholder='******'
           />
         </Form.Group>
         <Button
@@ -66,4 +66,4 @@ function Authentication() {
   )
 }
 
-export default Authentication
+export default AuthComponent

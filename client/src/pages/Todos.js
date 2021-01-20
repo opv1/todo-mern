@@ -1,15 +1,15 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { AppContext } from '../context/AppContext'
-import { Loader, Items } from '../components/index'
+import { LoaderComponent, ItemsComponent } from '../components/index'
 
 function Todos() {
-  const { loading, fetchTodos } = useContext(AppContext)
+  const { loading } = useContext(AppContext)
 
-  useEffect(() => {
-    fetchTodos()
-  }, [fetchTodos])
-
-  return <div className='todos-page'>{loading ? <Loader /> : <Items />}</div>
+  return (
+    <div className='todos-page'>
+      {loading ? <LoaderComponent /> : <ItemsComponent />}
+    </div>
+  )
 }
 
 export default Todos

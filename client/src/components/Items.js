@@ -1,14 +1,20 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../context/AppContext'
-import { Item } from './index'
+import { ItemComponent } from './index'
 
-function Items() {
-  const { todos } = useContext(AppContext)
+function ItemsComponent() {
+  const { todos, onSelectedTodo } = useContext(AppContext)
 
   return (
     <div className='items-component d-flex justify-content-around flex-wrap'>
       {todos.length !== 0 ? (
-        todos.map((todo) => <Item key={todo._id} todo={todo} />)
+        todos.map((todo) => (
+          <ItemComponent
+            key={todo._id}
+            todo={todo}
+            onSelectedTodo={onSelectedTodo}
+          />
+        ))
       ) : (
         <h1>No todos</h1>
       )}
@@ -16,4 +22,4 @@ function Items() {
   )
 }
 
-export default Items
+export default ItemsComponent

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Spinner } from 'react-bootstrap'
 
-function Loader() {
+function LoaderComponent() {
   return (
     <div className='loader-component d-flex justify-content-center align-items-center'>
       <Spinner animation='border' role='status'>
@@ -11,4 +11,4 @@ function Loader() {
   )
 }
 
-export default Loader
+export default LoaderComponent

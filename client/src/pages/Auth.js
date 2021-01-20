@@ -1,10 +1,11 @@
 import React from 'react'
-import { Authentication } from '../components/index'
+import { AuthComponent } from '../components/index'
 
 function Auth() {
   return (
-    <div className='auth-page d-flex justify-content-center align-items-center h-100'>
-      <Authentication />
+    <div className='auth-page d-flex justify-content-center align-items-center flex-column h-100'>
+      <h1>Todo MERN</h1>
+      <AuthComponent />
     </div>
   )
 }

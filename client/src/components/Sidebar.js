@@ -1,18 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { ListGroup, InputGroup, Button, FormControl } from 'react-bootstrap'
+import React, { useContext, useState } from 'react'
+import {
+  ListGroup,
+  InputGroup,
+  Button,
+  FormControl,
+  Badge,
+} from 'react-bootstrap'
 import { AppContext } from '../context/AppContext'
 
-function Sidebar() {
-  const { lists, fetchLists, onAddList, onSelectedList } = useContext(
+function SidebarComponent() {
+  const { lists, onAddList, onSelectedList, onDisplayModal } = useContext(
     AppContext
   )
 
   const [title, setTitle] = useState('')
   const [display, setDisplay] = useState(false)
-
-  useEffect(() => {
-    fetchLists()
-  }, [fetchLists])
 
   return (
     <div className='sidebar-component'>
@@ -22,6 +24,12 @@ function Sidebar() {
           lists.map((list) => (
             <ListGroup.Item key={list._id} onClick={() => onSelectedList(list)}>
               {list.title}
+              <Badge
+                onClick={(event) => onDisplayModal(event, 'list', list)}
+                variant='dark ml-2'
+              >
+                &#10006;
+              </Badge>
             </ListGroup.Item>
           ))
         ) : (
@@ -64,4 +72,4 @@ function Sidebar() {
   )
 }
 
-export default Sidebar
+export default SidebarComponent
