@@ -4,7 +4,6 @@ import { AppContext } from './AppContext'
 import { appReducer } from './appReducer'
 import { useAuth } from '../hooks/useAuth'
 import { useHttp } from '../hooks/useHttp'
-import { useAlert } from '../hooks/useAlert'
 import { useRoutes } from '../routes'
 import {
   SET_LISTS,
@@ -14,8 +13,6 @@ import {
   SET_TODOS,
   SET_SHOW_MODAL,
   SET_DATA_MODAL,
-  SET_SHOW_ALERT,
-  SET_DATA_ALERT,
 } from './types'
 
 export const AppState = ({ children }) => {
@@ -30,12 +27,6 @@ export const AppState = ({ children }) => {
       type: '',
       item: '',
     },
-    showAlert: false,
-    dataAlert: {
-      type: '',
-      text: '',
-    },
-    timeoutTime: 3000,
   }
 
   const [state, dispatch] = useReducer(appReducer, initialState)
@@ -48,24 +39,20 @@ export const AppState = ({ children }) => {
     todos,
     showModal,
     dataModal,
-    showAlert,
-    dataAlert,
-    timeoutTime,
   } = state
 
   const history = useHistory()
-  const { loading, error, request, clearError } = useHttp()
-  const alert = useAlert()
+  const {
+    loading,
+    message,
+    showMessage,
+    displayMessage,
+    clearMessage,
+    request,
+  } = useHttp()
   const { token, login, logout, userId, ready } = useAuth()
   const isAuthenticated = !!token
   const routes = useRoutes(isAuthenticated)
-
-  const onShowAlert = (payload) => {
-    dispatch({
-      type: SET_SHOW_ALERT,
-      payload,
-    })
-  }
 
   const onShowModal = (payload) => {
     dispatch({
@@ -76,29 +63,9 @@ export const AppState = ({ children }) => {
 
   const onSingup = async (form) => {
     try {
-      const data = await request('/api/auth/singup', 'POST', { ...form })
-
-      onShowAlert(true)
-
-      dispatch({
-        type: SET_DATA_ALERT,
-        payload: { type: 'success', text: data.message },
-      })
-
-      setTimeout(() => {
-        onShowAlert(false)
-      }, timeoutTime)
+      await request('/api/auth/singup', 'POST', { ...form })
     } catch (err) {
-      onShowAlert(true)
-
-      dispatch({
-        type: SET_DATA_ALERT,
-        payload: { type: 'error', text: err.message },
-      })
-
-      setTimeout(() => {
-        onShowAlert(false)
-      }, timeoutTime)
+      console.log(err)
     }
   }
 
@@ -106,20 +73,11 @@ export const AppState = ({ children }) => {
     try {
       const data = await request('/api/auth/login', 'POST', { ...form })
 
-      onShowAlert(false)
+      displayMessage(false)
 
       login(data.token, data.userId)
     } catch (err) {
-      onShowAlert(true)
-
-      dispatch({
-        type: SET_DATA_ALERT,
-        payload: { type: 'error', text: err.message },
-      })
-
-      setTimeout(() => {
-        onShowAlert(false)
-      }, timeoutTime)
+      console.log(err)
     }
   }
 
@@ -184,7 +142,7 @@ export const AppState = ({ children }) => {
     })
 
     try {
-      const todos = await request(`/api/list/todos/${list._id}`, 'GET', null, {
+      const todos = await request(`/api/todo/all/${list._id}`, 'GET', null, {
         Authorization: `Bearer ${token}`,
       })
 
@@ -204,7 +162,7 @@ export const AppState = ({ children }) => {
       const data = await request(
         '/api/todo/add',
         'POST',
-        { text, listId: selectedList._id },
+        { text, list: selectedList._id },
         {
           Authorization: `Bearer ${token}`,
         }
@@ -232,6 +190,21 @@ export const AppState = ({ children }) => {
 
   const onDeleteList = async (list) => {
     try {
+      const todos = await request(
+        '/api/todo/all',
+        'DELETE',
+        { list: list._id },
+        {
+          Authorization: `Bearer ${token}`,
+        }
+      )
+
+      todos.forEach(async (todo) => {
+        await request(`/api/todo/${todo._id}`, 'DELETE', null, {
+          Authorization: `Bearer ${token}`,
+        })
+      })
+
       await request(`/api/list/${list._id}`, 'DELETE', null, {
         Authorization: `Bearer ${token}`,
       })
@@ -297,19 +270,17 @@ export const AppState = ({ children }) => {
         todos,
         showModal,
         dataModal,
-        showAlert,
-        dataAlert,
         history,
         loading,
-        error,
-        clearError,
-        alert,
+        message,
+        showMessage,
+        displayMessage,
+        clearMessage,
         login,
         logout,
         ready,
         isAuthenticated,
         routes,
-        onShowAlert,
         onShowModal,
         onSingup,
         onLogin,

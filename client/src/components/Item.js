@@ -4,7 +4,7 @@ import { Card, Button } from 'react-bootstrap'
 function ItemComponent({ todo, onSelectedTodo }) {
   return (
     <Card className='item-component text-center'>
-      <Card.Header>Updated {new Date(todo.date).toLocaleString()}</Card.Header>
+      <Card.Header>Created {new Date(todo.date).toLocaleString()}</Card.Header>
       <Card.Body>
         <Card.Title>What to do</Card.Title>
         <Card.Text>{todo.text}</Card.Text>
@@ -16,7 +16,7 @@ function ItemComponent({ todo, onSelectedTodo }) {
         ) : null}
       </Card.Body>
       <Card.Footer className='text-muted'>
-        Created {new Date(todo.date).toLocaleString()}
+        Updated {new Date(todo.date).toLocaleString()}
       </Card.Footer>
     </Card>
   )

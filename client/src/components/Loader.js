@@ -3,11 +3,13 @@ import { Spinner } from 'react-bootstrap'
 
 function LoaderComponent() {
   return (
-    <div className='loader-component d-flex justify-content-center align-items-center'>
-      <Spinner animation='border' role='status'>
-        <span className='sr-only'>Loading...</span>
-      </Spinner>
-    </div>
+    <Spinner
+      className='loader-component d-flex justify-content-center align-items-center'
+      animation='border'
+      role='status'
+    >
+      <span className='sr-only'>Loading...</span>
+    </Spinner>
   )
 }
 

@@ -6,8 +6,8 @@ function Todos() {
   const { loading } = useContext(AppContext)
 
   return (
-    <div className='todos-page'>
-      {loading ? <LoaderComponent /> : <ItemsComponent />}
+    <div className='d-flex justify-content-around'>
+      <ItemsComponent />
     </div>
   )
 }

@@ -1,26 +1,35 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Alert } from 'react-bootstrap'
 import { AppContext } from '../context/AppContext'
 
 function AlertComponent() {
-  const { showAlert, dataAlert, onShowAlert } = useContext(AppContext)
+  const { message, showMessage, displayMessage } = useContext(AppContext)
 
   let variant = ''
 
-  if (dataAlert.type === 'error') {
-    variant = 'danger'
-  } else {
-    variant = 'primary'
+  if (message) {
+    if (message.type === 'error') {
+      variant = 'danger'
+    } else if (message.type === 'success') {
+      variant = 'success'
+    }
   }
+
+  useEffect(() => {
+    clearTimeout(window.idTimeout)
+
+    window.idTimeout = setTimeout(() => displayMessage(false), 3000)
+  }, [showMessage, displayMessage])
 
   return (
     <Alert
-      show={showAlert}
+      className='alert-component'
+      onClose={() => displayMessage(false)}
+      show={showMessage}
       variant={variant}
-      onClose={() => onShowAlert(false)}
       dismissible
     >
-      {dataAlert.text}
+      {message && message.msg}
     </Alert>
   )
 }

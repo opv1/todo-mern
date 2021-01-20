@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AppContext } from './context/AppContext'
 import {
   AlertComponent,
@@ -8,7 +8,16 @@ import {
 } from './components/index'
 
 function App() {
-  const { ready, isAuthenticated, routes } = useContext(AppContext)
+  const { ready, isAuthenticated, routes, fetchLists, fetchTodos } = useContext(
+    AppContext
+  )
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchLists()
+      fetchTodos()
+    }
+  }, [isAuthenticated, fetchLists, fetchTodos])
 
   if (!ready) {
     return <LoaderComponent />
@@ -16,10 +25,10 @@ function App() {
 
   return (
     <div className='app'>
-      {isAuthenticated && <NavbarComponent />}
-      <AlertComponent />
-      {routes}
       <ModalComponent />
+      {isAuthenticated && <NavbarComponent />}
+      {routes}
+      <AlertComponent />
     </div>
   )
 }

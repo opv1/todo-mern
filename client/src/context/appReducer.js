@@ -6,8 +6,6 @@ import {
   SET_TODOS,
   SET_SHOW_MODAL,
   SET_DATA_MODAL,
-  SET_SHOW_ALERT,
-  SET_DATA_ALERT,
 } from './types'
 
 const handlers = {
@@ -40,17 +38,6 @@ const handlers = {
     dataModal: {
       type: payload.type,
       item: payload.item,
-    },
-  }),
-  [SET_SHOW_ALERT]: (state, { payload }) => ({
-    ...state,
-    showAlert: payload,
-  }),
-  [SET_DATA_ALERT]: (state, { payload }) => ({
-    ...state,
-    dataAlert: {
-      type: payload.type,
-      text: payload.text,
     },
   }),
   DEFAULT: (state) => state,

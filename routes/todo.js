@@ -1,39 +1,19 @@
 const { Router } = require('express')
 const auth = require('../middleware/auth')
 const Todo = require('../models/Todo')
-const User = require('../models/User')
-const List = require('../models/List')
 
 const router = Router()
 
 // /api/todo/add
 router.post('/add', auth, async (req, res) => {
   try {
-    const { text, listId } = req.body
+    const { text, list } = req.body
 
     const todo = new Todo({
       text,
-      list: listId,
+      list,
       owner: req.user.userId,
     })
-
-    await User.findOneAndUpdate(
-      { _id: req.user.userId },
-      {
-        $push: {
-          todos: todo,
-        },
-      }
-    )
-
-    await List.findOneAndUpdate(
-      { _id: listId },
-      {
-        $push: {
-          todos: todo,
-        },
-      }
-    )
 
     await todo.save()
 
@@ -54,12 +34,36 @@ router.get('/all', auth, async (req, res) => {
   }
 })
 
+// /api/todo/all/id
+router.get('/all/:id', auth, async (req, res) => {
+  try {
+    const todos = await Todo.find({ list: req.params.id })
+
+    return res.json(todos)
+  } catch (err) {
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
 // /api/todo/id
 router.get('/:id', auth, async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id)
 
     return res.json(todo)
+  } catch (err) {
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
+// /api/todo/all
+router.delete('/all', auth, async (req, res) => {
+  try {
+    const { list } = req.body
+
+    const todos = await Todo.find({ list })
+
+    return res.json(todos)
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong' })
   }

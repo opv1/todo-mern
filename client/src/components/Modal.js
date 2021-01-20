@@ -24,9 +24,18 @@ function ModalComponent() {
   }
 
   return (
-    <Modal show={showModal} onHide={() => onShowModal(false)}>
+    <Modal
+      className='modal-component'
+      onHide={() => onShowModal(false)}
+      show={showModal}
+    >
       <Modal.Header closeButton>
-        <Modal.Title>Delete {dataModal.type}?</Modal.Title>
+        <Modal.Title>
+          {dataModal.type === 'todo' ? `Delete ${dataModal.type}?` : null}
+          {dataModal.type === 'list'
+            ? `Delete ${dataModal.type} and all todos?`
+            : null}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>{body}</Modal.Body>
       <Modal.Footer>
