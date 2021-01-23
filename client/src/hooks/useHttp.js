@@ -33,6 +33,7 @@ export const useHttp = () => {
 
         if (data.message) {
           setMessage({ type: 'success', msg: data.message })
+
           displayMessage(true)
         }
 

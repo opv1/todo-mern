@@ -23,7 +23,28 @@
   width: 100%;
 }
 
+.loader-component {
+  padding: 0.5rem 1.25rem;
+}
+
+.badge {
+  display: none;
+  cursor: pointer;
+}
+
 .alert {
   position: absolute;
   bottom: 0;
+}
+
+.list-group-item span {
+  cursor: pointer;
+}
+
+.list-group-item:hover {
+  background-color: #eeeeee;
+}
+
+.list-group-item:hover .badge {
+  display: inline-block;
 }

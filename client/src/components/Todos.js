@@ -1,15 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AppContext } from '../context/AppContext'
-import { ItemComponent } from './index'
+import { TodoComponent } from './index'
 
-function ItemsComponent() {
-  const { todos, onSelectedTodo } = useContext(AppContext)
+function TodosComponent() {
+  const { todos, fetchTodos, onSelectedTodo } = useContext(AppContext)
+
+  useEffect(() => {
+    fetchTodos()
+  }, [fetchTodos])
 
   return (
     <div className='items-component d-flex justify-content-around flex-wrap'>
       {todos.length !== 0 ? (
         todos.map((todo) => (
-          <ItemComponent
+          <TodoComponent
             key={todo._id}
             todo={todo}
             onSelectedTodo={onSelectedTodo}
@@ -22,4 +26,4 @@ function ItemsComponent() {
   )
 }
 
-export default ItemsComponent
+export default TodosComponent

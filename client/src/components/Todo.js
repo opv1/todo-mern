@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Button } from 'react-bootstrap'
 
-function ItemComponent({ todo, onSelectedTodo }) {
+function TodoComponent({ todo, onSelectedTodo }) {
   return (
     <Card className='item-component text-center'>
       <Card.Header>Created {new Date(todo.date).toLocaleString()}</Card.Header>
@@ -15,11 +15,8 @@ function ItemComponent({ todo, onSelectedTodo }) {
           </Button>
         ) : null}
       </Card.Body>
-      <Card.Footer className='text-muted'>
-        Updated {new Date(todo.date).toLocaleString()}
-      </Card.Footer>
     </Card>
   )
 }
 
-export default ItemComponent
+export default TodoComponent

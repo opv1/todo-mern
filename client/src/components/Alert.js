@@ -11,7 +11,7 @@ function AlertComponent() {
     if (message.type === 'error') {
       variant = 'danger'
     } else if (message.type === 'success') {
-      variant = 'success'
+      variant = 'primary'
     }
   }
 

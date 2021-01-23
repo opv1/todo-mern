@@ -1,15 +1,12 @@
-import React, { useContext } from 'react'
-import { AppContext } from '../context/AppContext'
-import { LoaderComponent, ItemsComponent } from '../components/index'
+import React from 'react'
+import { TodosComponent } from '../components/index'
 
-function Todos() {
-  const { loading } = useContext(AppContext)
-
+function TodosPages() {
   return (
-    <div className='d-flex justify-content-around'>
-      <ItemsComponent />
+    <div className='todos-pages d-flex justify-content-around'>
+      <TodosComponent />
     </div>
   )
 }
 
-export default Todos
+export default TodosPages

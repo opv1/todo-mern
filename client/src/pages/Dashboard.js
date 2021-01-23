@@ -1,13 +1,13 @@
 import React from 'react'
 import { SidebarComponent, ListComponent } from '../components/index'
 
-function Dashboard() {
+function DashboardPage() {
   return (
-    <div className='d-flex'>
+    <div className='dashboard-page d-flex'>
       <SidebarComponent />
       <ListComponent />
     </div>
   )
 }
 
-export default Dashboard
+export default DashboardPage

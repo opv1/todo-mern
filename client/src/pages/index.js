@@ -1,6 +1,6 @@
-import Auth from './Auth'
-import Dashboard from './Dashboard'
-import Todo from './Todo'
-import Todos from './Todos'
+import AuthPage from './Auth'
+import DashboardPage from './Dashboard'
+import TodoPage from './Todo'
+import TodosPages from './Todos'
 
-export { Auth, Dashboard, Todo, Todos }
+export { AuthPage, DashboardPage, TodoPage, TodosPages }
