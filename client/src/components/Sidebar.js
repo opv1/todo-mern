@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
-import { ListGroup, Button, Badge } from 'react-bootstrap'
+import { ListGroup } from 'react-bootstrap'
 import { AppContext } from '../context/AppContext'
-import { AddFormComponent } from './index'
+import { ListItemComponent, AddFormComponent, ButtonComponent } from './index'
 
 function SidebarComponent() {
   const {
@@ -21,15 +21,12 @@ function SidebarComponent() {
         <span className='text-center'>Lists</span>
         {lists.length !== 0 ? (
           lists.map((list) => (
-            <ListGroup.Item key={list._id}>
-              <span onClick={() => onSelectedList(list)}>{list.title}</span>
-              <Badge
-                onClick={(event) => onDisplayModal(event, 'list', list)}
-                variant='dark ml-2'
-              >
-                &#10006;
-              </Badge>
-            </ListGroup.Item>
+            <ListItemComponent
+              key={list._id}
+              item={{ data: list, name: 'list' }}
+              onClick={onSelectedList}
+              onDisplayModal={onDisplayModal}
+            />
           ))
         ) : (
           <ListGroup.Item>No lists</ListGroup.Item>
@@ -44,13 +41,12 @@ function SidebarComponent() {
           setDisplay={setDisplay}
         />
       ) : (
-        <Button
-          className='m-3'
+        <ButtonComponent
           onClick={() => setDisplay(!display)}
+          title={'New list'}
+          variant={'primary'}
           disabled={loading}
-        >
-          New list
-        </Button>
+        />
       )}
     </div>
   )

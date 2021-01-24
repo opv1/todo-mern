@@ -11,15 +11,18 @@
 }
 
 .sidebar-component {
-  min-width: 500px;
+  width: 500px;
 }
 
-.item-component {
+.todo-component {
   width: 250px;
   margin: 10px;
 }
+.list-component {
+  width: 500px;
+}
 
-.todo-page .item-component {
+.todo-page .todo-component {
   width: 100%;
 }
 

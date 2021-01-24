@@ -50,7 +50,7 @@ export const AppState = ({ children }) => {
     clearMessage,
     request,
   } = useHttp()
-  const { token, login, logout, userId, ready } = useAuth()
+  const { token, login, logout, ready } = useAuth()
   const isAuthenticated = !!token
   const routes = useRoutes(isAuthenticated)
 
@@ -249,14 +249,40 @@ export const AppState = ({ children }) => {
     }
   }
 
-  const onDisplayModal = (e, type, item) => {
-    e.stopPropagation()
+  const onDisplayModal = (event, type, item) => {
+    event.stopPropagation()
 
     onShowModal(true)
 
     dispatch({
       type: SET_DATA_MODAL,
       payload: { type, item },
+    })
+  }
+
+  const onCheckTodo = async (event, todo) => {
+    await request(
+      `/api/todo/${todo._id}`,
+      'PUT',
+      { completed: event.target.checked },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    )
+
+    const copyTodos = [...selectedTodos]
+
+    const filteredTodos = copyTodos.filter((copyTodo) => {
+      if (copyTodo._id === todo._id) {
+        copyTodo.completed = !copyTodo.completed
+      }
+
+      return copyTodo
+    })
+
+    dispatch({
+      type: SET_SELECTED_TODOS,
+      payload: filteredTodos,
     })
   }
 
@@ -293,6 +319,7 @@ export const AppState = ({ children }) => {
         onDeleteList,
         onDeleteTodo,
         onDisplayModal,
+        onCheckTodo,
       }}
     >
       {children}

@@ -3,7 +3,7 @@ import { SidebarComponent, ListComponent } from '../components/index'
 
 function DashboardPage() {
   return (
-    <div className='dashboard-page d-flex'>
+    <div className='dashboard-page d-flex justify-content-around flex-wrap'>
       <SidebarComponent />
       <ListComponent />
     </div>

@@ -1,7 +1,12 @@
 import React, { useContext, useState } from 'react'
-import { ListGroup, Button, Badge } from 'react-bootstrap'
+import { ListGroup } from 'react-bootstrap'
 import { AppContext } from '../context/AppContext'
-import { LoaderComponent, AddFormComponent } from './index'
+import {
+  LoaderComponent,
+  ListItemComponent,
+  AddFormComponent,
+  ButtonComponent,
+} from './index'
 
 function ListComponent() {
   const {
@@ -17,7 +22,7 @@ function ListComponent() {
   const [display, setDisplay] = useState(false)
 
   return (
-    <div className='list-component w-100'>
+    <div className='list-component'>
       {!!selectedList ? (
         <>
           <ListGroup variant='flush'>
@@ -28,18 +33,12 @@ function ListComponent() {
               <>
                 {selectedTodos.length !== 0 ? (
                   selectedTodos.map((todo) => (
-                    <ListGroup.Item
+                    <ListItemComponent
                       key={todo._id}
-                      onClick={() => onSelectedTodo(todo)}
-                    >
-                      {todo.text}
-                      <Badge
-                        onClick={(event) => onDisplayModal(event, 'todo', todo)}
-                        variant='dark ml-2'
-                      >
-                        &#10006;
-                      </Badge>
-                    </ListGroup.Item>
+                      item={{ data: todo, name: 'todo' }}
+                      onClick={onSelectedTodo}
+                      onDisplayModal={onDisplayModal}
+                    />
                   ))
                 ) : (
                   <ListGroup.Item>No todos</ListGroup.Item>
@@ -56,13 +55,12 @@ function ListComponent() {
               setDisplay={setDisplay}
             />
           ) : (
-            <Button
-              className='m-3'
+            <ButtonComponent
               onClick={() => setDisplay(!display)}
+              title={'New todo'}
+              variant={'primary'}
               disabled={loading}
-            >
-              New todo
-            </Button>
+            />
           )}
         </>
       ) : null}

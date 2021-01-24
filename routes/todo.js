@@ -82,4 +82,17 @@ router.delete('/:id', auth, async (req, res) => {
   }
 })
 
+// /api/todo/id
+router.put('/:id', auth, async (req, res) => {
+  try {
+    const { completed } = req.body
+
+    await Todo.findByIdAndUpdate(req.params.id, { completed })
+
+    return res.json({ message: 'Todo updated' })
+  } catch (err) {
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
 module.exports = router

@@ -10,7 +10,7 @@ function TodosComponent() {
   }, [fetchTodos])
 
   return (
-    <div className='items-component d-flex justify-content-around flex-wrap'>
+    <div className='todos-component d-flex justify-content-around flex-wrap'>
       {todos.length !== 0 ? (
         todos.map((todo) => (
           <TodoComponent
