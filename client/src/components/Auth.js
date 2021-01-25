@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import { AppContext } from '../context/AppContext'
+import { ButtonComponent } from './index'
 
 function AuthComponent() {
   const { loading, onSingup, onLogin } = useContext(AppContext)
@@ -39,20 +40,18 @@ function AuthComponent() {
           placeholder='******'
         />
       </Form.Group>
-      <Button
+      <ButtonComponent
         onClick={() => onLogin(form)}
-        variant='success mr-3'
+        variant={'success mr-3'}
         disabled={loading}
-      >
-        Login
-      </Button>
-      <Button
+        title={'Login'}
+      />
+      <ButtonComponent
         onClick={() => onSingup(form)}
-        variant='primary'
+        variant={'primary'}
         disabled={loading}
-      >
-        Singup
-      </Button>
+        title={'Singup'}
+      />
     </Form>
   )
 }

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
-import { ListGroup, Form, Badge } from 'react-bootstrap'
+import { ListGroup, Form } from 'react-bootstrap'
 import { AppContext } from '../context/AppContext'
+import { BadgeComponent } from './index'
 
 function ListItemComponent({ item, onClick, onDisplayModal }) {
   const { onCheckTodo } = useContext(AppContext)
@@ -19,18 +20,16 @@ function ListItemComponent({ item, onClick, onDisplayModal }) {
       {item.data.hasOwnProperty('completed') ? (
         <Form.Check
           className='ml-2'
-          onChange={(e) => onCheckTodo(e, item.data)}
-          id={item.data._id}
+          onChange={(event) => onCheckTodo(event, item.data)}
           type='checkbox'
-          checked={item.data.completed && item.data.completed}
+          checked={item.data.completed}
         />
       ) : null}
-      <Badge
+      <BadgeComponent
         onClick={(event) => onDisplayModal(event, item.name, item.data)}
-        variant='dark ml-2'
-      >
-        &#10006;
-      </Badge>
+        variant={'dark ml-2'}
+        title={'Delete'}
+      />
     </ListGroup.Item>
   )
 }

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
-import { Modal, Button } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 import { AppContext } from '../context/AppContext'
+import { ButtonComponent } from './index'
 
 function ModalComponent() {
   const {
@@ -39,20 +40,18 @@ function ModalComponent() {
       </Modal.Header>
       <Modal.Body>{body}</Modal.Body>
       <Modal.Footer>
-        <Button
-          variant='primary'
+        <ButtonComponent
           onClick={() => onClickModal(dataModal.item)}
+          variant={'primary'}
           disabled={loading}
-        >
-          OK
-        </Button>
-        <Button
-          variant='secondary'
+          title={'OK'}
+        />
+        <ButtonComponent
           onClick={() => onShowModal(false)}
+          variant={'secondary'}
           disabled={loading}
-        >
-          Cancel
-        </Button>
+          title={'Cancel'}
+        />
       </Modal.Footer>
     </Modal>
   )

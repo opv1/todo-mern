@@ -8,9 +8,9 @@ function NavbarComponent() {
 
   return (
     <Navbar
-      className='navigation-component mb-3'
+      className='navigation-component'
       bg='primary'
-      variant='dark'
+      variant='dark mb-3'
       expand='lg'
     >
       <Navbar.Brand>Todo MERN</Navbar.Brand>

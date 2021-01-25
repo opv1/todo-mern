@@ -10,8 +10,10 @@ export const useHttp = () => {
   const clearMessage = useCallback(() => setMessage(null), [])
 
   const request = useCallback(
-    async (url, method = 'GET', body = null, headers = {}) => {
-      setLoading(true)
+    async (url, method = 'GET', body = null, headers = {}, loading) => {
+      if (loading === undefined) {
+        setLoading(true)
+      }
 
       try {
         if (body) {

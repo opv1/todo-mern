@@ -37,15 +37,14 @@ function SidebarComponent() {
           onClick={onAddList}
           value={value}
           setValue={setValue}
-          display={display}
           setDisplay={setDisplay}
         />
       ) : (
         <ButtonComponent
-          onClick={() => setDisplay(!display)}
-          title={'New list'}
-          variant={'primary'}
+          onClick={() => setDisplay(true)}
+          variant={'primary m-3'}
           disabled={loading}
+          title={'New list'}
         />
       )}
     </div>

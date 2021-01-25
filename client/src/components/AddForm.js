@@ -3,7 +3,7 @@ import { InputGroup, FormControl } from 'react-bootstrap'
 import { AppContext } from '../context/AppContext'
 import { ButtonComponent } from './index'
 
-function AddFormComponent({ onClick, value, setValue, display, setDisplay }) {
+function AddFormComponent({ onClick, value, setValue, setDisplay }) {
   const { loading } = useContext(AppContext)
 
   return (
@@ -19,21 +19,21 @@ function AddFormComponent({ onClick, value, setValue, display, setDisplay }) {
         <ButtonComponent
           onClick={() => {
             setValue('')
-            setDisplay(!display)
+            setDisplay(false)
             onClick(value)
           }}
-          title={'Add'}
           variant={'outline-success'}
-          disabled={loading}
+          disabled={!value || loading}
+          title={'Add'}
         />
         <ButtonComponent
           onClick={() => {
             setValue('')
-            setDisplay(!display)
+            setDisplay(false)
           }}
-          title={'Cancel'}
           variant={'outline-secondary'}
           disabled={loading}
+          title={'Cancel'}
         />
       </InputGroup.Append>
     </InputGroup>

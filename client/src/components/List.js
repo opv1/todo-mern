@@ -51,15 +51,14 @@ function ListComponent() {
               onClick={onAddTodo}
               value={value}
               setValue={setValue}
-              display={display}
               setDisplay={setDisplay}
             />
           ) : (
             <ButtonComponent
-              onClick={() => setDisplay(!display)}
-              title={'New todo'}
-              variant={'primary'}
+              onClick={() => setDisplay(true)}
+              variant={'primary m-3'}
               disabled={loading}
+              title={'New todo'}
             />
           )}
         </>

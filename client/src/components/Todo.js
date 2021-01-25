@@ -1,5 +1,6 @@
 import React from 'react'
-import { Card, Button } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
+import { ButtonComponent } from './index'
 
 function TodoComponent({ todo, onSelectedTodo }) {
   return (
@@ -13,9 +14,11 @@ function TodoComponent({ todo, onSelectedTodo }) {
           <span style={{ fontWeight: 'bold' }}>{`${todo.completed}`}</span>
         </Card.Text>
         {onSelectedTodo ? (
-          <Button onClick={() => onSelectedTodo(todo)} variant='primary'>
-            Go todo
-          </Button>
+          <ButtonComponent
+            onClick={() => onSelectedTodo(todo)}
+            variant={'primary'}
+            title={'Go todo'}
+          />
         ) : null}
       </Card.Body>
     </Card>

@@ -1,3 +1,4 @@
+import BadgeComponent from './ui/Badge'
 import ButtonComponent from './ui/Button'
 import AddFormComponent from './AddForm'
 import AlertComponent from './Alert'
@@ -12,6 +13,7 @@ import TodoComponent from './Todo'
 import TodosComponent from './Todos'
 
 export {
+  BadgeComponent,
   ButtonComponent,
   AddFormComponent,
   AlertComponent,

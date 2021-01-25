@@ -267,7 +267,8 @@ export const AppState = ({ children }) => {
       { completed: event.target.checked },
       {
         Authorization: `Bearer ${token}`,
-      }
+      },
+      { loading: false }
     )
 
     const copyTodos = [...selectedTodos]

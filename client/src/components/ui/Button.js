@@ -1,12 +1,8 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
 
-function ButtonComponent({ onClick, title, variant, disabled }) {
+function ButtonComponent({ onClick, variant, disabled, title }) {
   const cls = ['button-component']
-
-  if (variant === 'primary') {
-    cls.push('m-3')
-  }
 
   return (
     <Button
