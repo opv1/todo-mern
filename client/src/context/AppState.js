@@ -121,6 +121,9 @@ export const AppState = ({ children }) => {
         { title },
         {
           Authorization: `Bearer ${token}`,
+        },
+        {
+          loading: false,
         }
       )
 
@@ -165,6 +168,9 @@ export const AppState = ({ children }) => {
         { text, list: selectedList._id },
         {
           Authorization: `Bearer ${token}`,
+        },
+        {
+          loading: false,
         }
       )
 
@@ -218,6 +224,11 @@ export const AppState = ({ children }) => {
       dispatch({
         type: SET_LISTS,
         payload: filteredLists,
+      })
+
+      dispatch({
+        type: SET_SELECTED_LIST,
+        payload: null,
       })
 
       onShowModal(false)
