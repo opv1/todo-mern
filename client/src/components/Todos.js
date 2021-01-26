@@ -1,13 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { AppContext } from '../context/AppContext'
 import { TodoComponent } from './index'
 
 function TodosComponent() {
-  const { todos, fetchTodos, onSelectedTodo } = useContext(AppContext)
-
-  useEffect(() => {
-    fetchTodos()
-  }, [fetchTodos])
+  const { todos, onSelectedTodo } = useContext(AppContext)
 
   return (
     <div className='todos-component d-flex justify-content-around flex-wrap'>

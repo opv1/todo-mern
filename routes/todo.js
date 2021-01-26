@@ -4,6 +4,7 @@ const {
   todoAddPost,
   todoAllGet,
   todoAllIdGet,
+  todoCompletedGet,
   todoIdGet,
   todoAllDelete,
   todoIdDelete,
@@ -20,6 +21,9 @@ router.get('/all', auth, (req, res) => todoAllGet(req, res))
 
 // /api/todo/all/id
 router.get('/all/:id', auth, (req, res) => todoAllIdGet(req, res))
+
+// /api/todo/completed
+router.get('/:completed', auth, (req, res) => todoCompletedGet(req, res))
 
 // /api/todo/id
 router.get('/:id', auth, (req, res) => todoIdGet(req, res))

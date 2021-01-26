@@ -38,6 +38,16 @@ const todoAllIdGet = async (req, res) => {
   }
 }
 
+const todoCompletedGet = async (req, res) => {
+  try {
+    const todos = await Todo.find({ completed: req.params.completed })
+
+    return res.json(todos)
+  } catch (err) {
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+}
+
 const todoIdGet = async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id)
@@ -88,6 +98,7 @@ module.exports = {
   todoAddPost,
   todoAllGet,
   todoAllIdGet,
+  todoCompletedGet,
   todoIdGet,
   todoAllDelete,
   todoIdDelete,

@@ -272,30 +272,69 @@ export const AppState = ({ children }) => {
   }
 
   const onCheckTodo = async (event, todo) => {
-    await request(
-      `/api/todo/${todo._id}`,
-      'PUT',
-      { completed: event.target.checked },
-      {
-        Authorization: `Bearer ${token}`,
-      },
-      { loading: false }
-    )
+    try {
+      await request(
+        `/api/todo/${todo._id}`,
+        'PUT',
+        { completed: event.target.checked },
+        {
+          Authorization: `Bearer ${token}`,
+        },
+        { loading: false }
+      )
 
-    const copyTodos = [...selectedTodos]
+      const copyTodos = [...selectedTodos]
 
-    const filteredTodos = copyTodos.filter((copyTodo) => {
-      if (copyTodo._id === todo._id) {
-        copyTodo.completed = !copyTodo.completed
+      const filteredTodos = copyTodos.filter((copyTodo) => {
+        if (copyTodo._id === todo._id) {
+          copyTodo.completed = !copyTodo.completed
+        }
+
+        return copyTodo
+      })
+
+      dispatch({
+        type: SET_SELECTED_TODOS,
+        payload: filteredTodos,
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const filteringTodos = async (value) => {
+    try {
+      if (value === 'Completed') {
+        const todos = await request(`/api/todo/${true}`, 'GET', null, {
+          Authorization: `Bearer ${token}`,
+        })
+
+        dispatch({
+          type: SET_TODOS,
+          payload: todos,
+        })
+      } else if (value === 'Uncompleted') {
+        const todos = await request(`/api/todo/${false}`, 'GET', null, {
+          Authorization: `Bearer ${token}`,
+        })
+
+        dispatch({
+          type: SET_TODOS,
+          payload: todos,
+        })
+      } else {
+        const todos = await request('/api/todo/all', 'GET', null, {
+          Authorization: `Bearer ${token}`,
+        })
+
+        dispatch({
+          type: SET_TODOS,
+          payload: todos,
+        })
       }
-
-      return copyTodo
-    })
-
-    dispatch({
-      type: SET_SELECTED_TODOS,
-      payload: filteredTodos,
-    })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -332,6 +371,7 @@ export const AppState = ({ children }) => {
         onDeleteTodo,
         onDisplayModal,
         onCheckTodo,
+        filteringTodos,
       }}
     >
       {children}

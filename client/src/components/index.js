@@ -8,6 +8,7 @@ import ListItemComponent from './ListItem'
 import LoaderComponent from './Loader'
 import ModalComponent from './Modal'
 import NavbarComponent from './Navbar'
+import SelectComponent from './Select'
 import SidebarComponent from './Sidebar'
 import TodoComponent from './Todo'
 import TodosComponent from './Todos'
@@ -23,6 +24,7 @@ export {
   LoaderComponent,
   ModalComponent,
   NavbarComponent,
+  SelectComponent,
   SidebarComponent,
   TodoComponent,
   TodosComponent,
