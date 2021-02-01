@@ -6,15 +6,9 @@ export const useRoutes = (isAuthenticated) => {
   if (isAuthenticated) {
     return (
       <Switch>
-        <Route exact path='/dashboard'>
-          <DashboardPage />
-        </Route>
-        <Route path='/todos/'>
-          <TodosPages />
-        </Route>
-        <Route path='/todo/:id'>
-          <TodoPage />
-        </Route>
+        <Route path='/dashboard' exact component={DashboardPage} />
+        <Route path='/todos/' component={TodosPages} />
+        <Route path='/todo/:id' component={TodoPage} />
         <Redirect to='/dashboard' />
       </Switch>
     )
@@ -22,9 +16,7 @@ export const useRoutes = (isAuthenticated) => {
 
   return (
     <Switch>
-      <Route exact path='/'>
-        <AuthPage />
-      </Route>
+      <Route path='/' exact component={AuthPage} />
       <Redirect to='/' />
     </Switch>
   )

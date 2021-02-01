@@ -31,12 +31,11 @@ async function start() {
     await mongoose.connect(process.env.MONGODB_URI || keys.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false,
       useCreateIndex: true,
     })
 
     app.listen(PORT, () =>
-      console.log(`Server has been started on port ${PORT}`)
+      console.log(`Server has been started on port ${PORT}...`)
     )
   } catch (err) {
     console.log(`Server error: ${err.message}`)

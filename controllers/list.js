@@ -11,7 +11,7 @@ const listAddPost = async (req, res) => {
 
     await list.save()
 
-    return res.status(201).json({ list })
+    res.status(201).json({ list })
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong' })
   }
@@ -21,7 +21,7 @@ const listAllGet = async (req, res) => {
   try {
     const lists = await List.find({ owner: req.user.userId })
 
-    return res.json(lists)
+    res.json(lists)
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong' })
   }
@@ -31,7 +31,7 @@ const listIdGet = async (req, res) => {
   try {
     const list = await List.findById(req.params.id)
 
-    return res.json(list)
+    res.json(list)
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong' })
   }
@@ -43,7 +43,7 @@ const listIdDelete = async (req, res) => {
 
     await list.remove()
 
-    return res.json({ message: 'List deleted' })
+    res.json({ message: 'List deleted' })
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong' })
   }
