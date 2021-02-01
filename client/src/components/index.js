@@ -1,5 +1,5 @@
-import BadgeComponent from './ui/Badge'
-import ButtonComponent from './ui/Button'
+import BadgeComponent from './UI/Badge'
+import ButtonComponent from './UI/Button'
 import AddFormComponent from './AddForm'
 import AlertComponent from './Alert'
 import AuthComponent from './Auth'
