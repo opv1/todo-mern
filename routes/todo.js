@@ -14,27 +14,27 @@ const {
 const router = Router()
 
 // /api/todo/add
-router.post('/add', auth, (req, res) => todoAddPost(req, res))
+router.post('/add', auth, todoAddPost)
 
 // /api/todo/all
-router.get('/all', auth, (req, res) => todoAllGet(req, res))
+router.get('/all', auth, todoAllGet)
 
 // /api/todo/all/id
-router.get('/all/:id', auth, (req, res) => todoAllIdGet(req, res))
+router.get('/all/:id', auth, todoAllIdGet)
 
 // /api/todo/completed
-router.get('/:completed', auth, (req, res) => todoCompletedGet(req, res))
+router.get('/:completed', auth, todoCompletedGet)
 
 // /api/todo/id
-router.get('/:id', auth, (req, res) => todoIdGet(req, res))
+router.get('/:id', auth, todoIdGet)
 
 // /api/todo/all
-router.delete('/all', auth, (req, res) => todoAllDelete(req, res))
+router.delete('/all', auth, todoAllDelete)
 
 // /api/todo/id
-router.delete('/:id', auth, (req, res) => todoIdDelete(req, res))
+router.delete('/:id', auth, todoIdDelete)
 
 // /api/todo/id
-router.put('/:id', auth, (req, res) => todoIdPut(req, res))
+router.put('/:id', auth, todoIdPut)
 
 module.exports = router

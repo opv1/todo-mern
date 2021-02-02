@@ -13,7 +13,7 @@ router.post(
       min: 6,
     }),
   ],
-  (req, res) => authSingupPost(req, res)
+  authSingupPost
 )
 
 // /api/auth/login
@@ -23,7 +23,7 @@ router.post(
     check('email', 'Please enter a valid email').normalizeEmail().isEmail(),
     check('password', 'Enter password').exists(),
   ],
-  (req, res) => authLoginPost(req, res)
+  authLoginPost
 )
 
 module.exports = router
