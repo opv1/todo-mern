@@ -1,5 +1,3 @@
-import BadgeComponent from './UI/Badge'
-import ButtonComponent from './UI/Button'
 import AddFormComponent from './AddForm'
 import AlertComponent from './Alert'
 import AuthComponent from './Auth'
@@ -14,8 +12,6 @@ import TodoComponent from './Todo'
 import TodosComponent from './Todos'
 
 export {
-  BadgeComponent,
-  ButtonComponent,
   AddFormComponent,
   AlertComponent,
   AuthComponent,

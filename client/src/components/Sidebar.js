@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { AppContext } from '../context/AppContext'
-import { ListItemComponent, AddFormComponent, ButtonComponent } from './index'
+import { ListItemComponent, AddFormComponent } from './index'
+import { ButtonComponent } from './UI/index'
 
 function SidebarComponent() {
   const {
