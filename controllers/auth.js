@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const keys = require('../config/keys')
 const User = require('../models/User')
 
-const authSingupPost = async (req, res) => {
+const authSingup = async (req, res) => {
   try {
     const errors = validationResult(req)
 
@@ -35,7 +35,7 @@ const authSingupPost = async (req, res) => {
   }
 }
 
-const authLoginPost = async (req, res) => {
+const authLogin = async (req, res) => {
   try {
     const errors = validationResult(req)
 
@@ -70,4 +70,4 @@ const authLoginPost = async (req, res) => {
   }
 }
 
-module.exports = { authSingupPost, authLoginPost }
+module.exports = { authSingup, authLogin }

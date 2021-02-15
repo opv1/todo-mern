@@ -1,24 +1,24 @@
 const { Router } = require('express')
 const auth = require('../middleware/auth')
 const {
-  listAddPost,
-  listAllGet,
-  listIdGet,
-  listIdDelete,
+  addList,
+  getLists,
+  getList,
+  deleteList,
 } = require('../controllers/list')
 
 const router = Router()
 
 // /api/list/add
-router.post('/add', auth, listAddPost)
+router.post('/add', auth, addList)
 
-// /api/list/all
-router.get('/all', auth, listAllGet)
-
-// /api/list/id
-router.get('/:id', auth, listIdGet)
+// /api/list/
+router.get('/', auth, getLists)
 
 // /api/list/id
-router.delete('/:id', auth, listIdDelete)
+router.get('/:id', auth, getList)
+
+// /api/list/id
+router.delete('/:id', auth, deleteList)
 
 module.exports = router

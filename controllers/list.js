@@ -1,6 +1,6 @@
 const List = require('../models/List')
 
-const listAddPost = async (req, res) => {
+const addList = async (req, res) => {
   try {
     const { title } = req.body
 
@@ -17,7 +17,7 @@ const listAddPost = async (req, res) => {
   }
 }
 
-const listAllGet = async (req, res) => {
+const getLists = async (req, res) => {
   try {
     const lists = await List.find({ owner: req.user.userId })
 
@@ -27,7 +27,7 @@ const listAllGet = async (req, res) => {
   }
 }
 
-const listIdGet = async (req, res) => {
+const getList = async (req, res) => {
   try {
     const list = await List.findById(req.params.id)
 
@@ -37,7 +37,7 @@ const listIdGet = async (req, res) => {
   }
 }
 
-const listIdDelete = async (req, res) => {
+const deleteList = async (req, res) => {
   try {
     const list = await List.findById(req.params.id)
 
@@ -49,4 +49,4 @@ const listIdDelete = async (req, res) => {
   }
 }
 
-module.exports = { listAddPost, listAllGet, listIdGet, listIdDelete }
+module.exports = { addList, getLists, getList, deleteList }

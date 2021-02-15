@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const { check } = require('express-validator')
-const { authSingupPost, authLoginPost } = require('../controllers/auth')
+const { authSingup, authLogin } = require('../controllers/auth')
 
 const router = Router()
 
@@ -13,7 +13,7 @@ router.post(
       min: 6,
     }),
   ],
-  authSingupPost
+  authSingup
 )
 
 // /api/auth/login
@@ -23,7 +23,7 @@ router.post(
     check('email', 'Please enter a valid email').normalizeEmail().isEmail(),
     check('password', 'Enter password').exists(),
   ],
-  authLoginPost
+  authLogin
 )
 
 module.exports = router

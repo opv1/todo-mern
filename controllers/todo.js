@@ -1,6 +1,6 @@
 const Todo = require('../models/Todo')
 
-const todoAddPost = async (req, res) => {
+const addTodo = async (req, res) => {
   try {
     const { text, list } = req.body
 
@@ -18,7 +18,7 @@ const todoAddPost = async (req, res) => {
   }
 }
 
-const todoAllGet = async (req, res) => {
+const getTodos = async (req, res) => {
   try {
     const todos = await Todo.find({ owner: req.user.userId })
 
@@ -28,7 +28,7 @@ const todoAllGet = async (req, res) => {
   }
 }
 
-const todoAllIdGet = async (req, res) => {
+const getTodosList = async (req, res) => {
   try {
     const todos = await Todo.find({ list: req.params.id })
 
@@ -38,7 +38,7 @@ const todoAllIdGet = async (req, res) => {
   }
 }
 
-const todoCompletedGet = async (req, res) => {
+const getTodosCompleted = async (req, res) => {
   try {
     const todos = await Todo.find({ completed: req.params.completed })
 
@@ -48,7 +48,7 @@ const todoCompletedGet = async (req, res) => {
   }
 }
 
-const todoIdGet = async (req, res) => {
+const getTodo = async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id)
 
@@ -58,7 +58,7 @@ const todoIdGet = async (req, res) => {
   }
 }
 
-const todoAllDelete = async (req, res) => {
+const deleteTodos = async (req, res) => {
   try {
     const { list } = req.body
 
@@ -70,7 +70,7 @@ const todoAllDelete = async (req, res) => {
   }
 }
 
-const todoIdDelete = async (req, res) => {
+const deleteTodo = async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id)
 
@@ -82,7 +82,7 @@ const todoIdDelete = async (req, res) => {
   }
 }
 
-const todoIdPut = async (req, res) => {
+const updateTodo = async (req, res) => {
   try {
     const { completed } = req.body
 
@@ -95,12 +95,12 @@ const todoIdPut = async (req, res) => {
 }
 
 module.exports = {
-  todoAddPost,
-  todoAllGet,
-  todoAllIdGet,
-  todoCompletedGet,
-  todoIdGet,
-  todoAllDelete,
-  todoIdDelete,
-  todoIdPut,
+  addTodo,
+  getTodos,
+  getTodosList,
+  getTodosCompleted,
+  getTodo,
+  deleteTodos,
+  deleteTodo,
+  updateTodo,
 }

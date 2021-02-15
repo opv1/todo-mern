@@ -83,7 +83,7 @@ export const AppState = ({ children }) => {
 
   const fetchLists = useCallback(async () => {
     try {
-      const lists = await request('/api/list/all', 'GET', null, {
+      const lists = await request('/api/list/', 'GET', null, {
         Authorization: `Bearer ${token}`,
       })
 
@@ -98,7 +98,7 @@ export const AppState = ({ children }) => {
 
   const fetchTodos = useCallback(async () => {
     try {
-      const todos = await request('/api/todo/all', 'GET', null, {
+      const todos = await request('/api/todo/', 'GET', null, {
         Authorization: `Bearer ${token}`,
       })
 
@@ -145,7 +145,7 @@ export const AppState = ({ children }) => {
     })
 
     try {
-      const todos = await request(`/api/todo/all/${list._id}`, 'GET', null, {
+      const todos = await request(`/api/todo/list/${list._id}`, 'GET', null, {
         Authorization: `Bearer ${token}`,
       })
 
@@ -197,7 +197,7 @@ export const AppState = ({ children }) => {
   const onDeleteList = async (list) => {
     try {
       const todos = await request(
-        '/api/todo/all',
+        '/api/todo/',
         'DELETE',
         { list: list._id },
         {
@@ -323,7 +323,7 @@ export const AppState = ({ children }) => {
           payload: todos,
         })
       } else {
-        const todos = await request('/api/todo/all', 'GET', null, {
+        const todos = await request('/api/todo/', 'GET', null, {
           Authorization: `Bearer ${token}`,
         })
 
