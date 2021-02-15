@@ -1,6 +1,6 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import { DashboardPage, TodosPages, TodoPage, AuthPage } from './pages/index'
+import { DashboardPage, TodosPages, TodoPage, AuthPage } from '../pages/index'
 
 export const useRoutes = (isAuthenticated) => {
   if (isAuthenticated) {

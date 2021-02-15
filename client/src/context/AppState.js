@@ -4,7 +4,7 @@ import { AppContext } from './AppContext'
 import { appReducer } from './appReducer'
 import { useAuth } from '../hooks/useAuth'
 import { useHttp } from '../hooks/useHttp'
-import { useRoutes } from '../routes'
+import { useRoutes } from '../hooks/useRoutes'
 import {
   SET_LISTS,
   SET_SELECTED_LIST,
