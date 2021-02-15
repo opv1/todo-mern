@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Form } from 'react-bootstrap'
 import { AppContext } from '../context/AppContext'
-import { ButtonComponent } from './UI/index'
+import { ButtonComponent } from './UI4/index'
 
 function AuthComponent() {
   const { loading, onSingup, onLogin } = useContext(AppContext)
