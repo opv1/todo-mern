@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "15.x"
+  },
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
@@ -18,7 +21,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.9.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.11"
+    "mongoose": "^5.11.15"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
