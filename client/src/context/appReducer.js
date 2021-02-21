@@ -1,9 +1,9 @@
 import {
   SET_LISTS,
   SET_SELECTED_LIST,
+  SET_TODOS,
   SET_SELECTED_TODOS,
   SET_SELECTED_TODO,
-  SET_TODOS,
   SET_SHOW_MODAL,
   SET_DATA_MODAL,
 } from 'context/types'
@@ -17,6 +17,10 @@ const handlers = {
     ...state,
     selectedList: payload,
   }),
+  [SET_TODOS]: (state, { payload }) => ({
+    ...state,
+    todos: payload,
+  }),
   [SET_SELECTED_TODOS]: (state, { payload }) => ({
     ...state,
     selectedTodos: payload,
@@ -24,10 +28,6 @@ const handlers = {
   [SET_SELECTED_TODO]: (state, { payload }) => ({
     ...state,
     selectedTodo: payload,
-  }),
-  [SET_TODOS]: (state, { payload }) => ({
-    ...state,
-    todos: payload,
   }),
   [SET_SHOW_MODAL]: (state, { payload }) => ({
     ...state,

@@ -5,9 +5,9 @@ import { ButtonComponent } from 'components/UI/index'
 
 function ModalComponent() {
   const {
-    loading,
     showModal,
     dataModal,
+    loading,
     onShowModal,
     onDeleteList,
     onDeleteTodo,

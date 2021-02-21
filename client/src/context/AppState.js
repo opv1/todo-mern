@@ -5,13 +5,14 @@ import { AppContext } from 'context/AppContext'
 import { appReducer } from 'context/appReducer'
 import { useAuth } from 'hooks/useAuth'
 import { useHttp } from 'hooks/useHttp'
+import { useLocalStorage } from 'hooks/useLocalStorage'
 import { useRoutes } from 'hooks/useRoutes'
 import {
   SET_LISTS,
   SET_SELECTED_LIST,
+  SET_TODOS,
   SET_SELECTED_TODOS,
   SET_SELECTED_TODO,
-  SET_TODOS,
   SET_SHOW_MODAL,
   SET_DATA_MODAL,
 } from 'context/types'
@@ -20,9 +21,9 @@ export const AppState = ({ children }) => {
   const initialState = {
     lists: [],
     selectedList: null,
+    todos: [],
     selectedTodos: [],
     selectedTodo: {},
-    todos: [],
     showModal: false,
     dataModal: {
       type: '',
@@ -35,16 +36,17 @@ export const AppState = ({ children }) => {
   const {
     lists,
     selectedList,
+    todos,
     selectedTodos,
     selectedTodo,
-    todos,
     showModal,
     dataModal,
   } = state
 
   const history = useHistory()
+  const { token, login, logout } = useAuth()
   const { loading, message, showMessage, displayMessage, request } = useHttp()
-  const { token, login, logout, getStorageData } = useAuth()
+  const { getItem } = useLocalStorage()
   const isAuthenticated = !!token
   const routes = useRoutes(isAuthenticated)
 
@@ -74,7 +76,7 @@ export const AppState = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const storageData = getStorageData()
+      const storageData = getItem()
 
       if (storageData && storageData.token) {
         const data = await request('/api/auth', 'GET', null, {
@@ -165,9 +167,9 @@ export const AppState = ({ children }) => {
   const onSelectedList = async (event, list) => {
     event.stopPropagation()
 
-    dispatch({ type: SET_SELECTED_LIST, payload: list })
-
     try {
+      dispatch({ type: SET_SELECTED_LIST, payload: list })
+
       const todos = await request(`/api/todo/list/${list._id}`, 'GET', null, {
         Authorization: `Bearer ${token}`,
       })
@@ -312,19 +314,18 @@ export const AppState = ({ children }) => {
       value={{
         lists,
         selectedList,
+        todos,
         selectedTodos,
         selectedTodo,
-        todos,
         showModal,
         dataModal,
         history,
+        login,
+        logout,
         loading,
         message,
         showMessage,
         displayMessage,
-        login,
-        logout,
-        getStorageData,
         isAuthenticated,
         routes,
         onShowModal,

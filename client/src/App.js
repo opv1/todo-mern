@@ -17,14 +17,13 @@ function App() {
 
   useEffect(() => {
     checkAuth()
-  }, [])
 
-  useEffect(() => {
     if (isAuthenticated) {
       fetchLists()
       fetchTodos()
     }
-  }, [isAuthenticated, fetchLists, fetchTodos])
+    // eslint-disable-next-line
+  }, [isAuthenticated])
 
   return (
     <div className='app'>

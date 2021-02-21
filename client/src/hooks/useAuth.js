@@ -1,37 +1,28 @@
 import { useState, useCallback } from 'react'
-
-const storageName = 'todo-mern'
+import { useLocalStorage } from 'hooks/useLocalStorage'
 
 export const useAuth = () => {
   const [token, setToken] = useState(null)
   const [userId, setUserId] = useState(null)
 
-  const login = useCallback((jwtToken, id) => {
-    setToken(jwtToken)
-    setUserId(id)
+  const { setItem, removeItem } = useLocalStorage()
 
-    localStorage.setItem(
-      storageName,
-      JSON.stringify({ token: jwtToken, userId: id })
-    )
-  }, [])
+  const login = useCallback(
+    (jwtToken, id) => {
+      setToken(jwtToken)
+      setUserId(id)
+
+      setItem(jwtToken, id)
+    },
+    [setItem]
+  )
 
   const logout = useCallback(() => {
     setToken(null)
     setUserId(null)
 
-    localStorage.removeItem(storageName)
-  }, [])
+    removeItem()
+  }, [removeItem])
 
-  const getStorageData = useCallback(() => {
-    const data = JSON.parse(localStorage.getItem(storageName))
-
-    if (data && data.token) {
-      return data
-    } else {
-      return null
-    }
-  }, [])
-
-  return { token, userId, login, logout, getStorageData }
+  return { token, userId, login, logout }
 }
