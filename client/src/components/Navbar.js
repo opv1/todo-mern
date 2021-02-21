@@ -8,7 +8,7 @@ function NavbarComponent() {
 
   return (
     <Navbar
-      className='navigation-component'
+      className='navbar-component'
       bg='primary'
       variant='dark mb-3'
       expand='lg'
@@ -17,10 +17,10 @@ function NavbarComponent() {
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav className='ml-auto'>
-          <NavLink exact to='/' className='nav-link'>
+          <NavLink className='nav-link' to='/' exact>
             Dashboard
           </NavLink>
-          <NavLink to='/todos' className='nav-link'>
+          <NavLink className='nav-link' to='/todos'>
             All todos
           </NavLink>
           <Nav.Link href='/' onClick={() => logout()}>

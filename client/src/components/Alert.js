@@ -13,7 +13,8 @@ function AlertComponent() {
     clearTimeout(window.timeoutId)
 
     window.timeoutId = setTimeout(() => onCloseAlet(), 3000)
-  }, [showMessage, displayMessage])
+    // eslint-disable-next-line
+  }, [showMessage])
 
   return (
     <Alert

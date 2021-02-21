@@ -8,6 +8,7 @@ import ModalComponent from 'components/Modal'
 import NavbarComponent from 'components/Navbar'
 import SelectComponent from 'components/Select'
 import SidebarComponent from 'components/Sidebar'
+import SidebarItemComponent from 'components/SidebarItem'
 import TodoComponent from 'components/Todo'
 import TodosComponent from 'components/Todos'
 
@@ -22,6 +23,7 @@ export {
   NavbarComponent,
   SelectComponent,
   SidebarComponent,
+  SidebarItemComponent,
   TodoComponent,
   TodosComponent,
 }

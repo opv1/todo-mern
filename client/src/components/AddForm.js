@@ -1,15 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { InputGroup, FormControl } from 'react-bootstrap'
 import { AppContext } from 'context/AppContext'
 import { ButtonComponent } from 'components/UI/index'
 
-function Add({ onClick, value, setValue, setDisplay }) {
+function AddFormComponent({ onClick, setDisplay }) {
+  const [value, setValue] = useState('')
+
   const { loading } = useContext(AppContext)
+
+  const handlerChange = (e) => {
+    setValue(e.target.value)
+  }
 
   return (
     <InputGroup className='add-form-component m-3 w-75'>
       <FormControl
-        onChange={(e) => setValue(e.target.value)}
+        onChange={handlerChange}
         value={value}
         type='text'
         name='value'
@@ -40,4 +46,4 @@ function Add({ onClick, value, setValue, setDisplay }) {
   )
 }
 
-export default Add
+export default AddFormComponent

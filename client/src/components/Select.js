@@ -3,9 +3,9 @@ import { Form } from 'react-bootstrap'
 import { AppContext } from 'context/AppContext'
 
 function SelectComponent() {
-  const { filteringTodos } = useContext(AppContext)
-
   const [value, setValue] = useState(window.valueSelect)
+
+  const { filteringTodos } = useContext(AppContext)
 
   return (
     <Form className='select-component w-75'>

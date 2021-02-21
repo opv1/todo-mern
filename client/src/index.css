@@ -32,10 +32,6 @@
   cursor: pointer;
 }
 
-.list-group-item:hover {
-  background-color: #eeeeee;
-}
-
 .list-group-item:hover .badge {
   display: inline-block;
 }

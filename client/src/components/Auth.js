@@ -4,14 +4,14 @@ import { AppContext } from 'context/AppContext'
 import { ButtonComponent } from 'components/UI/index'
 
 function AuthComponent() {
-  const { loading, onSingup, onLogin } = useContext(AppContext)
-
   const [form, setForm] = useState({
     email: '',
     password: '',
   })
 
-  const onChange = (e) => {
+  const { loading, onSingup, onLogin } = useContext(AppContext)
+
+  const handlerChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
@@ -20,7 +20,7 @@ function AuthComponent() {
       <Form.Group controlId='formBasicEmail'>
         <Form.Label>Email</Form.Label>
         <Form.Control
-          onChange={onChange}
+          onChange={handlerChange}
           value={form.email}
           type='email'
           name='email'
@@ -33,7 +33,7 @@ function AuthComponent() {
       <Form.Group controlId='formBasicPassword'>
         <Form.Label>Password</Form.Label>
         <Form.Control
-          onChange={onChange}
+          onChange={handlerChange}
           value={form.password}
           type='password'
           name='password'

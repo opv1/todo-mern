@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Card } from 'react-bootstrap'
+import { AppContext } from 'context/AppContext'
 import { ButtonComponent } from 'components/UI/index'
 
 function TodoComponent({ todo, onSelectedTodo }) {
+  const { history } = useContext(AppContext)
+
   return (
     <Card className='todo-component text-center'>
       <Card.Header>Created {new Date(todo.date).toLocaleString()}</Card.Header>
@@ -15,11 +18,17 @@ function TodoComponent({ todo, onSelectedTodo }) {
         </Card.Text>
         {onSelectedTodo ? (
           <ButtonComponent
-            onClick={() => onSelectedTodo(todo)}
+            onClick={(e) => onSelectedTodo(e, todo)}
             variant={'primary'}
             title={'Go todo'}
           />
-        ) : null}
+        ) : (
+          <ButtonComponent
+            onClick={() => history.goBack()}
+            variant={'primary'}
+            title={'Go back'}
+          />
+        )}
       </Card.Body>
     </Card>
   )

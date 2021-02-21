@@ -13,17 +13,6 @@ function ModalComponent() {
     onDeleteTodo,
   } = useContext(AppContext)
 
-  let body = ''
-  let onClickModal = function () {}
-
-  if (dataModal.type === 'todo') {
-    body = dataModal.item.text
-    onClickModal = onDeleteTodo
-  } else if (dataModal.type === 'list') {
-    body = dataModal.item.title
-    onClickModal = onDeleteList
-  }
-
   return (
     <Modal
       className='modal-component'
@@ -32,16 +21,21 @@ function ModalComponent() {
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          {dataModal.type === 'todo' ? `Delete ${dataModal.type}?` : null}
-          {dataModal.type === 'list'
-            ? `Delete ${dataModal.type} and all todos?`
-            : null}
+          {dataModal.type === 'todo'
+            ? `Delete ${dataModal.type}?`
+            : `Delete ${dataModal.type} and all todos?`}
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>{body}</Modal.Body>
+      <Modal.Body>
+        {dataModal.type === 'todo' ? dataModal.item.text : dataModal.item.title}
+      </Modal.Body>
       <Modal.Footer>
         <ButtonComponent
-          onClick={() => onClickModal(dataModal.item)}
+          onClick={
+            dataModal.type === 'todo'
+              ? () => onDeleteTodo(dataModal.item)
+              : () => onDeleteList(dataModal.item)
+          }
           variant={'primary'}
           disabled={loading}
           title={'OK'}

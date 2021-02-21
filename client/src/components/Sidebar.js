@@ -1,20 +1,13 @@
 import React, { useContext, useState } from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { AppContext } from 'context/AppContext'
-import { ListItemComponent, AddFormComponent } from 'components/index'
+import { SidebarItemComponent, AddFormComponent } from 'components/index'
 import { ButtonComponent } from 'components/UI/index'
 
 function SidebarComponent() {
-  const {
-    lists,
-    loading,
-    onAddList,
-    onSelectedList,
-    onDisplayModal,
-  } = useContext(AppContext)
-
-  const [value, setValue] = useState('')
   const [display, setDisplay] = useState(false)
+
+  const { lists, selectedList, loading, onAddList } = useContext(AppContext)
 
   return (
     <div className='sidebar-component'>
@@ -22,24 +15,20 @@ function SidebarComponent() {
         <span className='text-center'>Lists</span>
         {lists.length !== 0 ? (
           lists.map((list) => (
-            <ListItemComponent
+            <SidebarItemComponent
               key={list._id}
               item={{ data: list, name: 'list' }}
-              onClick={onSelectedList}
-              onDisplayModal={onDisplayModal}
+              active={selectedList && selectedList._id === list._id}
             />
           ))
         ) : (
-          <ListGroup.Item>No lists</ListGroup.Item>
+          <ListGroup.Item style={{ pointerEvents: 'none' }}>
+            No lists
+          </ListGroup.Item>
         )}
       </ListGroup>
       {display ? (
-        <AddFormComponent
-          onClick={onAddList}
-          value={value}
-          setValue={setValue}
-          setDisplay={setDisplay}
-        />
+        <AddFormComponent onClick={onAddList} setDisplay={setDisplay} />
       ) : (
         <ButtonComponent
           onClick={() => setDisplay(true)}

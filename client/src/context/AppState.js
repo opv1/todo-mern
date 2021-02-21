@@ -138,20 +138,6 @@ export const AppState = ({ children }) => {
     }
   }
 
-  const onSelectedList = async (list) => {
-    dispatch({ type: SET_SELECTED_LIST, payload: list })
-
-    try {
-      const todos = await request(`/api/todo/list/${list._id}`, 'GET', null, {
-        Authorization: `Bearer ${token}`,
-      })
-
-      dispatch({ type: SET_SELECTED_TODOS, payload: todos })
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
   const onAddTodo = async (text) => {
     try {
       const copyTodos = [...selectedTodos]
@@ -176,7 +162,25 @@ export const AppState = ({ children }) => {
     }
   }
 
-  const onSelectedTodo = (todo) => {
+  const onSelectedList = async (event, list) => {
+    event.stopPropagation()
+
+    dispatch({ type: SET_SELECTED_LIST, payload: list })
+
+    try {
+      const todos = await request(`/api/todo/list/${list._id}`, 'GET', null, {
+        Authorization: `Bearer ${token}`,
+      })
+
+      dispatch({ type: SET_SELECTED_TODOS, payload: todos })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const onSelectedTodo = (event, todo) => {
+    event.stopPropagation()
+
     dispatch({ type: SET_SELECTED_TODO, payload: todo })
 
     history.push(`/todo/${todo._id}`)
@@ -211,7 +215,9 @@ export const AppState = ({ children }) => {
 
       dispatch({ type: SET_LISTS, payload: filteredLists })
 
-      dispatch({ type: SET_SELECTED_LIST, payload: null })
+      if (list._id === selectedList._id) {
+        dispatch({ type: SET_SELECTED_LIST, payload: null })
+      }
 
       onShowModal(false)
     } catch (err) {

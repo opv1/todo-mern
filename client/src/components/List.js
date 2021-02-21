@@ -9,17 +9,11 @@ import {
 import { ButtonComponent } from 'components/UI/index'
 
 function ListComponent() {
-  const {
-    loading,
-    selectedList,
-    selectedTodos,
-    onAddTodo,
-    onSelectedTodo,
-    onDisplayModal,
-  } = useContext(AppContext)
-
-  const [value, setValue] = useState('')
   const [display, setDisplay] = useState(false)
+
+  const { selectedList, selectedTodos, loading, onAddTodo } = useContext(
+    AppContext
+  )
 
   return (
     <div className='list-component'>
@@ -36,23 +30,18 @@ function ListComponent() {
                     <ListItemComponent
                       key={todo._id}
                       item={{ data: todo, name: 'todo' }}
-                      onClick={onSelectedTodo}
-                      onDisplayModal={onDisplayModal}
                     />
                   ))
                 ) : (
-                  <ListGroup.Item>No todos</ListGroup.Item>
+                  <ListGroup.Item style={{ pointerEvents: 'none' }}>
+                    No todos
+                  </ListGroup.Item>
                 )}
               </>
             )}
           </ListGroup>
           {display ? (
-            <AddFormComponent
-              onClick={onAddTodo}
-              value={value}
-              setValue={setValue}
-              setDisplay={setDisplay}
-            />
+            <AddFormComponent onClick={onAddTodo} setDisplay={setDisplay} />
           ) : (
             <ButtonComponent
               onClick={() => setDisplay(true)}
