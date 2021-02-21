@@ -2,14 +2,12 @@ import React, { useContext, useEffect } from 'react'
 import { AppContext } from 'context/AppContext'
 import {
   AlertComponent,
-  LoaderComponent,
-  NavbarComponent,
   ModalComponent,
+  NavbarComponent,
 } from 'components/index'
 
 function App() {
   const {
-    ready,
     isAuthenticated,
     routes,
     checkAuth,
@@ -28,16 +26,12 @@ function App() {
     }
   }, [isAuthenticated, fetchLists, fetchTodos])
 
-  if (!ready) {
-    return <LoaderComponent />
-  }
-
   return (
     <div className='app'>
+      <AlertComponent />
       <ModalComponent />
       {isAuthenticated && <NavbarComponent />}
       {routes}
-      <AlertComponent />
     </div>
   )
 }

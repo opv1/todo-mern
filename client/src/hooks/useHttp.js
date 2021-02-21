@@ -6,12 +6,10 @@ export const useHttp = () => {
   const [showMessage, setShowMessage] = useState(false)
 
   const displayMessage = useCallback((payload) => setShowMessage(payload), [])
-
   const clearMessage = useCallback(() => setMessage(null), [])
-
   const request = useCallback(
     async (url, method = 'GET', body = null, headers = {}, loading) => {
-      if (loading === undefined) {
+      if (!loading) {
         setLoading(true)
       }
 

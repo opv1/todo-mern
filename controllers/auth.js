@@ -4,6 +4,12 @@ const bcrypt = require('bcryptjs')
 const keys = require('../config/keys')
 const User = require('../models/User')
 
+const generateToken = (userId) => {
+  return jsonwebtoken.sign({ userId }, keys.JWT_SECRET, {
+    expiresIn: '1h',
+  })
+}
+
 const authSingup = async (req, res) => {
   try {
     const errors = validationResult(req)
@@ -60,9 +66,7 @@ const authLogin = async (req, res) => {
       return res.status(400).json({ message: 'Invalid password' })
     }
 
-    const token = jsonwebtoken.sign({ userId: user.id }, keys.JWT_SECRET, {
-      expiresIn: '1h',
-    })
+    const token = generateToken(user.id)
 
     res.json({ token, userId: user.id })
   } catch (err) {
@@ -70,16 +74,12 @@ const authLogin = async (req, res) => {
   }
 }
 
-const authCheck = async (req, res, next) => {
-  // const {} = req.user
+const authCheck = async (req, res) => {
+  const { userId } = req.user
 
-  console.log(req.user)
+  const token = generateToken(userId)
 
-  /*   const token = jsonwebtoken.sign({ userId: user.id }, keys.JWT_SECRET, {
-    expiresIn: '1h',
-  })
-
-  return res.json({ token }) */
+  return res.json({ token })
 }
 
 module.exports = { authSingup, authLogin, authCheck }

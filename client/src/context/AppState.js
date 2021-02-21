@@ -43,15 +43,8 @@ export const AppState = ({ children }) => {
   } = state
 
   const history = useHistory()
-  const {
-    loading,
-    message,
-    showMessage,
-    displayMessage,
-    clearMessage,
-    request,
-  } = useHttp()
-  const { token, login, logout, ready } = useAuth()
+  const { loading, message, showMessage, displayMessage, request } = useHttp()
+  const { token, login, logout, getStorageData } = useAuth()
   const isAuthenticated = !!token
   const routes = useRoutes(isAuthenticated)
 
@@ -81,15 +74,19 @@ export const AppState = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const data = await request('/api/auth', 'GET', null, {
-        Authorization: `Bearer ${token}`,
-      })
+      const storageData = getStorageData()
 
-      console.log(data)
+      if (storageData && storageData.token) {
+        const data = await request('/api/auth', 'GET', null, {
+          Authorization: `Bearer ${storageData.token}`,
+        })
 
-      // return jwtDecode(data.token)
+        const { userId } = jwtDecode(data.token)
+
+        login(data.token, userId)
+      }
     } catch (err) {
-      console.log('err', err)
+      console.log(err)
     }
   }
 
@@ -319,10 +316,9 @@ export const AppState = ({ children }) => {
         message,
         showMessage,
         displayMessage,
-        clearMessage,
         login,
         logout,
-        ready,
+        getStorageData,
         isAuthenticated,
         routes,
         onShowModal,

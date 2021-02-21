@@ -13,7 +13,7 @@ function NavbarComponent() {
       variant='dark mb-3'
       expand='lg'
     >
-      <Navbar.Brand>Todo</Navbar.Brand>
+      <Navbar.Brand>Todo MERN</Navbar.Brand>
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav className='ml-auto'>

@@ -5,28 +5,22 @@ import { AppContext } from 'context/AppContext'
 function AlertComponent() {
   const { message, showMessage, displayMessage } = useContext(AppContext)
 
-  let variant = ''
-
-  if (message) {
-    if (message.type === 'error') {
-      variant = 'danger'
-    } else if (message.type === 'success') {
-      variant = 'primary'
-    }
+  const onCloseAlet = () => {
+    displayMessage(false)
   }
 
   useEffect(() => {
-    clearTimeout(window.idTimeout)
+    clearTimeout(window.timeoutId)
 
-    window.idTimeout = setTimeout(() => displayMessage(false), 3000)
+    window.timeoutId = setTimeout(() => onCloseAlet(), 3000)
   }, [showMessage, displayMessage])
 
   return (
     <Alert
       className='alert-component'
-      onClose={() => displayMessage(false)}
+      onClose={onCloseAlet}
       show={showMessage}
-      variant={variant}
+      variant={message && message.type === 'error' ? 'danger' : 'success'}
       dismissible
     >
       {message && message.msg}
