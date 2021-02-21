@@ -1,10 +1,11 @@
 import React, { useReducer, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
-import { AppContext } from './AppContext'
-import { appReducer } from './appReducer'
-import { useAuth } from '../hooks/useAuth'
-import { useHttp } from '../hooks/useHttp'
-import { useRoutes } from '../hooks/useRoutes'
+import jwtDecode from 'jwt-decode'
+import { AppContext } from 'context/AppContext'
+import { appReducer } from 'context/appReducer'
+import { useAuth } from 'hooks/useAuth'
+import { useHttp } from 'hooks/useHttp'
+import { useRoutes } from 'hooks/useRoutes'
 import {
   SET_LISTS,
   SET_SELECTED_LIST,
@@ -13,7 +14,7 @@ import {
   SET_TODOS,
   SET_SHOW_MODAL,
   SET_DATA_MODAL,
-} from './types'
+} from 'context/types'
 
 export const AppState = ({ children }) => {
   const initialState = {
@@ -55,10 +56,7 @@ export const AppState = ({ children }) => {
   const routes = useRoutes(isAuthenticated)
 
   const onShowModal = (payload) => {
-    dispatch({
-      type: SET_SHOW_MODAL,
-      payload,
-    })
+    dispatch({ type: SET_SHOW_MODAL, payload })
   }
 
   const onSingup = async (form) => {
@@ -81,16 +79,27 @@ export const AppState = ({ children }) => {
     }
   }
 
+  const checkAuth = async () => {
+    try {
+      const data = await request('/api/auth', 'GET', null, {
+        Authorization: `Bearer ${token}`,
+      })
+
+      console.log(data)
+
+      // return jwtDecode(data.token)
+    } catch (err) {
+      console.log('err', err)
+    }
+  }
+
   const fetchLists = useCallback(async () => {
     try {
       const lists = await request('/api/list/', 'GET', null, {
         Authorization: `Bearer ${token}`,
       })
 
-      dispatch({
-        type: SET_LISTS,
-        payload: lists,
-      })
+      dispatch({ type: SET_LISTS, payload: lists })
     } catch (err) {
       console.log(err)
     }
@@ -102,10 +111,7 @@ export const AppState = ({ children }) => {
         Authorization: `Bearer ${token}`,
       })
 
-      dispatch({
-        type: SET_TODOS,
-        payload: todos,
-      })
+      dispatch({ type: SET_TODOS, payload: todos })
     } catch (err) {
       console.log(err)
     }
@@ -129,30 +135,21 @@ export const AppState = ({ children }) => {
 
       copyLists.push({ ...data.list })
 
-      dispatch({
-        type: SET_LISTS,
-        payload: copyLists,
-      })
+      dispatch({ type: SET_LISTS, payload: copyLists })
     } catch (err) {
       console.log(err)
     }
   }
 
   const onSelectedList = async (list) => {
-    dispatch({
-      type: SET_SELECTED_LIST,
-      payload: list,
-    })
+    dispatch({ type: SET_SELECTED_LIST, payload: list })
 
     try {
       const todos = await request(`/api/todo/list/${list._id}`, 'GET', null, {
         Authorization: `Bearer ${token}`,
       })
 
-      dispatch({
-        type: SET_SELECTED_TODOS,
-        payload: todos,
-      })
+      dispatch({ type: SET_SELECTED_TODOS, payload: todos })
     } catch (err) {
       console.log(err)
     }
@@ -176,20 +173,14 @@ export const AppState = ({ children }) => {
 
       copyTodos.push({ ...data.todo })
 
-      dispatch({
-        type: SET_SELECTED_TODOS,
-        payload: copyTodos,
-      })
+      dispatch({ type: SET_SELECTED_TODOS, payload: copyTodos })
     } catch (err) {
       console.log(err)
     }
   }
 
   const onSelectedTodo = (todo) => {
-    dispatch({
-      type: SET_SELECTED_TODO,
-      payload: todo,
-    })
+    dispatch({ type: SET_SELECTED_TODO, payload: todo })
 
     history.push(`/todo/${todo._id}`)
   }
@@ -221,15 +212,9 @@ export const AppState = ({ children }) => {
         (copyList) => copyList._id !== list._id
       )
 
-      dispatch({
-        type: SET_LISTS,
-        payload: filteredLists,
-      })
+      dispatch({ type: SET_LISTS, payload: filteredLists })
 
-      dispatch({
-        type: SET_SELECTED_LIST,
-        payload: null,
-      })
+      dispatch({ type: SET_SELECTED_LIST, payload: null })
 
       onShowModal(false)
     } catch (err) {
@@ -249,10 +234,7 @@ export const AppState = ({ children }) => {
         (copyTodo) => copyTodo._id !== todo._id
       )
 
-      dispatch({
-        type: SET_SELECTED_TODOS,
-        payload: filteredTodos,
-      })
+      dispatch({ type: SET_SELECTED_TODOS, payload: filteredTodos })
 
       onShowModal(false)
     } catch (err) {
@@ -265,10 +247,7 @@ export const AppState = ({ children }) => {
 
     onShowModal(true)
 
-    dispatch({
-      type: SET_DATA_MODAL,
-      payload: { type, item },
-    })
+    dispatch({ type: SET_DATA_MODAL, payload: { type, item } })
   }
 
   const onCheckTodo = async (event, todo) => {
@@ -293,10 +272,7 @@ export const AppState = ({ children }) => {
         return copyTodo
       })
 
-      dispatch({
-        type: SET_SELECTED_TODOS,
-        payload: filteredTodos,
-      })
+      dispatch({ type: SET_SELECTED_TODOS, payload: filteredTodos })
     } catch (err) {
       console.log(err)
     }
@@ -309,28 +285,19 @@ export const AppState = ({ children }) => {
           Authorization: `Bearer ${token}`,
         })
 
-        dispatch({
-          type: SET_TODOS,
-          payload: todos,
-        })
+        dispatch({ type: SET_TODOS, payload: todos })
       } else if (value === 'Uncompleted') {
         const todos = await request(`/api/todo/${false}`, 'GET', null, {
           Authorization: `Bearer ${token}`,
         })
 
-        dispatch({
-          type: SET_TODOS,
-          payload: todos,
-        })
+        dispatch({ type: SET_TODOS, payload: todos })
       } else {
         const todos = await request('/api/todo/', 'GET', null, {
           Authorization: `Bearer ${token}`,
         })
 
-        dispatch({
-          type: SET_TODOS,
-          payload: todos,
-        })
+        dispatch({ type: SET_TODOS, payload: todos })
       }
     } catch (err) {
       console.log(err)
@@ -361,6 +328,7 @@ export const AppState = ({ children }) => {
         onShowModal,
         onSingup,
         onLogin,
+        checkAuth,
         fetchLists,
         fetchTodos,
         onAddList,

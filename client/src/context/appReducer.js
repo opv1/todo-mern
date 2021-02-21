@@ -6,7 +6,7 @@ import {
   SET_TODOS,
   SET_SHOW_MODAL,
   SET_DATA_MODAL,
-} from './types'
+} from 'context/types'
 
 const handlers = {
   [SET_LISTS]: (state, { payload }) => ({

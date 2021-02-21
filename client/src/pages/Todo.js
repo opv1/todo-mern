@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { AppContext } from '../context/AppContext'
-import { TodoComponent } from '../components/index'
+import { AppContext } from 'context/AppContext'
+import { TodoComponent } from 'components/index'
 
-function TodoPage() {
+function Todo() {
   const { selectedTodo } = useContext(AppContext)
 
   return (
@@ -12,4 +12,4 @@ function TodoPage() {
   )
 }
 
-export default TodoPage
+export default Todo

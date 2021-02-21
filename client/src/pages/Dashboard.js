@@ -1,7 +1,7 @@
 import React from 'react'
-import { SidebarComponent, ListComponent } from '../components/index'
+import { SidebarComponent, ListComponent } from 'components/index'
 
-function DashboardPage() {
+function Dashboard() {
   return (
     <div className='dashboard-page d-flex justify-content-around flex-wrap'>
       <SidebarComponent />
@@ -10,4 +10,4 @@ function DashboardPage() {
   )
 }
 
-export default DashboardPage
+export default Dashboard

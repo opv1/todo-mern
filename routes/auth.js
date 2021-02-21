@@ -1,10 +1,10 @@
 const { Router } = require('express')
 const { check } = require('express-validator')
-const { authSingup, authLogin } = require('../controllers/auth')
+const authMiddleware = require('../middleware/auth')
+const { authSingup, authLogin, authCheck } = require('../controllers/auth')
 
 const router = Router()
 
-// /api/auth/singup
 router.post(
   '/singup',
   [
@@ -16,7 +16,6 @@ router.post(
   authSingup
 )
 
-// /api/auth/login
 router.post(
   '/login',
   [
@@ -25,5 +24,7 @@ router.post(
   ],
   authLogin
 )
+
+router.get('/', authMiddleware, authCheck)
 
 module.exports = router

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { Alert } from 'react-bootstrap'
-import { AppContext } from '../context/AppContext'
+import { AppContext } from 'context/AppContext'
 
 function AlertComponent() {
   const { message, showMessage, displayMessage } = useContext(AppContext)

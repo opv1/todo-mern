@@ -1,8 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { ListGroup } from 'react-bootstrap'
-import { AppContext } from '../context/AppContext'
-import { LoaderComponent, ListItemComponent, AddFormComponent } from './index'
-import { ButtonComponent } from './UI/index'
+import { AppContext } from 'context/AppContext'
+import {
+  LoaderComponent,
+  ListItemComponent,
+  AddFormComponent,
+} from 'components/index'
+import { ButtonComponent } from 'components/UI/index'
 
 function ListComponent() {
   const {

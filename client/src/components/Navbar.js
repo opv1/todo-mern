@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Navbar, Nav } from 'react-bootstrap'
-import { AppContext } from '../context/AppContext'
+import { AppContext } from 'context/AppContext'
 
 function NavbarComponent() {
   const { logout } = useContext(AppContext)
@@ -16,16 +16,16 @@ function NavbarComponent() {
       <Navbar.Brand>Todo</Navbar.Brand>
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <Navbar.Collapse id='basic-navbar-nav'>
-        <Nav className='mr-auto'>
-          <NavLink to='/dashboard' className='nav-link'>
+        <Nav className='ml-auto'>
+          <NavLink exact to='/' className='nav-link'>
             Dashboard
           </NavLink>
           <NavLink to='/todos' className='nav-link'>
             All todos
           </NavLink>
-          <NavLink exact to='/' className='nav-link' onClick={() => logout()}>
+          <Nav.Link href='/' onClick={() => logout()}>
             Logout
-          </NavLink>
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

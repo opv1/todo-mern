@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { ListGroup, Form } from 'react-bootstrap'
-import { AppContext } from '../context/AppContext'
-import { BadgeComponent } from './UI/index'
+import { AppContext } from 'context/AppContext'
+import { BadgeComponent } from 'components/UI/index'
 
 function ListItemComponent({ item, onClick, onDisplayModal }) {
   const { onCheckTodo } = useContext(AppContext)

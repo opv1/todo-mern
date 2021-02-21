@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
-import { AppContext } from '../context/AppContext'
+import { AppContext } from 'context/AppContext'
 import {
   SelectComponent,
   LoaderComponent,
   TodosComponent,
-} from '../components/index'
+} from 'components/index'
 
-function TodosPages() {
+function Todos() {
   const { loading } = useContext(AppContext)
 
   return (
@@ -17,4 +17,4 @@ function TodosPages() {
   )
 }
 
-export default TodosPages
+export default Todos

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Modal } from 'react-bootstrap'
-import { AppContext } from '../context/AppContext'
-import { ButtonComponent } from './UI/index'
+import { AppContext } from 'context/AppContext'
+import { ButtonComponent } from 'components/UI/index'
 
 function ModalComponent() {
   const {

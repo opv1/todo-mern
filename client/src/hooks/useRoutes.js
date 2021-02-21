@@ -1,22 +1,22 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import { DashboardPage, TodosPages, TodoPage, AuthPage } from '../pages/index'
+import * as Pages from 'pages/index'
 
 export const useRoutes = (isAuthenticated) => {
   if (isAuthenticated) {
     return (
       <Switch>
-        <Route path='/dashboard' exact component={DashboardPage} />
-        <Route path='/todos/' component={TodosPages} />
-        <Route path='/todo/:id' component={TodoPage} />
-        <Redirect to='/dashboard' />
+        <Route path='/' exact component={Pages.Dashboard} />
+        <Route path='/todos/' component={Pages.Todos} />
+        <Route path='/todo/:id' component={Pages.Todo} />
+        <Redirect to='/' />
       </Switch>
     )
   }
 
   return (
     <Switch>
-      <Route path='/' exact component={AuthPage} />
+      <Route path='/' exact component={Pages.Auth} />
       <Redirect to='/' />
     </Switch>
   )

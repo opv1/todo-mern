@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator')
-const jwt = require('jsonwebtoken')
+const jsonwebtoken = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const keys = require('../config/keys')
 const User = require('../models/User')
@@ -60,7 +60,7 @@ const authLogin = async (req, res) => {
       return res.status(400).json({ message: 'Invalid password' })
     }
 
-    const token = jwt.sign({ userId: user.id }, keys.JWT_SECRET, {
+    const token = jsonwebtoken.sign({ userId: user.id }, keys.JWT_SECRET, {
       expiresIn: '1h',
     })
 
@@ -70,4 +70,16 @@ const authLogin = async (req, res) => {
   }
 }
 
-module.exports = { authSingup, authLogin }
+const authCheck = async (req, res, next) => {
+  // const {} = req.user
+
+  console.log(req.user)
+
+  /*   const token = jsonwebtoken.sign({ userId: user.id }, keys.JWT_SECRET, {
+    expiresIn: '1h',
+  })
+
+  return res.json({ token }) */
+}
+
+module.exports = { authSingup, authLogin, authCheck }

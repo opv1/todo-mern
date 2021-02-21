@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 const mongoose = require('mongoose')
 const keys = require('./config/keys')
-const cors = require('./middleware/cors')
+const corsMiddleware = require('./middleware/cors')
 const authRoute = require('./routes/auth')
 const listRoute = require('./routes/list')
 const todoRoute = require('./routes/todo')
@@ -10,7 +10,7 @@ const todoRoute = require('./routes/todo')
 const app = express()
 const PORT = process.env.PORT || keys.PORT
 
-app.use(cors)
+app.use(corsMiddleware)
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 

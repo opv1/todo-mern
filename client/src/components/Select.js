@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Form } from 'react-bootstrap'
-import { AppContext } from '../context/AppContext'
+import { AppContext } from 'context/AppContext'
 
 function SelectComponent() {
   const { filteringTodos } = useContext(AppContext)

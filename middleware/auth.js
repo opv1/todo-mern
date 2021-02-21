@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken')
+const jsonwebtoken = require('jsonwebtoken')
 const keys = require('../config/keys')
 
 module.exports = (req, res, next) => {
@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
       return res.status(401).json({ message: 'No authorization' })
     }
 
-    const decoded = jwt.verify(token, keys.JWT_SECRET)
+    const decoded = jsonwebtoken.verify(token, keys.JWT_SECRET)
 
     req.user = decoded
 

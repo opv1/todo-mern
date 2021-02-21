@@ -1,16 +1,25 @@
 import React, { useContext, useEffect } from 'react'
-import { AppContext } from './context/AppContext'
+import { AppContext } from 'context/AppContext'
 import {
   AlertComponent,
   LoaderComponent,
   NavbarComponent,
   ModalComponent,
-} from './components/index'
+} from 'components/index'
 
 function App() {
-  const { ready, isAuthenticated, routes, fetchLists, fetchTodos } = useContext(
-    AppContext
-  )
+  const {
+    ready,
+    isAuthenticated,
+    routes,
+    checkAuth,
+    fetchLists,
+    fetchTodos,
+  } = useContext(AppContext)
+
+  useEffect(() => {
+    checkAuth()
+  }, [])
 
   useEffect(() => {
     if (isAuthenticated) {

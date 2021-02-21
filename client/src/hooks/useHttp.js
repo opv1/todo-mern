@@ -35,7 +35,6 @@ export const useHttp = () => {
 
         if (data.message) {
           setMessage({ type: 'success', msg: data.message })
-
           displayMessage(true)
         }
 
@@ -46,7 +45,6 @@ export const useHttp = () => {
         setLoading(false)
 
         setMessage({ type: 'error', msg: err.message })
-
         displayMessage(true)
 
         throw err

@@ -1,4 +1,4 @@
-import BadgeComponent from './Badge'
-import ButtonComponent from './Button'
+import BadgeComponent from 'components/UI/Badge'
+import ButtonComponent from 'components/UI/Button'
 
 export { BadgeComponent, ButtonComponent }

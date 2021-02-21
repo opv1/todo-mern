@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
-import { ButtonComponent } from './UI/index'
+import { ButtonComponent } from 'components/UI/index'
 
 function TodoComponent({ todo, onSelectedTodo }) {
   return (

@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react'
 
-const storageName = 'todoMern'
+const storageName = 'todo-mern'
 
 export const useAuth = () => {
   const [token, setToken] = useState(null)

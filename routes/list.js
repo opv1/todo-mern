@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const auth = require('../middleware/auth')
+const authMiddleware = require('../middleware/auth')
 const {
   addList,
   getLists,
@@ -9,16 +9,12 @@ const {
 
 const router = Router()
 
-// /api/list/add
-router.post('/add', auth, addList)
+router.post('/add', authMiddleware, addList)
 
-// /api/list/
-router.get('/', auth, getLists)
+router.get('/', authMiddleware, getLists)
 
-// /api/list/id
-router.get('/:id', auth, getList)
+router.get('/:id', authMiddleware, getList)
 
-// /api/list/id
-router.delete('/:id', auth, deleteList)
+router.delete('/:id', authMiddleware, deleteList)
 
 module.exports = router

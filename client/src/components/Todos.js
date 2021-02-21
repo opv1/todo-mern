@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { AppContext } from '../context/AppContext'
-import { TodoComponent } from './index'
+import { AppContext } from 'context/AppContext'
+import { TodoComponent } from 'components/index'
 
 function TodosComponent() {
   const { todos, onSelectedTodo } = useContext(AppContext)

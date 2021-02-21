@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { InputGroup, FormControl } from 'react-bootstrap'
-import { AppContext } from '../context/AppContext'
-import { ButtonComponent } from './UI/index'
+import { AppContext } from 'context/AppContext'
+import { ButtonComponent } from 'components/UI/index'
 
-function AddFormComponent({ onClick, value, setValue, setDisplay }) {
+function Add({ onClick, value, setValue, setDisplay }) {
   const { loading } = useContext(AppContext)
 
   return (
@@ -40,4 +40,4 @@ function AddFormComponent({ onClick, value, setValue, setDisplay }) {
   )
 }
 
-export default AddFormComponent
+export default Add

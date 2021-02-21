@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const auth = require('../middleware/auth')
+const authMiddleware = require('../middleware/auth')
 const {
   addTodo,
   getTodos,
@@ -13,28 +13,20 @@ const {
 
 const router = Router()
 
-// /api/todo/add
-router.post('/add', auth, addTodo)
+router.post('/add', authMiddleware, addTodo)
 
-// /api/todo/
-router.get('/', auth, getTodos)
+router.get('/', authMiddleware, getTodos)
 
-// /api/todo/list/id
-router.get('/list/:id', auth, getTodosList)
+router.get('/list/:id', authMiddleware, getTodosList)
 
-// /api/todo/completed
-router.get('/:completed', auth, getTodosCompleted)
+router.get('/:completed', authMiddleware, getTodosCompleted)
 
-// /api/todo/id
-router.get('/:id', auth, getTodo)
+router.get('/:id', authMiddleware, getTodo)
 
-// /api/todo/
-router.delete('/', auth, deleteTodos)
+router.delete('/', authMiddleware, deleteTodos)
 
-// /api/todo/id
-router.delete('/:id', auth, deleteTodo)
+router.delete('/:id', authMiddleware, deleteTodo)
 
-// /api/todo/id
-router.put('/:id', auth, updateTodo)
+router.put('/:id', authMiddleware, updateTodo)
 
 module.exports = router
