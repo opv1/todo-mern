@@ -142,7 +142,7 @@ export const AppState = ({ children }) => {
 
   const onAddTodo = async (text) => {
     try {
-      const copyTodos = [...selectedTodos]
+      const copySelectedTodos = [...selectedTodos]
 
       const data = await request(
         '/api/todo/add',
@@ -156,9 +156,9 @@ export const AppState = ({ children }) => {
         }
       )
 
-      copyTodos.push({ ...data.todo })
+      copySelectedTodos.push({ ...data.todo })
 
-      dispatch({ type: SET_SELECTED_TODOS, payload: copyTodos })
+      dispatch({ type: SET_SELECTED_TODOS, payload: copySelectedTodos })
     } catch (err) {
       console.log(err)
     }
@@ -233,9 +233,9 @@ export const AppState = ({ children }) => {
         Authorization: `Bearer ${token}`,
       })
 
-      const copyTodos = [...selectedTodos]
+      const copySelectedTodos = [...selectedTodos]
 
-      const filteredTodos = copyTodos.filter(
+      const filteredTodos = copySelectedTodos.filter(
         (copyTodo) => copyTodo._id !== todo._id
       )
 
@@ -267,9 +267,9 @@ export const AppState = ({ children }) => {
         { loading: false }
       )
 
-      const copyTodos = [...selectedTodos]
+      const copySelectedTodos = [...selectedTodos]
 
-      const filteredTodos = copyTodos.filter((copyTodo) => {
+      const filteredTodos = copySelectedTodos.filter((copyTodo) => {
         if (copyTodo._id === todo._id) {
           copyTodo.completed = !copyTodo.completed
         }
