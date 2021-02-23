@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { AppContext } from 'context/AppContext'
 import {
+  LoaderComponent,
   AlertComponent,
   ModalComponent,
   NavbarComponent,
@@ -8,6 +9,7 @@ import {
 
 function App() {
   const {
+    ready,
     isAuthenticated,
     routes,
     checkAuth,
@@ -24,6 +26,14 @@ function App() {
     }
     // eslint-disable-next-line
   }, [isAuthenticated])
+
+  if (!ready) {
+    return (
+      <div className='app' style={{ justifyContent: 'center' }}>
+        <LoaderComponent />
+      </div>
+    )
+  }
 
   return (
     <div className='app'>

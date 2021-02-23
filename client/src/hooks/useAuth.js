@@ -1,28 +1,39 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { useLocalStorage } from 'hooks/useLocalStorage'
 
 export const useAuth = () => {
   const [token, setToken] = useState(null)
   const [userId, setUserId] = useState(null)
+  const [ready, setReady] = useState(false)
 
-  const { setItem, removeItem } = useLocalStorage()
+  const { setStorage, getStorage, removeStorage } = useLocalStorage()
 
   const login = useCallback(
     (jwtToken, id) => {
       setToken(jwtToken)
       setUserId(id)
-
-      setItem(jwtToken, id)
+      setStorage({ token: jwtToken, userId: id })
     },
-    [setItem]
+    [setStorage]
   )
 
   const logout = useCallback(() => {
     setToken(null)
     setUserId(null)
+    removeStorage()
+  }, [removeStorage])
 
-    removeItem()
-  }, [removeItem])
+  useEffect(() => {
+    const data = getStorage()
 
-  return { token, userId, login, logout }
+    if (data && data.token) {
+      setStorage({ token: data.token, userId: data.userId })
+      login(data.token, data.userId)
+    }
+
+    setReady(true)
+    // eslint-disable-next-line
+  }, [login])
+
+  return { token, userId, ready, login, logout }
 }

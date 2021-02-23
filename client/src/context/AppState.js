@@ -25,10 +25,7 @@ export const AppState = ({ children }) => {
     selectedTodos: [],
     selectedTodo: {},
     showModal: false,
-    dataModal: {
-      type: '',
-      item: '',
-    },
+    dataModal: { type: '', item: '' },
   }
 
   const [state, dispatch] = useReducer(appReducer, initialState)
@@ -44,9 +41,9 @@ export const AppState = ({ children }) => {
   } = state
 
   const history = useHistory()
-  const { token, login, logout } = useAuth()
+  const { token, ready, login, logout } = useAuth()
   const { loading, message, showMessage, displayMessage, request } = useHttp()
-  const { getItem } = useLocalStorage()
+  const { storageObject } = useLocalStorage()
   const isAuthenticated = !!token
   const routes = useRoutes(isAuthenticated)
 
@@ -76,11 +73,9 @@ export const AppState = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const storageData = getItem()
-
-      if (storageData && storageData.token) {
+      if (storageObject && storageObject.token) {
         const data = await request('/api/auth', 'GET', null, {
-          Authorization: `Bearer ${storageData.token}`,
+          Authorization: `Bearer ${storageObject.token}`,
         })
 
         const { userId } = jwtDecode(data.token)
@@ -320,6 +315,7 @@ export const AppState = ({ children }) => {
         showModal,
         dataModal,
         history,
+        ready,
         login,
         logout,
         loading,
