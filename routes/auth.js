@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const { check } = require('express-validator')
-const authMiddleware = require('../middleware/auth')
+const authMiddleware = require('../middlewares/auth')
 const { authSingup, authLogin, authCheck } = require('../controllers/auth')
 
 const router = Router()
