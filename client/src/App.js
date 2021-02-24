@@ -7,7 +7,7 @@ import {
   NavbarComponent,
 } from 'components/index'
 
-function App() {
+const App = () => {
   const {
     ready,
     isAuthenticated,

@@ -3,7 +3,10 @@ import { useState, useCallback } from 'react'
 const storageName = 'todo-mern'
 
 export const useLocalStorage = () => {
-  const [storageObject, setStorageObject] = useState({})
+  const [storageObject, setStorageObject] = useState({
+    token: null,
+    userId: null,
+  })
 
   const setStorage = useCallback((data) => {
     setStorageObject(data)
