@@ -10,11 +10,8 @@ const {
 const router = Router()
 
 router.post('/add', authMiddleware, addList)
-
 router.get('/', authMiddleware, getLists)
-
 router.get('/:id', authMiddleware, getList)
-
 router.delete('/:id', authMiddleware, deleteList)
 
 module.exports = router
