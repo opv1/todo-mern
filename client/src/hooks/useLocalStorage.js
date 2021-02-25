@@ -1,27 +1,28 @@
 import { useState, useCallback } from 'react'
 
-const storageName = 'todo-mern'
+const nameStorage = 'todo-mern'
 
 export const useLocalStorage = () => {
-  const [storageObject, setStorageObject] = useState({
+  const [object, setObject] = useState({
     token: null,
     userId: null,
   })
 
   const setStorage = useCallback((data) => {
-    setStorageObject(data)
-    localStorage.setItem(storageName, JSON.stringify(data))
+    setObject(data)
+
+    localStorage.setItem(nameStorage, JSON.stringify(data))
   }, [])
 
   const getStorage = useCallback(() => {
-    const data = localStorage.getItem(storageName)
+    const data = localStorage.getItem(nameStorage)
 
     if (data !== null) return JSON.parse(data)
   }, [])
 
   const removeStorage = useCallback(() => {
-    localStorage.removeItem(storageName)
+    localStorage.removeItem(nameStorage)
   }, [])
 
-  return { storageObject, setStorage, getStorage, removeStorage }
+  return { object, setStorage, getStorage, removeStorage }
 }

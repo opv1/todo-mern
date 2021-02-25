@@ -43,7 +43,7 @@ export const AppState = ({ children }) => {
   const history = useHistory()
   const { token, ready, login, logout } = useAuth()
   const { loading, message, showMessage, displayMessage, request } = useHttp()
-  const { storageObject } = useLocalStorage()
+  const { object } = useLocalStorage()
   const isAuthenticated = !!token
   const routes = useRoutes(isAuthenticated)
 
@@ -73,9 +73,9 @@ export const AppState = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      if (storageObject && storageObject.token) {
+      if (object && object.token) {
         const data = await request('/api/auth', 'GET', null, {
-          Authorization: `Bearer ${storageObject.token}`,
+          Authorization: `Bearer ${object.token}`,
         })
 
         const { userId } = jwtDecode(data.token)
