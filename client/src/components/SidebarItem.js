@@ -1,21 +1,19 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { ListGroup } from 'react-bootstrap'
-import { AppContext } from 'context/AppContext'
+import { useActions } from 'hooks/useActions'
 import { BadgeComponent } from 'components/UI/index'
 
-const SidebarItem = ({ item, active }) => {
-  const { onSelectedList, onDisplayModal } = useContext(AppContext)
+const SidebarItem = ({ data, active }) => {
+  const { onSelectList, onDisplayModal } = useActions()
 
   return (
     <ListGroup.Item
       className='sidebar-item-component d-flex align-items-center'
       active={active}
     >
-      <span onClick={(e) => onSelectedList(e, item.data)}>
-        {item.data.title}
-      </span>
+      <span onClick={() => onSelectList(data.item)}>{data.item.title}</span>
       <BadgeComponent
-        onClick={(event) => onDisplayModal(event, item.name, item.data)}
+        onClick={() => onDisplayModal(data)}
         variant={'dark ml-2'}
         title={'Delete'}
       />

@@ -1,7 +1,0 @@
-export const SET_LISTS = 'SET_LISTS'
-export const SET_SELECTED_LIST = 'SET_SELECTED_LIST'
-export const SET_TODOS = 'SET_TODOS'
-export const SET_SELECTED_TODOS = 'SET_SELECTED_TODOS'
-export const SET_SELECTED_TODO = 'SET_CHOOSED_TODO'
-export const SET_SHOW_MODAL = 'SET_SHOW_MODAL'
-export const SET_DATA_MODAL = 'SET_DATA_MODAL'

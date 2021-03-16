@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
-import { AppContext } from 'context/AppContext'
 import { ButtonComponent } from 'components/UI/index'
 
-function TodoComponent({ todo, onSelectedTodo }) {
-  const { history } = useContext(AppContext)
+const TodoComponent = ({ todo, onSelectTodo }) => {
+  const history = useHistory()
 
   return (
     <Card className='todo-component text-center'>
@@ -16,9 +16,9 @@ function TodoComponent({ todo, onSelectedTodo }) {
           Completed:{' '}
           <span style={{ fontWeight: 'bold' }}>{`${todo.completed}`}</span>
         </Card.Text>
-        {onSelectedTodo ? (
+        {onSelectTodo ? (
           <ButtonComponent
-            onClick={(e) => onSelectedTodo(e, todo)}
+            onClick={() => onSelectTodo(todo)}
             variant={'primary'}
             title={'Go todo'}
           />

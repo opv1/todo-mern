@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
-import { NavLink } from 'react-router-dom'
+import React from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import { Navbar, Nav } from 'react-bootstrap'
-import { AppContext } from 'context/AppContext'
+import { useActions } from 'hooks/useActions'
 
-function NavbarComponent() {
-  const { logout } = useContext(AppContext)
+const NavbarComponent = () => {
+  const { onLogoutUser } = useActions()
 
   return (
     <Navbar
@@ -13,7 +13,9 @@ function NavbarComponent() {
       variant='dark mb-3'
       expand='lg'
     >
-      <Navbar.Brand>Todo MERN</Navbar.Brand>
+      <Navbar.Brand as={Link} to='/'>
+        Todo MERN
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav className='ml-auto'>
@@ -23,7 +25,7 @@ function NavbarComponent() {
           <NavLink className='nav-link' to='/todos'>
             All todos
           </NavLink>
-          <Nav.Link href='/' onClick={() => logout()}>
+          <Nav.Link href='/' onClick={onLogoutUser}>
             Logout
           </Nav.Link>
         </Nav>

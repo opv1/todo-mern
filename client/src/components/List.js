@@ -1,6 +1,7 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { ListGroup } from 'react-bootstrap'
-import { AppContext } from 'context/AppContext'
+import { useActions } from 'hooks/useActions'
 import {
   LoaderComponent,
   ListItemComponent,
@@ -8,12 +9,12 @@ import {
 } from 'components/index'
 import { ButtonComponent } from 'components/UI/index'
 
-function ListComponent() {
+const ListComponent = () => {
   const [display, setDisplay] = useState(false)
-
-  const { selectedList, selectedTodos, loading, onAddTodo } = useContext(
-    AppContext
-  )
+  const { loading } = useSelector((state) => state.app)
+  const { selectedList } = useSelector((state) => state.list)
+  const { selectedTodos } = useSelector((state) => state.todo)
+  const { onAddTodo } = useActions()
 
   return (
     <div className='list-component'>
@@ -29,7 +30,7 @@ function ListComponent() {
                   selectedTodos.map((todo) => (
                     <ListItemComponent
                       key={todo._id}
-                      item={{ data: todo, name: 'todo' }}
+                      data={{ type: 'todo', item: todo }}
                     />
                   ))
                 ) : (
@@ -41,7 +42,11 @@ function ListComponent() {
             )}
           </ListGroup>
           {display ? (
-            <AddFormComponent onClick={onAddTodo} setDisplay={setDisplay} />
+            <AddFormComponent
+              data={{ selectedList, selectedTodos }}
+              onClick={onAddTodo}
+              setDisplay={setDisplay}
+            />
           ) : (
             <ButtonComponent
               onClick={() => setDisplay(true)}

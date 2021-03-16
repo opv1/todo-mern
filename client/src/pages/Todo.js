@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
-import { AppContext } from 'context/AppContext'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { TodoComponent } from 'components/index'
 
-function Todo() {
-  const { selectedTodo } = useContext(AppContext)
+const Todo = () => {
+  const { selectedTodo } = useSelector((state) => state.todo)
 
   return (
-    <div className='todo-page d-flex justify-content-center '>
+    <div className='d-flex justify-content-center '>
       <TodoComponent todo={selectedTodo} />
     </div>
   )

@@ -2,8 +2,8 @@ import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import * as Pages from 'pages/index'
 
-export const useRoutes = (isAuthenticated) => {
-  if (isAuthenticated) {
+const Routes = (isAuth) => {
+  if (isAuth) {
     return (
       <Switch>
         <Route path='/' exact component={Pages.Dashboard} />
@@ -21,3 +21,5 @@ export const useRoutes = (isAuthenticated) => {
     </Switch>
   )
 }
+
+export default Routes

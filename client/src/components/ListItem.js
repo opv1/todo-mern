@@ -1,31 +1,35 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { ListGroup, Form } from 'react-bootstrap'
-import { AppContext } from 'context/AppContext'
+import { useActions } from 'hooks/useActions'
 import { BadgeComponent } from 'components/UI/index'
+import { useSelector } from 'react-redux'
 
-function ListItemComponent({ item }) {
-  const { onSelectedTodo, onDisplayModal, onCheckTodo } = useContext(AppContext)
+const ListItemComponent = ({ data }) => {
+  const { selectedTodos } = useSelector((state) => state.todo)
+  const { onSelectTodo, onDisplayModal, onCheckTodo } = useActions()
 
   return (
     <ListGroup.Item className='list-item-component d-flex align-items-center'>
       <span
-        onClick={(e) => onSelectedTodo(e, item.data)}
+        onClick={() => onSelectTodo(data.item)}
         style={
-          item.data.completed
+          data.item.completed
             ? { textDecoration: 'line-through' }
             : { textDecoration: 'none' }
         }
       >
-        {item.data.text}
+        {data.item.text}
       </span>
       <Form.Check
         className='ml-2'
-        onChange={(e) => onCheckTodo(e, item.data)}
+        onChange={(e) =>
+          onCheckTodo({ selectedTodos }, e.target.checked, data.item)
+        }
         type='checkbox'
-        checked={item.data.completed}
+        checked={data.item.completed}
       />
       <BadgeComponent
-        onClick={(e) => onDisplayModal(e, item.name, item.data)}
+        onClick={() => onDisplayModal(data)}
         variant={'dark ml-2'}
         title={'Delete'}
       />

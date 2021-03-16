@@ -1,16 +1,16 @@
-import React, { useContext } from 'react'
-import { AppContext } from 'context/AppContext'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import {
   SelectComponent,
   LoaderComponent,
   TodosComponent,
 } from 'components/index'
 
-function Todos() {
-  const { loading } = useContext(AppContext)
+const Todos = () => {
+  const { loading } = useSelector((state) => state.app)
 
   return (
-    <div className='todos-pages d-flex justify-content-around align-items-center flex-column'>
+    <div className='d-flex justify-content-around align-items-center flex-column'>
       <SelectComponent />
       {loading ? <LoaderComponent /> : <TodosComponent />}
     </div>

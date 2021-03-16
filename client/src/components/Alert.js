@@ -1,30 +1,27 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Alert } from 'react-bootstrap'
-import { AppContext } from 'context/AppContext'
+import { useActions } from 'hooks/useActions'
 
-function AlertComponent() {
-  const { message, showMessage, displayMessage } = useContext(AppContext)
-
-  const onCloseAlet = () => {
-    displayMessage(false)
-  }
+const AlertComponent = () => {
+  const { alert, data } = useSelector((state) => state.alert)
+  const { onCloseAlert } = useActions()
 
   useEffect(() => {
     clearTimeout(window.timeoutId)
 
-    window.timeoutId = setTimeout(() => onCloseAlet(), 3000)
+    window.timeoutId = setTimeout(() => onCloseAlert(), 3000)
     // eslint-disable-next-line
-  }, [showMessage])
+  }, [alert])
 
   return (
     <Alert
-      className='alert-component'
-      onClose={onCloseAlet}
-      show={showMessage}
-      variant={message && message.type === 'error' ? 'danger' : 'success'}
-      dismissible
+      onClose={onCloseAlert}
+      show={alert}
+      variant={data.type === 'error' ? 'danger' : 'success'}
+      dismissible={true}
     >
-      {message && message.msg}
+      {data.text}
     </Alert>
   )
 }

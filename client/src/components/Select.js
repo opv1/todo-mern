@@ -1,25 +1,22 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
-import { AppContext } from 'context/AppContext'
+import { useActions } from 'hooks/useActions'
 
-function SelectComponent() {
+const SelectComponent = () => {
   const [value, setValue] = useState(window.valueSelect)
+  const { filteringTodos } = useActions()
 
-  const { filteringTodos } = useContext(AppContext)
+  const handlerChange = (e) => {
+    setValue(e.target.value)
+    window.valueSelect = e.target.value
+    filteringTodos(e.target.value)
+  }
 
   return (
     <Form className='select-component w-75'>
       <Form.Group controlId='exampleForm.SelectCustom'>
         <Form.Label>Todo status</Form.Label>
-        <Form.Control
-          as='select'
-          onChange={(e) => {
-            setValue(e.target.value)
-            window.valueSelect = e.target.value
-            filteringTodos(e.target.value)
-          }}
-          value={value}
-        >
+        <Form.Control as='select' onChange={handlerChange} value={value}>
           <option defaultValue>All</option>
           <option>Completed</option>
           <option>Uncompleted</option>

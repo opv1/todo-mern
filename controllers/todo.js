@@ -14,7 +14,9 @@ const addTodo = async (req, res) => {
 
     res.status(201).json({ todo })
   } catch (err) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res
+      .status(500)
+      .json({ message: { type: 'error', text: 'Something went wrong' } })
   }
 }
 
@@ -24,7 +26,9 @@ const getTodos = async (req, res) => {
 
     res.json(todos)
   } catch (err) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res
+      .status(500)
+      .json({ message: { type: 'error', text: 'Something went wrong' } })
   }
 }
 
@@ -34,7 +38,9 @@ const getTodosList = async (req, res) => {
 
     res.json(todos)
   } catch (err) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res
+      .status(500)
+      .json({ message: { type: 'error', text: 'Something went wrong' } })
   }
 }
 
@@ -44,7 +50,9 @@ const getTodosCompleted = async (req, res) => {
 
     res.json(todos)
   } catch (err) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res
+      .status(500)
+      .json({ message: { type: 'error', text: 'Something went wrong' } })
   }
 }
 
@@ -54,7 +62,9 @@ const getTodo = async (req, res) => {
 
     res.json(todo)
   } catch (err) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res
+      .status(500)
+      .json({ message: { type: 'error', text: 'Something went wrong' } })
   }
 }
 
@@ -66,7 +76,9 @@ const deleteTodos = async (req, res) => {
 
     res.json(todos)
   } catch (err) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res
+      .status(500)
+      .json({ message: { type: 'error', text: 'Something went wrong' } })
   }
 }
 
@@ -76,9 +88,11 @@ const deleteTodo = async (req, res) => {
 
     await todo.remove()
 
-    res.json({ message: 'Todo deleted' })
+    res.json({ message: { type: 'success', text: 'Todo deleted' } })
   } catch (err) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res
+      .status(500)
+      .json({ message: { type: 'error', text: 'Something went wrong' } })
   }
 }
 
@@ -88,9 +102,11 @@ const updateTodo = async (req, res) => {
 
     await Todo.findByIdAndUpdate(req.params.id, { completed })
 
-    res.json({ message: 'Todo updated' })
+    res.json({ message: { type: 'success', text: 'Todo updated' } })
   } catch (err) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res
+      .status(500)
+      .json({ message: { type: 'error', text: 'Something went wrong' } })
   }
 }
 

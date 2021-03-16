@@ -1,9 +1,11 @@
-import React, { useContext } from 'react'
-import { AppContext } from 'context/AppContext'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { useActions } from 'hooks/useActions'
 import { TodoComponent } from 'components/index'
 
-function TodosComponent() {
-  const { todos, onSelectedTodo } = useContext(AppContext)
+const TodosComponent = () => {
+  const { todos } = useSelector((state) => state.todo)
+  const { onSelectTodo } = useActions()
 
   return (
     <div className='todos-component d-flex justify-content-around flex-wrap'>
@@ -12,7 +14,7 @@ function TodosComponent() {
           <TodoComponent
             key={todo._id}
             todo={todo}
-            onSelectedTodo={onSelectedTodo}
+            onSelectTodo={onSelectTodo}
           />
         ))
       ) : (

@@ -1,5 +1,7 @@
-import React, { useContext, useEffect } from 'react'
-import { AppContext } from 'context/AppContext'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useActions } from 'hooks/useActions'
+import Routes from 'Routes'
 import {
   LoaderComponent,
   AlertComponent,
@@ -8,24 +10,22 @@ import {
 } from 'components/index'
 
 const App = () => {
-  const {
-    ready,
-    isAuthenticated,
-    routes,
-    checkAuth,
-    fetchLists,
-    fetchTodos,
-  } = useContext(AppContext)
+  const { ready } = useSelector((state) => state.app)
+  const { user } = useSelector((state) => state.user)
+  const { checkAuthUser, fetchingLists, fetchingTodos } = useActions()
+
+  const isAuth = !!user.token
+  const routes = Routes(isAuth)
 
   useEffect(() => {
-    checkAuth()
+    checkAuthUser()
 
-    if (isAuthenticated) {
-      fetchLists()
-      fetchTodos()
+    if (isAuth) {
+      fetchingLists()
+      fetchingTodos()
     }
     // eslint-disable-next-line
-  }, [isAuthenticated])
+  }, [isAuth])
 
   if (!ready) {
     return (
@@ -39,7 +39,7 @@ const App = () => {
     <div className='app'>
       <AlertComponent />
       <ModalComponent />
-      {isAuthenticated && <NavbarComponent />}
+      {isAuth && <NavbarComponent />}
       {routes}
     </div>
   )

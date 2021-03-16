@@ -1,22 +1,17 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { InputGroup, FormControl } from 'react-bootstrap'
-import { AppContext } from 'context/AppContext'
+import { useInput } from 'hooks/useInput'
 import { ButtonComponent } from 'components/UI/index'
 
-function AddFormComponent({ onClick, setDisplay }) {
-  const [value, setValue] = useState('')
-
-  const { loading } = useContext(AppContext)
-
-  const handlerChange = (e) => {
-    setValue(e.target.value)
-  }
+const AddFormComponent = ({ data, onClick, setDisplay }) => {
+  const valueInput = useInput('')
+  const { loading } = useSelector((state) => state.app)
 
   return (
-    <InputGroup className='add-form-component m-3 w-75'>
+    <InputGroup className='m-3 w-75'>
       <FormControl
-        onChange={handlerChange}
-        value={value}
+        {...valueInput}
         type='text'
         name='value'
         placeholder='Value'
@@ -24,19 +19,15 @@ function AddFormComponent({ onClick, setDisplay }) {
       <InputGroup.Append>
         <ButtonComponent
           onClick={() => {
-            setValue('')
             setDisplay(false)
-            onClick(value)
+            onClick(data, valueInput.value)
           }}
           variant={'outline-success'}
-          disabled={!value || loading}
+          disabled={!valueInput.value || loading}
           title={'Add'}
         />
         <ButtonComponent
-          onClick={() => {
-            setValue('')
-            setDisplay(false)
-          }}
+          onClick={() => setDisplay(false)}
           variant={'outline-secondary'}
           disabled={loading}
           title={'Cancel'}

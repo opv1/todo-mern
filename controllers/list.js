@@ -13,7 +13,9 @@ const addList = async (req, res) => {
 
     res.status(201).json({ list })
   } catch (err) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res
+      .status(500)
+      .json({ message: { type: 'error', text: 'Something went wrong' } })
   }
 }
 
@@ -23,7 +25,9 @@ const getLists = async (req, res) => {
 
     res.json(lists)
   } catch (err) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res
+      .status(500)
+      .json({ message: { type: 'error', text: 'Something went wrong' } })
   }
 }
 
@@ -33,7 +37,9 @@ const getList = async (req, res) => {
 
     res.json(list)
   } catch (err) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res
+      .status(500)
+      .json({ message: { type: 'error', text: 'Something went wrong' } })
   }
 }
 
@@ -43,9 +49,11 @@ const deleteList = async (req, res) => {
 
     await list.remove()
 
-    res.json({ message: 'List deleted' })
+    res.json({ message: { type: 'success', text: 'List deleted' } })
   } catch (err) {
-    res.status(500).json({ message: 'Something went wrong' })
+    res
+      .status(500)
+      .json({ message: { type: 'error', text: 'Something went wrong' } })
   }
 }
 

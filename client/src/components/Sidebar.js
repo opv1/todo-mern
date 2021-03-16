@@ -1,13 +1,15 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { ListGroup } from 'react-bootstrap'
-import { AppContext } from 'context/AppContext'
+import { useActions } from 'hooks/useActions'
 import { SidebarItemComponent, AddFormComponent } from 'components/index'
 import { ButtonComponent } from 'components/UI/index'
 
-function SidebarComponent() {
+const SidebarComponent = () => {
   const [display, setDisplay] = useState(false)
-
-  const { lists, selectedList, loading, onAddList } = useContext(AppContext)
+  const { loading } = useSelector((state) => state.app)
+  const { lists, selectedList } = useSelector((state) => state.list)
+  const { onAddList } = useActions()
 
   return (
     <div className='sidebar-component'>
@@ -17,7 +19,7 @@ function SidebarComponent() {
           lists.map((list) => (
             <SidebarItemComponent
               key={list._id}
-              item={{ data: list, name: 'list' }}
+              data={{ type: 'list', item: list }}
               active={selectedList && selectedList._id === list._id}
             />
           ))
@@ -28,7 +30,11 @@ function SidebarComponent() {
         )}
       </ListGroup>
       {display ? (
-        <AddFormComponent onClick={onAddList} setDisplay={setDisplay} />
+        <AddFormComponent
+          data={{ lists }}
+          onClick={onAddList}
+          setDisplay={setDisplay}
+        />
       ) : (
         <ButtonComponent
           onClick={() => setDisplay(true)}
