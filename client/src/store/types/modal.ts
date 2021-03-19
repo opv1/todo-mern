@@ -1,6 +1,11 @@
+export type ModalDataType = {
+  type: string
+  item: any
+}
+
 export interface ModalState {
   modal: boolean
-  data: any
+  data: ModalDataType
 }
 
 export enum ModalActionTypes {
@@ -10,7 +15,7 @@ export enum ModalActionTypes {
 
 interface ModalShowAction {
   type: ModalActionTypes.MODAL_SHOW
-  payload: any
+  payload: ModalDataType
 }
 
 interface ModalHideAction {

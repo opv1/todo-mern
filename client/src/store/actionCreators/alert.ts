@@ -1,6 +1,6 @@
-import { AlertAction, AlertActionTypes } from 'store/types/alert'
+import { AlertDataType, AlertAction, AlertActionTypes } from 'store/types/alert'
 
-export const alertShow = (data: any): AlertAction => ({
+export const alertShow = (data: AlertDataType): AlertAction => ({
   type: AlertActionTypes.ALERT_SHOW,
   payload: data,
 })

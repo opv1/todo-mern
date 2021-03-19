@@ -1,8 +1,8 @@
-import { UserState, UserAction, UserActionTypes } from 'store/types/user'
+import { UserType, UserAction, UserActionTypes } from 'store/types/user'
 
-export const userLogin = (data: any): UserAction => ({
+export const userLogin = (user: UserType): UserAction => ({
   type: UserActionTypes.USER_LOGIN,
-  payload: data,
+  payload: user,
 })
 
 export const userLogout = (): UserAction => ({

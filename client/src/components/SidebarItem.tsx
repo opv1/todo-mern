@@ -1,11 +1,11 @@
 import React from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { useActions } from 'hooks/useActions'
-import {} from 'store/types/list'
 import { BadgeComponent } from 'components/UI/index'
+import { ModalDataType } from 'store/types/modal'
 
 interface Props {
-  data: any
+  data: ModalDataType
   active: boolean
 }
 

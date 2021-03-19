@@ -1,16 +1,16 @@
-import { TodoAction, TodoActionTypes } from 'store/types/todo'
+import { TodoType, TodoAction, TodoActionTypes } from 'store/types/todo'
 
-export const todosSet = (todos: any): TodoAction => ({
+export const todosSet = (todos: TodoType[]): TodoAction => ({
   type: TodoActionTypes.TODOS_SET,
   payload: todos,
 })
 
-export const todosSelectedSet = (todos: any): TodoAction => ({
+export const todosSelectedSet = (todos: TodoType[]): TodoAction => ({
   type: TodoActionTypes.TODOS_SELECTED_SET,
   payload: todos,
 })
 
-export const todoSelectedSet = (todo: any): TodoAction => ({
+export const todoSelectedSet = (todo: TodoType | null): TodoAction => ({
   type: TodoActionTypes.TODO_SELECTED_SET,
   payload: todo,
 })

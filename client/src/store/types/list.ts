@@ -1,8 +1,9 @@
 export type ListType = {
-  owner: string
+  readonly owner: string
   title: string
   todos: any[]
-  _id: string
+  readonly __v: number
+  readonly _id: string
 }
 
 export interface ListState {
@@ -17,12 +18,12 @@ export enum ListActionTypes {
 
 interface ListsSetAction {
   type: ListActionTypes.LISTS_SET
-  payload: any
+  payload: ListType[]
 }
 
 interface ListSelectedSetAction {
   type: ListActionTypes.LIST_SELECTED_SET
-  payload: any
+  payload: ListType | null
 }
 
 export type ListAction = ListsSetAction | ListSelectedSetAction

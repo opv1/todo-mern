@@ -3,7 +3,7 @@ import { TodoState, TodoAction, TodoActionTypes } from 'store/types/todo'
 const initialState = {
   todos: [],
   selectedTodos: [],
-  selectedTodo: {},
+  selectedTodo: null,
 }
 
 const todoReducer = (state = initialState, action: TodoAction): TodoState => {

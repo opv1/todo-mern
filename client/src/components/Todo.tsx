@@ -5,8 +5,8 @@ import { ButtonComponent } from 'components/UI/index'
 import { TodoType } from 'store/types/todo'
 
 interface Props {
-  todo: any
-  onSelectTodo?: (todo: any) => void
+  todo: TodoType
+  onSelectTodo?: (todo: TodoType) => void
 }
 
 const TodoComponent: React.FC<Props> = ({ todo, onSelectTodo }) => {

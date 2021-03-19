@@ -1,6 +1,11 @@
+export type AlertDataType = {
+  type: string
+  text: string
+}
+
 export interface AlertState {
   alert: boolean
-  data: any
+  data: AlertDataType
 }
 
 export enum AlertActionTypes {
@@ -10,7 +15,7 @@ export enum AlertActionTypes {
 
 interface AlertShowAction {
   type: AlertActionTypes.ALERT_SHOW
-  payload: any
+  payload: AlertDataType
 }
 
 interface AlertHideAction {

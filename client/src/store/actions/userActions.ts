@@ -2,7 +2,7 @@ import { Dispatch } from 'redux'
 import actionCreators from 'store/actionCreators/index'
 import { requestAxios } from 'utils/axios'
 import { setStorage, removeStorage } from 'utils/localStorage'
-import { FormType } from 'store/types/user'
+import { UserAuthType } from 'store/types/user'
 
 export const checkAuthUser = () => async (dispatch: Dispatch) => {
   try {
@@ -18,7 +18,9 @@ export const checkAuthUser = () => async (dispatch: Dispatch) => {
   }
 }
 
-export const onSingupUser = (form: FormType) => async (dispatch: Dispatch) => {
+export const onSingupUser = (form: UserAuthType) => async (
+  dispatch: Dispatch
+) => {
   try {
     dispatch(actionCreators.appLoading())
 
@@ -37,7 +39,9 @@ export const onSingupUser = (form: FormType) => async (dispatch: Dispatch) => {
   }
 }
 
-export const onLoginUser = (form: FormType) => async (dispatch: Dispatch) => {
+export const onLoginUser = (form: UserAuthType) => async (
+  dispatch: Dispatch
+) => {
   try {
     dispatch(actionCreators.appLoading())
 

@@ -1,9 +1,11 @@
 export type TodoType = {
   completed: boolean
-  date: string
-  list: string
+  readonly date: string
+  readonly list: string
+  readonly owner: string
   text: string
-  _id: string
+  readonly __v: number
+  readonly _id: string
 }
 
 export interface TodoState {
@@ -20,17 +22,17 @@ export enum TodoActionTypes {
 
 interface TodosSetAction {
   type: TodoActionTypes.TODOS_SET
-  payload: any
+  payload: TodoType[]
 }
 
 interface TodosSelectedSetAction {
   type: TodoActionTypes.TODOS_SELECTED_SET
-  payload: any
+  payload: TodoType[]
 }
 
 interface TodoSelectedSetAction {
   type: TodoActionTypes.TODO_SELECTED_SET
-  payload: any
+  payload: TodoType | null
 }
 
 export type TodoAction =

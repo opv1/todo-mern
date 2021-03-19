@@ -1,6 +1,8 @@
 import { Dispatch } from 'redux'
 import actionCreators from 'store/actionCreators/index'
 import { requestAxios } from 'utils/axios'
+import { ListType } from 'store/types/list'
+import { TodoType } from 'store/types/todo'
 
 export const fetchingLists = () => async (dispatch: Dispatch) => {
   try {
@@ -12,7 +14,7 @@ export const fetchingLists = () => async (dispatch: Dispatch) => {
   }
 }
 
-export const onSelectList = (list: any) => async (dispatch: Dispatch) => {
+export const onSelectList = (list: ListType) => async (dispatch: Dispatch) => {
   try {
     dispatch(actionCreators.appLoading())
     dispatch(actionCreators.listSelectedSet(list))
@@ -53,7 +55,7 @@ export const onAddList = (data: any, title: string) => async (
   }
 }
 
-export const onDeleteList = (data: any, list: any) => async (
+export const onDeleteList = (data: any, list: ListType) => async (
   dispatch: Dispatch
 ) => {
   try {
@@ -67,7 +69,7 @@ export const onDeleteList = (data: any, list: any) => async (
     )
 
     if (res.data.length !== 0) {
-      res.data.forEach(async (todo: any) => {
+      res.data.forEach(async (todo: TodoType) => {
         await requestAxios('delete', `/api/todo/${todo._id}`, null, true)
       })
     }

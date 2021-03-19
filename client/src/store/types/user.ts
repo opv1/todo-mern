@@ -1,9 +1,9 @@
-export type FormType = {
+export type UserAuthType = {
   email: string
   password: string
 }
 
-type UserType = {
+export type UserType = {
   accessToken: string
   userId: string
 }

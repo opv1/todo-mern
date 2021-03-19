@@ -19,7 +19,7 @@ const ListComponent: React.FC = () => {
 
   return (
     <div className='list-component'>
-      {JSON.stringify(selectedList) !== '{}' ? (
+      {!!selectedList ? (
         <>
           <ListGroup variant='flush'>
             <span className='text-center'>{selectedList.title}</span>

@@ -1,6 +1,6 @@
-import { ModalAction, ModalActionTypes } from 'store/types/modal'
+import { ModalDataType, ModalAction, ModalActionTypes } from 'store/types/modal'
 
-export const modalShow = (data: any): ModalAction => ({
+export const modalShow = (data: ModalDataType): ModalAction => ({
   type: ModalActionTypes.MODAL_SHOW,
   payload: data,
 })

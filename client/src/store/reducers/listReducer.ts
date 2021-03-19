@@ -2,7 +2,7 @@ import { ListState, ListAction, ListActionTypes } from 'store/types/list'
 
 const initialState = {
   lists: [],
-  selectedList: {},
+  selectedList: null,
 }
 
 const listReducer = (state = initialState, action: ListAction): ListState => {
