@@ -1,14 +1,8 @@
 const { validationResult } = require('express-validator')
-const jsonwebtoken = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const keys = require('../config/keys')
 const User = require('../models/User')
-
-const generateToken = (userId) => {
-  return jsonwebtoken.sign({ userId }, keys.JWT_SECRET, {
-    expiresIn: '1h',
-  })
-}
+const generateToken = require('../helpers/generateToken')
 
 const authSingup = async (req, res) => {
   try {
@@ -74,9 +68,17 @@ const authLogin = async (req, res) => {
         .json({ message: { type: 'error', text: 'Invalid password' } })
     }
 
-    const token = generateToken(user.id)
+    const accessToken = generateToken({ userId: user.id }, keys.JWT_SECRET, {
+      expiresIn: '1h',
+    })
 
-    res.json({ token, userId: user.id })
+    const refreshToken = generateToken(
+      { userId: user.id },
+      keys.JWT_SECRET_REFRESH,
+      { expiresIn: '24h' }
+    )
+
+    res.json({ accessToken, refreshToken, userId: user.id })
   } catch (err) {
     res
       .status(500)
@@ -87,9 +89,11 @@ const authLogin = async (req, res) => {
 const authCheck = async (req, res) => {
   const { userId } = req.user
 
-  const token = generateToken(userId)
+  const accessToken = generateToken({ userId }, keys.JWT_SECRET, {
+    expiresIn: '1h',
+  })
 
-  return res.json({ token, userId })
+  return res.json({ accessToken, userId })
 }
 
 module.exports = { authSingup, authLogin, authCheck }

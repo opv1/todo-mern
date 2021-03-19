@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     if (!token) {
       return res
         .status(401)
-        .json({ message: { type: 'error', text: 'No authorization' } })
+        .json({ message: { type: 'error', text: 'No token provided' } })
     }
 
     const decoded = jsonwebtoken.verify(token, keys.JWT_SECRET)
@@ -21,8 +21,6 @@ module.exports = (req, res, next) => {
 
     next()
   } catch (err) {
-    console.log({ ...err })
-
     res
       .status(401)
       .json({ message: { type: 'error', text: 'No authorization' } })

@@ -5,7 +5,7 @@
 
 ## Description
 
-Stack: MERN
+Stack: MERN + TypeScript
 
 ## [See the project](https://todo-mern-opv1.herokuapp.com/)
 
