@@ -8,7 +8,7 @@ const ModalComponent: React.FC = () => {
   const { loading } = useTypeSelector((state) => state.app)
   const { lists, selectedList } = useTypeSelector((state) => state.list)
   const { modal, data } = useTypeSelector((state) => state.modal)
-  const { selectedTodos } = useTypeSelector((state) => state.todo)
+  const { displayedTodos } = useTypeSelector((state) => state.todo)
   const { onCloseModal, onDeleteList, onDeleteTodo } = useActions()
 
   return (
@@ -27,7 +27,7 @@ const ModalComponent: React.FC = () => {
         <ButtonComponent
           onClick={
             data.type === 'todo'
-              ? () => onDeleteTodo({ selectedTodos }, data.item)
+              ? () => onDeleteTodo({ displayedTodos }, data.item)
               : () => onDeleteList({ lists, selectedList }, data.item)
           }
           variant='primary'

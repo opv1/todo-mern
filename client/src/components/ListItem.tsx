@@ -12,7 +12,7 @@ interface Props {
 
 const ListItemComponent: React.FC<Props> = ({ data }) => {
   const history = useHistory()
-  const { selectedTodos } = useTypeSelector((state) => state.todo)
+  const { displayedTodos } = useTypeSelector((state) => state.todo)
   const { onSelectTodo, onDisplayModal, onCheckTodo } = useActions()
 
   const handlerClick = () => {
@@ -35,7 +35,7 @@ const ListItemComponent: React.FC<Props> = ({ data }) => {
       <Form.Check
         className='ml-2'
         onChange={(e) =>
-          onCheckTodo({ selectedTodos }, e.target.checked, data.item)
+          onCheckTodo({ displayedTodos }, e.target.checked, data.item)
         }
         type='checkbox'
         checked={data.item.completed}

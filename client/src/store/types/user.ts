@@ -13,12 +13,12 @@ export interface UserState {
 }
 
 export enum UserActionTypes {
-  USER_LOGIN = 'USER_LOGIN',
+  USER_SINGIN = 'USER_SINGIN',
   USER_LOGOUT = 'USER_LOGOUT',
 }
 
-interface UserLoginAction {
-  type: UserActionTypes.USER_LOGIN
+interface UserSinginAction {
+  type: UserActionTypes.USER_SINGIN
   payload: UserType
 }
 
@@ -26,4 +26,4 @@ interface UserLogoutAction {
   type: UserActionTypes.USER_LOGOUT
 }
 
-export type UserAction = UserLoginAction | UserLogoutAction
+export type UserAction = UserSinginAction | UserLogoutAction

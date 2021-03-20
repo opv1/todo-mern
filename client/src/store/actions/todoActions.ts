@@ -28,11 +28,11 @@ export const onAddTodo = (data: any, text: string) => async (
       true
     )
 
-    const copySelectedTodos = [...data.selectedTodos]
+    const copyDisplayedTodos = [...data.displayedTodos]
 
-    copySelectedTodos.push({ ...res.todo })
+    copyDisplayedTodos.push({ ...res.todo })
 
-    dispatch(actionCreators.todosSelectedSet(copySelectedTodos))
+    dispatch(actionCreators.todosDisplayedSet(copyDisplayedTodos))
   } catch (err) {
     dispatch(actionCreators.alertShow({ type: 'error', text: err.message }))
   }
@@ -51,13 +51,11 @@ export const onDeleteTodo = (data: any, todo: TodoType) => async (
       true
     )
 
-    const copySelectedTodos = [...data.selectedTodos]
-
-    const filteredTodos = copySelectedTodos.filter(
+    const filteredTodos = [...data.displayedTodos].filter(
       (copyTodo) => copyTodo._id !== todo._id
     )
 
-    dispatch(actionCreators.todosSelectedSet(filteredTodos))
+    dispatch(actionCreators.todosDisplayedSet(filteredTodos))
     dispatch(actionCreators.alertShow({ type: 'success', text: res.message }))
   } catch (err) {
     dispatch(actionCreators.alertShow({ type: 'error', text: err.message }))
@@ -80,9 +78,7 @@ export const onCheckTodo = (
       true
     )
 
-    const copySelectedTodos = [...data.selectedTodos]
-
-    const filteredTodos = copySelectedTodos.filter((copyTodo) => {
+    const filteredTodos = [...data.displayedTodos].filter((copyTodo) => {
       if (copyTodo._id === todo._id) {
         copyTodo.completed = !copyTodo.completed
       }
@@ -90,7 +86,7 @@ export const onCheckTodo = (
       return copyTodo
     })
 
-    dispatch(actionCreators.todosSelectedSet(filteredTodos))
+    dispatch(actionCreators.todosDisplayedSet(filteredTodos))
     dispatch(actionCreators.alertShow({ type: 'success', text: res.message }))
   } catch (err) {
     dispatch(actionCreators.alertShow({ type: 'error', text: err.message }))
@@ -104,15 +100,15 @@ export const filteringTodos = (value: string) => async (dispatch: Dispatch) => {
     if (value === 'Completed') {
       const res = await requestFetch('get', `/api/todo/${true}`, null, true)
 
-      dispatch(actionCreators.todosSet(res))
+      dispatch(actionCreators.todosSelectedSet(res))
     } else if (value === 'Uncompleted') {
       const res = await requestFetch('get', `/api/todo/${false}`, null, true)
 
-      dispatch(actionCreators.todosSet(res))
+      dispatch(actionCreators.todosSelectedSet(res))
     } else {
       const res = await requestFetch('get', '/api/todo', null, true)
 
-      dispatch(actionCreators.todosSet(res))
+      dispatch(actionCreators.todosSelectedSet(res))
     }
   } catch (err) {
     dispatch(actionCreators.alertShow({ type: 'error', text: err.message }))

@@ -8,10 +8,11 @@ import {
 
 const Todos: React.FC = () => {
   const { loading } = useTypeSelector((state) => state.app)
+  const { todos } = useTypeSelector((state) => state.todo)
 
   return (
     <div className='d-flex justify-content-around align-items-center flex-column'>
-      <SelectComponent />
+      {todos.length !== 0 ? <SelectComponent /> : null}
       {loading ? <LoaderComponent /> : <TodosComponent />}
     </div>
   )

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { useTypeSelector } from 'hooks/useTypeSelector'
 import { useActions } from 'hooks/useActions'
@@ -14,13 +14,8 @@ const ListComponent: React.FC = () => {
   const [display, setDisplay] = useState<boolean>(false)
   const { loading } = useTypeSelector((state) => state.app)
   const { selectedList } = useTypeSelector((state) => state.list)
-  const { selectedTodos } = useTypeSelector((state) => state.todo)
-  const { fetchingTodos, onAddTodo } = useActions()
-
-  useEffect(() => {
-    fetchingTodos()
-    // eslint-disable-next-line
-  }, [selectedTodos])
+  const { displayedTodos } = useTypeSelector((state) => state.todo)
+  const { onAddTodo } = useActions()
 
   return (
     <div className='list-component'>
@@ -32,8 +27,8 @@ const ListComponent: React.FC = () => {
               <LoaderComponent />
             ) : (
               <>
-                {selectedTodos.length !== 0 ? (
-                  selectedTodos.map((todo: TodoType) => (
+                {displayedTodos.length !== 0 ? (
+                  displayedTodos.map((todo: TodoType) => (
                     <ListItemComponent
                       key={todo._id}
                       data={{ type: 'todo', item: todo }}
@@ -49,7 +44,7 @@ const ListComponent: React.FC = () => {
           </ListGroup>
           {display ? (
             <AddFormComponent
-              data={{ selectedList, selectedTodos }}
+              data={{ selectedList, displayedTodos }}
               onClick={onAddTodo}
               setDisplay={setDisplay}
             />

@@ -26,7 +26,7 @@ export const onSelectList = (list: ListType) => async (dispatch: Dispatch) => {
       true
     )
 
-    dispatch(actionCreators.todosSelectedSet(res))
+    dispatch(actionCreators.todosDisplayedSet(res))
   } catch (err) {
     dispatch(actionCreators.alertShow({ type: 'error', text: err.message }))
   } finally {
@@ -76,9 +76,7 @@ export const onDeleteList = (data: any, list: ListType) => async (
       true
     )
 
-    const copyLists = [...data.lists]
-
-    const filteredLists = copyLists.filter(
+    const filteredLists = [...data.lists].filter(
       (copyList) => copyList._id !== list._id
     )
 

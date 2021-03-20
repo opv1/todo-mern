@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
 import actionCreators from 'store/actionCreators/index'
 import { requestFetch } from 'utils/fetch'
-import { setStorage, removeStorage } from 'utils/localStorage'
+import { setStorage, getStorage, removeStorage } from 'utils/localStorage'
 import { UserAuthType } from 'store/types/user'
 
 export const onSingupUser = (form: UserAuthType) => async (
@@ -25,7 +25,7 @@ export const onSingupUser = (form: UserAuthType) => async (
   }
 }
 
-export const onLoginUser = (form: UserAuthType) => async (
+export const onSinginUser = (form: UserAuthType) => async (
   dispatch: Dispatch
 ) => {
   try {
@@ -40,7 +40,7 @@ export const onLoginUser = (form: UserAuthType) => async (
 
     setStorage(res)
 
-    dispatch(actionCreators.userLogin(res))
+    dispatch(actionCreators.userSingin(res))
   } catch (err) {
     dispatch(actionCreators.alertShow({ type: 'error', text: err.message }))
   } finally {
@@ -56,11 +56,15 @@ export const onLogoutUser = () => (dispatch: Dispatch) => {
 
 export const checkAuthUser = () => async (dispatch: Dispatch) => {
   try {
-    const res = await requestFetch('get', '/api/auth', null, true)
+    const storage = getStorage()
 
-    setStorage(res)
+    if (storage && storage.accessToken) {
+      const res = await requestFetch('get', '/api/auth', null, true)
 
-    dispatch(actionCreators.userLogin(res))
+      setStorage(res)
+
+      dispatch(actionCreators.userSingin(res))
+    }
   } catch (err) {
     dispatch(actionCreators.alertShow({ type: 'error', text: err.message }))
   } finally {

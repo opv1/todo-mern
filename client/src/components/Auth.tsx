@@ -9,7 +9,7 @@ const AuthComponent: React.FC = () => {
   const emailInput = useInput('')
   const passwordInput = useInput('')
   const { loading } = useTypeSelector((state) => state.app)
-  const { onLoginUser, onSingupUser } = useActions()
+  const { onSinginUser, onSingupUser } = useActions()
 
   return (
     <Form className='auth-component'>
@@ -37,14 +37,14 @@ const AuthComponent: React.FC = () => {
       <ButtonComponent
         className='mr-3'
         onClick={() =>
-          onLoginUser({
+          onSinginUser({
             email: emailInput.value,
             password: passwordInput.value,
           })
         }
         variant='success'
         disabled={loading}
-        title='Login'
+        title='Sing In'
       />
       <ButtonComponent
         onClick={() =>
@@ -55,7 +55,7 @@ const AuthComponent: React.FC = () => {
         }
         variant='primary'
         disabled={loading}
-        title='Singup'
+        title='Sing Up'
       />
     </Form>
   )

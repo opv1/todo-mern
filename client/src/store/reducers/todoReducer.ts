@@ -2,6 +2,7 @@ import { TodoState, TodoAction, TodoActionTypes } from 'store/types/todo'
 
 const initialState = {
   todos: [],
+  displayedTodos: [],
   selectedTodos: [],
   selectedTodo: null,
 }
@@ -12,6 +13,11 @@ const todoReducer = (state = initialState, action: TodoAction): TodoState => {
       return {
         ...state,
         todos: action.payload,
+      }
+    case TodoActionTypes.TODOS_DISPLAYED_SET:
+      return {
+        ...state,
+        displayedTodos: action.payload,
       }
     case TodoActionTypes.TODOS_SELECTED_SET:
       return {

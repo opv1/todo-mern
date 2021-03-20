@@ -7,7 +7,7 @@ interface HeadersType {
 export const requestFetch = async (
   method: string,
   url: string,
-  body: any | null,
+  body: any,
   auth: boolean
 ) => {
   try {

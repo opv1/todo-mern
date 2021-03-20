@@ -1,7 +1,7 @@
 import { UserType, UserAction, UserActionTypes } from 'store/types/user'
 
-export const userLogin = (user: UserType): UserAction => ({
-  type: UserActionTypes.USER_LOGIN,
+export const userSingin = (user: UserType): UserAction => ({
+  type: UserActionTypes.USER_SINGIN,
   payload: user,
 })
 

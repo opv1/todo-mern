@@ -1,5 +1,6 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, useEffect, ChangeEvent } from 'react'
 import { Form } from 'react-bootstrap'
+import { useTypeSelector } from 'hooks/useTypeSelector'
 import { useActions } from 'hooks/useActions'
 
 declare global {
@@ -10,6 +11,7 @@ declare global {
 
 const SelectComponent: React.FC = () => {
   const [value, setValue] = useState<string>(window.valueSelect)
+  const { displayedTodos } = useTypeSelector((state) => state.todo)
   const { filteringTodos } = useActions()
 
   const handlerChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -17,6 +19,11 @@ const SelectComponent: React.FC = () => {
     window.valueSelect = e.target.value
     filteringTodos(e.target.value)
   }
+
+  useEffect(() => {
+    filteringTodos(value)
+    // eslint-disable-next-line
+  }, [displayedTodos])
 
   return (
     <Form className='select-component w-75'>

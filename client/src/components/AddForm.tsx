@@ -15,8 +15,8 @@ const AddFormComponent: React.FC<Props> = ({ data, onClick, setDisplay }) => {
   const { loading } = useTypeSelector((state) => state.app)
 
   const handlerClick = () => {
-    onClick(data, valueInput.value)
     setDisplay(false)
+    onClick(data, valueInput.value)
   }
 
   return (

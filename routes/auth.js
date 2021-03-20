@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const { check } = require('express-validator')
 const authMiddleware = require('../middlewares/auth')
-const { authSingup, authLogin, authCheck } = require('../controllers/auth')
+const { authSingup, authSingin, authCheck } = require('../controllers/auth')
 
 const router = Router()
 
@@ -21,7 +21,7 @@ router.post(
     check('email', 'Please enter a valid email').normalizeEmail().isEmail(),
     check('password', 'Enter password').exists(),
   ],
-  authLogin
+  authSingin
 )
 
 router.get('/', authMiddleware, authCheck)

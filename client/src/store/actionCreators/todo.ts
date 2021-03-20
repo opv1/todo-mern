@@ -5,6 +5,11 @@ export const todosSet = (todos: TodoType[]): TodoAction => ({
   payload: todos,
 })
 
+export const todosDisplayedSet = (todos: TodoType[]): TodoAction => ({
+  type: TodoActionTypes.TODOS_DISPLAYED_SET,
+  payload: todos,
+})
+
 export const todosSelectedSet = (todos: TodoType[]): TodoAction => ({
   type: TodoActionTypes.TODOS_SELECTED_SET,
   payload: todos,

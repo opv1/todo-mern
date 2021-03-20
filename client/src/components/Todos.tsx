@@ -5,13 +5,13 @@ import { TodoComponent } from 'components/index'
 import { TodoType } from 'store/types/todo'
 
 const TodosComponent: React.FC = () => {
-  const { todos } = useTypeSelector((state) => state.todo)
+  const { selectedTodos } = useTypeSelector((state) => state.todo)
   const { onSelectTodo } = useActions()
 
   return (
     <div className='todos-component d-flex justify-content-around flex-wrap'>
-      {todos.length !== 0 ? (
-        todos.map((todo: TodoType) => (
+      {selectedTodos.length !== 0 ? (
+        selectedTodos.map((todo: TodoType) => (
           <TodoComponent
             key={todo._id}
             todo={todo}

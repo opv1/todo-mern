@@ -10,18 +10,25 @@ export type TodoType = {
 
 export interface TodoState {
   todos: any
+  displayedTodos: any
   selectedTodos: any
   selectedTodo: any
 }
 
 export enum TodoActionTypes {
   TODOS_SET = 'TODOS_SET',
+  TODOS_DISPLAYED_SET = 'TODOS_DISPLAYED_SET',
   TODOS_SELECTED_SET = 'TODOS_SELECTED_SET',
   TODO_SELECTED_SET = 'TODO_SELECTED_SET',
 }
 
 interface TodosSetAction {
   type: TodoActionTypes.TODOS_SET
+  payload: TodoType[]
+}
+
+interface TodosDisplayedSetAction {
+  type: TodoActionTypes.TODOS_DISPLAYED_SET
   payload: TodoType[]
 }
 
@@ -37,5 +44,6 @@ interface TodoSelectedSetAction {
 
 export type TodoAction =
   | TodosSetAction
+  | TodosDisplayedSetAction
   | TodosSelectedSetAction
   | TodoSelectedSetAction

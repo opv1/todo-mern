@@ -35,7 +35,7 @@ const authSingup = async (req, res) => {
   }
 }
 
-const authLogin = async (req, res) => {
+const authSingin = async (req, res) => {
   try {
     const errors = validationResult(req)
 
@@ -70,7 +70,7 @@ const authLogin = async (req, res) => {
       { expiresIn: '24h' }
     )
 
-    res.json({ accessToken, refreshToken, userId: user.id })
+    res.json({ accessToken, userId: user.id })
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong' })
   }
@@ -86,4 +86,4 @@ const authCheck = async (req, res) => {
   return res.json({ accessToken, userId })
 }
 
-module.exports = { authSingup, authLogin, authCheck }
+module.exports = { authSingup, authSingin, authCheck }
