@@ -1,19 +1,15 @@
 import { Dispatch } from 'redux'
 import actionCreators from 'store/actionCreators/index'
-import { requestAxios } from 'utils/axios'
+import { requestFetch } from 'utils/fetch'
 import { TodoType } from 'store/types/todo'
 
 export const fetchingTodos = () => async (dispatch: Dispatch) => {
   try {
-    dispatch(actionCreators.appLoading())
+    const res = await requestFetch('get', '/api/todo', null, true)
 
-    const response = await requestAxios('get', '/api/todo', null, true)
-
-    dispatch(actionCreators.todosSet(response.data))
+    dispatch(actionCreators.todosSet(res))
   } catch (err) {
-    dispatch(actionCreators.alertShow(err.response.data.message))
-  } finally {
-    dispatch(actionCreators.appLoading())
+    dispatch(actionCreators.alertShow({ type: 'error', text: err.message }))
   }
 }
 
@@ -25,7 +21,7 @@ export const onAddTodo = (data: any, text: string) => async (
   dispatch: Dispatch
 ) => {
   try {
-    const response = await requestAxios(
+    const res = await requestFetch(
       'post',
       '/api/todo/add',
       { text, list: data.selectedList._id },
@@ -34,11 +30,11 @@ export const onAddTodo = (data: any, text: string) => async (
 
     const copySelectedTodos = [...data.selectedTodos]
 
-    copySelectedTodos.push({ ...response.data.todo })
+    copySelectedTodos.push({ ...res.todo })
 
     dispatch(actionCreators.todosSelectedSet(copySelectedTodos))
   } catch (err) {
-    dispatch(actionCreators.alertShow(err.response.data.message))
+    dispatch(actionCreators.alertShow({ type: 'error', text: err.message }))
   }
 }
 
@@ -48,7 +44,7 @@ export const onDeleteTodo = (data: any, todo: TodoType) => async (
   try {
     dispatch(actionCreators.appLoading())
 
-    const response = await requestAxios(
+    const res = await requestFetch(
       'delete',
       `/api/todo/${todo._id}`,
       null,
@@ -62,9 +58,9 @@ export const onDeleteTodo = (data: any, todo: TodoType) => async (
     )
 
     dispatch(actionCreators.todosSelectedSet(filteredTodos))
-    dispatch(actionCreators.alertShow(response.data.message))
+    dispatch(actionCreators.alertShow({ type: 'success', text: res.message }))
   } catch (err) {
-    dispatch(actionCreators.alertShow(err.response.data.message))
+    dispatch(actionCreators.alertShow({ type: 'error', text: err.message }))
   } finally {
     dispatch(actionCreators.modalHide())
     dispatch(actionCreators.appLoading())
@@ -77,7 +73,7 @@ export const onCheckTodo = (
   todo: TodoType
 ) => async (dispatch: Dispatch) => {
   try {
-    const response = await requestAxios(
+    const res = await requestFetch(
       'put',
       `/api/todo/${todo._id}`,
       { completed },
@@ -95,9 +91,9 @@ export const onCheckTodo = (
     })
 
     dispatch(actionCreators.todosSelectedSet(filteredTodos))
-    dispatch(actionCreators.alertShow(response.data.message))
+    dispatch(actionCreators.alertShow({ type: 'success', text: res.message }))
   } catch (err) {
-    dispatch(actionCreators.alertShow(err.response.data.message))
+    dispatch(actionCreators.alertShow({ type: 'error', text: err.message }))
   }
 }
 
@@ -106,30 +102,20 @@ export const filteringTodos = (value: string) => async (dispatch: Dispatch) => {
     dispatch(actionCreators.appLoading())
 
     if (value === 'Completed') {
-      const response = await requestAxios(
-        'get',
-        `/api/todo/${true}`,
-        null,
-        true
-      )
+      const res = await requestFetch('get', `/api/todo/${true}`, null, true)
 
-      dispatch(actionCreators.todosSet(response.data))
+      dispatch(actionCreators.todosSet(res))
     } else if (value === 'Uncompleted') {
-      const response = await requestAxios(
-        'get',
-        `/api/todo/${false}`,
-        null,
-        true
-      )
+      const res = await requestFetch('get', `/api/todo/${false}`, null, true)
 
-      dispatch(actionCreators.todosSet(response.data))
+      dispatch(actionCreators.todosSet(res))
     } else {
-      const response = await requestAxios('get', '/api/todo', null, true)
+      const res = await requestFetch('get', '/api/todo', null, true)
 
-      dispatch(actionCreators.todosSet(response.data))
+      dispatch(actionCreators.todosSet(res))
     }
   } catch (err) {
-    dispatch(actionCreators.alertShow(err.response.data.message))
+    dispatch(actionCreators.alertShow({ type: 'error', text: err.message }))
   } finally {
     dispatch(actionCreators.appLoading())
   }

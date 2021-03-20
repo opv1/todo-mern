@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
 
-interface ButtonProps {
+interface Props {
   className?: string
   onClick: () => void
   variant: string
@@ -9,7 +9,7 @@ interface ButtonProps {
   title: string
 }
 
-const ButtonComponent: React.FC<ButtonProps> = ({
+const ButtonComponent: React.FC<Props> = ({
   className,
   onClick,
   variant,

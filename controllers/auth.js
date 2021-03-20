@@ -11,7 +11,7 @@ const authSingup = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).json({
         errors: errors.array(),
-        message: { type: 'error', text: 'Incorrect registration data' },
+        message: 'Incorrect registration data',
       })
     }
 
@@ -20,9 +20,7 @@ const authSingup = async (req, res) => {
     const candidate = await User.findOne({ email })
 
     if (candidate) {
-      return res
-        .status(400)
-        .json({ message: { type: 'error', text: 'This user already exists' } })
+      return res.status(400).json({ message: 'This user already exists' })
     }
 
     const hashedPassword = await bcrypt.hash(password, 12)
@@ -31,11 +29,9 @@ const authSingup = async (req, res) => {
 
     await user.save()
 
-    res.status(201).json({ message: { type: 'success', text: 'User created' } })
+    res.status(201).json({ message: 'User created' })
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: { type: 'error', text: 'Something went wrong' } })
+    res.status(500).json({ message: 'Something went wrong' })
   }
 }
 
@@ -46,7 +42,7 @@ const authLogin = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).json({
         errors: errors.array(),
-        message: { type: 'error', text: 'Invalid login data' },
+        message: 'Invalid login data',
       })
     }
 
@@ -55,17 +51,13 @@ const authLogin = async (req, res) => {
     const user = await User.findOne({ email })
 
     if (!user) {
-      return res
-        .status(400)
-        .json({ message: { type: 'error', text: 'User is not found' } })
+      return res.status(400).json({ message: 'User is not found' })
     }
 
     const isMatch = await bcrypt.compare(password, user.password)
 
     if (!isMatch) {
-      return res
-        .status(400)
-        .json({ message: { type: 'error', text: 'Invalid password' } })
+      return res.status(400).json({ message: 'Invalid password' })
     }
 
     const accessToken = generateToken({ userId: user.id }, keys.JWT_SECRET, {
@@ -80,9 +72,7 @@ const authLogin = async (req, res) => {
 
     res.json({ accessToken, refreshToken, userId: user.id })
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: { type: 'error', text: 'Something went wrong' } })
+    res.status(500).json({ message: 'Something went wrong' })
   }
 }
 

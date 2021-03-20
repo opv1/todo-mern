@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { useTypeSelector } from 'hooks/useTypeSelector'
 import { useActions } from 'hooks/useActions'
@@ -15,7 +15,12 @@ const ListComponent: React.FC = () => {
   const { loading } = useTypeSelector((state) => state.app)
   const { selectedList } = useTypeSelector((state) => state.list)
   const { selectedTodos } = useTypeSelector((state) => state.todo)
-  const { onAddTodo } = useActions()
+  const { fetchingTodos, onAddTodo } = useActions()
+
+  useEffect(() => {
+    fetchingTodos()
+    // eslint-disable-next-line
+  }, [selectedTodos])
 
   return (
     <div className='list-component'>

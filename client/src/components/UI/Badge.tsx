@@ -1,14 +1,14 @@
 import React from 'react'
 import { Badge } from 'react-bootstrap'
 
-interface BadgeProps {
+interface Props {
   className?: string
   onClick: () => void
   variant: string
   title: string
 }
 
-const BadgeComponent: React.FC<BadgeProps> = ({
+const BadgeComponent: React.FC<Props> = ({
   className,
   onClick,
   variant,

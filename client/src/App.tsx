@@ -19,7 +19,10 @@ const App: React.FC = () => {
 
   useEffect(() => {
     checkAuthUser()
+    // eslint-disable-next-line
+  }, [])
 
+  useEffect(() => {
     if (isAuth) {
       fetchingLists()
       fetchingTodos()

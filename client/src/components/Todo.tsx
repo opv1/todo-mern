@@ -12,6 +12,11 @@ interface Props {
 const TodoComponent: React.FC<Props> = ({ todo, onSelectTodo }) => {
   const history = useHistory()
 
+  const handlerClick = () => {
+    onSelectTodo!(todo)
+    history.push(`todo/${todo._id}`)
+  }
+
   return (
     <Card className='todo-component text-center'>
       <Card.Header>Created {new Date(todo.date).toLocaleString()}</Card.Header>
@@ -24,7 +29,7 @@ const TodoComponent: React.FC<Props> = ({ todo, onSelectTodo }) => {
         </Card.Text>
         {onSelectTodo ? (
           <ButtonComponent
-            onClick={() => onSelectTodo(todo)}
+            onClick={handlerClick}
             variant='primary'
             title='Go todo'
           />

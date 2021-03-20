@@ -15,13 +15,15 @@ const ListItemComponent: React.FC<Props> = ({ data }) => {
   const { selectedTodos } = useTypeSelector((state) => state.todo)
   const { onSelectTodo, onDisplayModal, onCheckTodo } = useActions()
 
+  const handlerClick = () => {
+    onSelectTodo(data.item)
+    history.push(`todo/${data.item._id}`)
+  }
+
   return (
     <ListGroup.Item className='list-item-component d-flex align-items-center'>
       <span
-        onClick={() => {
-          onSelectTodo(data.item)
-          history.push(`todo/${data.item._id}`)
-        }}
+        onClick={handlerClick}
         style={
           data.item.completed
             ? { textDecoration: 'line-through' }

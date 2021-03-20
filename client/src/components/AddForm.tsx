@@ -4,19 +4,20 @@ import { useTypeSelector } from 'hooks/useTypeSelector'
 import { useInput } from 'hooks/useInput'
 import { ButtonComponent } from 'components/UI/index'
 
-interface AddFormProps {
+interface Props {
   data: object
   onClick: (data: object, value: string) => void
   setDisplay: (display: boolean) => void
 }
 
-const AddFormComponent: React.FC<AddFormProps> = ({
-  data,
-  onClick,
-  setDisplay,
-}) => {
+const AddFormComponent: React.FC<Props> = ({ data, onClick, setDisplay }) => {
   const valueInput = useInput('')
   const { loading } = useTypeSelector((state) => state.app)
+
+  const handlerClick = () => {
+    onClick(data, valueInput.value)
+    setDisplay(false)
+  }
 
   return (
     <InputGroup className='m-3 w-75'>
@@ -28,10 +29,7 @@ const AddFormComponent: React.FC<AddFormProps> = ({
       />
       <InputGroup.Append>
         <ButtonComponent
-          onClick={() => {
-            setDisplay(false)
-            onClick(data, valueInput.value)
-          }}
+          onClick={handlerClick}
           variant='outline-success'
           disabled={!valueInput.value || loading}
           title='Add'
