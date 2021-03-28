@@ -12,9 +12,9 @@ interface Props {
 const TodoComponent: React.FC<Props> = ({ todo, onSelectTodo }) => {
   const history = useHistory()
 
-  const handlerClick = () => {
+  const onGoTodo = () => {
     onSelectTodo!(todo)
-    history.push(`todo/${todo._id}`)
+    history.push(`todos/${todo._id}`)
   }
 
   return (
@@ -29,7 +29,7 @@ const TodoComponent: React.FC<Props> = ({ todo, onSelectTodo }) => {
         </Card.Text>
         {onSelectTodo ? (
           <ButtonComponent
-            onClick={handlerClick}
+            onClick={onGoTodo}
             variant='primary'
             title='Go todo'
           />

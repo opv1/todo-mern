@@ -1,8 +1,8 @@
 import { Dispatch } from 'redux'
 import actionCreators from 'store/actionCreators/index'
-import { requestFetch } from 'utils/fetch'
-import { setStorage, getStorage, removeStorage } from 'utils/localStorage'
 import { UserAuthType } from 'store/types/user'
+import { setStorage, getStorage, removeStorage } from 'utils/localStorage'
+import { requestFetch } from 'utils/requestFetch'
 
 export const onSingupUser = (form: UserAuthType) => async (
   dispatch: Dispatch

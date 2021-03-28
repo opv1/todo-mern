@@ -14,10 +14,10 @@ const SelectComponent: React.FC = () => {
   const { displayedTodos } = useTypeSelector((state) => state.todo)
   const { filteringTodos } = useActions()
 
-  const handlerChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setValue(e.target.value)
-    window.valueSelect = e.target.value
-    filteringTodos(e.target.value)
+  const handlerChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setValue(event.target.value)
+    window.valueSelect = event.target.value
+    filteringTodos(event.target.value)
   }
 
   useEffect(() => {

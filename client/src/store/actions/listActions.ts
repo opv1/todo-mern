@@ -1,8 +1,9 @@
 import { Dispatch } from 'redux'
+import { store } from 'store/index'
 import actionCreators from 'store/actionCreators/index'
-import { requestFetch } from 'utils/fetch'
 import { ListType } from 'store/types/list'
 import { TodoType } from 'store/types/todo'
+import { requestFetch } from 'utils/requestFetch'
 
 export const fetchingLists = () => async (dispatch: Dispatch) => {
   try {
@@ -34,13 +35,13 @@ export const onSelectList = (list: ListType) => async (dispatch: Dispatch) => {
   }
 }
 
-export const onAddList = (data: any, title: string) => async (
-  dispatch: Dispatch
-) => {
+export const onAddList = (title: string) => async (dispatch: Dispatch) => {
   try {
     const res = await requestFetch('post', '/api/list/add', { title }, true)
 
-    const copyLists = [...data.lists]
+    const { lists } = store.getState().list
+
+    const copyLists = [...lists]
 
     copyLists.push({ ...res.list })
 
@@ -50,9 +51,7 @@ export const onAddList = (data: any, title: string) => async (
   }
 }
 
-export const onDeleteList = (data: any, list: ListType) => async (
-  dispatch: Dispatch
-) => {
+export const onDeleteList = (list: ListType) => async (dispatch: Dispatch) => {
   try {
     dispatch(actionCreators.appLoading())
 
@@ -76,11 +75,13 @@ export const onDeleteList = (data: any, list: ListType) => async (
       true
     )
 
-    const filteredLists = [...data.lists].filter(
+    const { lists, selectedList } = store.getState().list
+
+    const filteredLists = [...lists].filter(
       (copyList) => copyList._id !== list._id
     )
 
-    if (data.selectedList && data.selectedList._id === list._id) {
+    if (selectedList && selectedList._id === list._id) {
       dispatch(actionCreators.listSelectedSet(null))
     }
 
@@ -91,5 +92,31 @@ export const onDeleteList = (data: any, list: ListType) => async (
   } finally {
     dispatch(actionCreators.modalHide())
     dispatch(actionCreators.appLoading())
+  }
+}
+
+export const onRenameList = (title: string) => async (dispatch: Dispatch) => {
+  try {
+    const { lists, selectedList } = store.getState().list
+
+    const res = await requestFetch(
+      'put',
+      `/api/list/${selectedList._id}`,
+      { title },
+      true
+    )
+
+    const filteredLists = [...lists].filter((list) => {
+      if (list._id === selectedList._id) {
+        list.title = title
+      }
+
+      return list
+    })
+
+    dispatch(actionCreators.listsSet(filteredLists))
+    dispatch(actionCreators.alertShow({ type: 'success', text: res.message }))
+  } catch (err) {
+    dispatch(actionCreators.alertShow({ type: 'error', text: err.message }))
   }
 }

@@ -49,4 +49,16 @@ const deleteList = async (req, res) => {
   }
 }
 
-module.exports = { addList, getLists, getList, deleteList }
+const renameList = async (req, res) => {
+  try {
+    const { title } = req.body
+
+    await List.findByIdAndUpdate(req.params.id, { title })
+
+    res.json({ message: 'List renamed' })
+  } catch (err) {
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+}
+
+module.exports = { addList, getLists, getList, deleteList, renameList }

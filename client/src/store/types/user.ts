@@ -8,7 +8,7 @@ export type UserType = {
   userId: string
 }
 
-export interface UserState {
+export type UserState = {
   user: UserType
 }
 
@@ -17,13 +17,13 @@ export enum UserActionTypes {
   USER_LOGOUT = 'USER_LOGOUT',
 }
 
-interface UserSinginAction {
+interface IUserSinginAction {
   type: UserActionTypes.USER_SINGIN
   payload: UserType
 }
 
-interface UserLogoutAction {
+interface IUserLogoutAction {
   type: UserActionTypes.USER_LOGOUT
 }
 
-export type UserAction = UserSinginAction | UserLogoutAction
+export type UserAction = IUserSinginAction | IUserLogoutAction

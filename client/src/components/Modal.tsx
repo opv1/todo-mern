@@ -6,9 +6,7 @@ import { ButtonComponent } from 'components/UI/index'
 
 const ModalComponent: React.FC = () => {
   const { loading } = useTypeSelector((state) => state.app)
-  const { lists, selectedList } = useTypeSelector((state) => state.list)
   const { modal, data } = useTypeSelector((state) => state.modal)
-  const { displayedTodos } = useTypeSelector((state) => state.todo)
   const { onCloseModal, onDeleteList, onDeleteTodo } = useActions()
 
   return (
@@ -27,8 +25,8 @@ const ModalComponent: React.FC = () => {
         <ButtonComponent
           onClick={
             data.type === 'todo'
-              ? () => onDeleteTodo({ displayedTodos }, data.item)
-              : () => onDeleteList({ lists, selectedList }, data.item)
+              ? () => onDeleteTodo(data.item)
+              : () => onDeleteList(data.item)
           }
           variant='primary'
           disabled={loading}

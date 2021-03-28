@@ -6,9 +6,9 @@ import { useActions } from 'hooks/useActions'
 import { ButtonComponent } from 'components/UI/index'
 
 const AuthComponent: React.FC = () => {
+  const { loading } = useTypeSelector((state) => state.app)
   const emailInput = useInput('')
   const passwordInput = useInput('')
-  const { loading } = useTypeSelector((state) => state.app)
   const { onSinginUser, onSingupUser } = useActions()
 
   return (

@@ -3,7 +3,7 @@ export type ModalDataType = {
   item: any
 }
 
-export interface ModalState {
+export type ModalState = {
   modal: boolean
   data: ModalDataType
 }
@@ -13,13 +13,13 @@ export enum ModalActionTypes {
   MODAL_HIDE = 'MODAL_HIDE',
 }
 
-interface ModalShowAction {
+interface IModalShowAction {
   type: ModalActionTypes.MODAL_SHOW
   payload: ModalDataType
 }
 
-interface ModalHideAction {
+interface IModalHideAction {
   type: ModalActionTypes.MODAL_HIDE
 }
 
-export type ModalAction = ModalShowAction | ModalHideAction
+export type ModalAction = IModalShowAction | IModalHideAction

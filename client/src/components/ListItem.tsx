@@ -1,7 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 import { ListGroup, Form } from 'react-bootstrap'
-import { useTypeSelector } from 'hooks/useTypeSelector'
 import { useActions } from 'hooks/useActions'
 import { BadgeComponent } from 'components/UI/index'
 import { ModalDataType } from 'store/types/modal'
@@ -12,18 +11,17 @@ interface Props {
 
 const ListItemComponent: React.FC<Props> = ({ data }) => {
   const history = useHistory()
-  const { displayedTodos } = useTypeSelector((state) => state.todo)
   const { onSelectTodo, onDisplayModal, onCheckTodo } = useActions()
 
-  const handlerClick = () => {
+  const onGoTodo = () => {
     onSelectTodo(data.item)
-    history.push(`todo/${data.item._id}`)
+    history.push(`todos/${data.item._id}`)
   }
 
   return (
     <ListGroup.Item className='list-item-component d-flex align-items-center'>
       <span
-        onClick={handlerClick}
+        onClick={onGoTodo}
         style={
           data.item.completed
             ? { textDecoration: 'line-through' }
@@ -34,9 +32,7 @@ const ListItemComponent: React.FC<Props> = ({ data }) => {
       </span>
       <Form.Check
         className='ml-2'
-        onChange={(e) =>
-          onCheckTodo({ displayedTodos }, e.target.checked, data.item)
-        }
+        onChange={(event) => onCheckTodo(event.target.checked, data.item)}
         type='checkbox'
         checked={data.item.completed}
       />

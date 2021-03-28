@@ -8,21 +8,8 @@ interface Props {
   title: string
 }
 
-const BadgeComponent: React.FC<Props> = ({
-  className,
-  onClick,
-  variant,
-  title,
-}) => {
-  return (
-    <Badge
-      className={className && className}
-      onClick={onClick}
-      variant={variant}
-    >
-      {title}
-    </Badge>
-  )
+const BadgeComponent: React.FC<Props> = (props) => {
+  return <Badge {...props}>{props.title}</Badge>
 }
 
 export default BadgeComponent

@@ -7,8 +7,8 @@ const Routes = (isAuth: boolean) => {
     return (
       <Switch>
         <Route path='/' exact component={Pages.Dashboard} />
-        <Route path='/todos/' component={Pages.Todos} />
-        <Route path='/todo/:id' component={Pages.Todo} />
+        <Route path='/todos/' exact component={Pages.Todos} />
+        <Route path='/todos/:id' exact component={Pages.Todo} />
         <Redirect to='/' />
       </Switch>
     )

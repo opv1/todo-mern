@@ -1,4 +1,4 @@
-export interface AppState {
+export type AppState = {
   ready: boolean
   loading: boolean
 }
@@ -8,13 +8,13 @@ export enum AppActionTypes {
   APP_LOADING = 'APP_LOADING',
 }
 
-interface AppReadyAction {
+interface IAppReadyAction {
   type: AppActionTypes.APP_READY
   payload: boolean
 }
 
-interface AppLoadingAction {
+interface IAppLoadingAction {
   type: AppActionTypes.APP_LOADING
 }
 
-export type AppAction = AppReadyAction | AppLoadingAction
+export type AppAction = IAppReadyAction | IAppLoadingAction

@@ -23,6 +23,11 @@
   width: 500px;
 }
 
+.sidebar-title {
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
 .todo-page .todo-component {
   width: 100%;
 }
@@ -38,6 +43,13 @@
 
 .list-group-item:hover .badge {
   display: inline-block;
+}
+
+.list-title {
+  cursor: pointer;
+  border: none;
+  margin: 0.5rem 0;
+  text-align: center;
 }
 
 .badge {

@@ -9,23 +9,8 @@ interface Props {
   title: string
 }
 
-const ButtonComponent: React.FC<Props> = ({
-  className,
-  onClick,
-  variant,
-  disabled,
-  title,
-}) => {
-  return (
-    <Button
-      className={className && className}
-      onClick={onClick}
-      variant={variant}
-      disabled={disabled}
-    >
-      {title}
-    </Button>
-  )
+const ButtonComponent: React.FC<Props> = (props) => {
+  return <Button {...props}>{props.title}</Button>
 }
 
 export default ButtonComponent

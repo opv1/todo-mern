@@ -1,21 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { useTypeSelector } from 'hooks/useTypeSelector'
 import { useActions } from 'hooks/useActions'
-import { SidebarItemComponent, AddFormComponent } from 'components/index'
-import { ButtonComponent } from 'components/UI/index'
+import { SidebarItemComponent, AddComponent } from 'components/index'
 import { ListType } from 'store/types/list'
 
 const SidebarComponent: React.FC = () => {
-  const [display, setDisplay] = useState<boolean>(false)
-  const { loading } = useTypeSelector((state) => state.app)
   const { lists, selectedList } = useTypeSelector((state) => state.list)
   const { onAddList } = useActions()
 
   return (
     <div className='sidebar-component'>
       <ListGroup variant='flush'>
-        <span className='text-center'>Lists</span>
+        <span className='sidebar-title'>Lists</span>
         {lists.length !== 0 ? (
           lists.map((list: ListType) => (
             <SidebarItemComponent
@@ -30,21 +27,7 @@ const SidebarComponent: React.FC = () => {
           </ListGroup.Item>
         )}
       </ListGroup>
-      {display ? (
-        <AddFormComponent
-          data={{ lists }}
-          onClick={onAddList}
-          setDisplay={setDisplay}
-        />
-      ) : (
-        <ButtonComponent
-          className='m-3'
-          onClick={() => setDisplay(true)}
-          variant='primary'
-          disabled={loading}
-          title='New list'
-        />
-      )}
+      <AddComponent onClick={onAddList} />
     </div>
   )
 }

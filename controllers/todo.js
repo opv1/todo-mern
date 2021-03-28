@@ -20,7 +20,9 @@ const addTodo = async (req, res) => {
 
 const getTodos = async (req, res) => {
   try {
-    const todos = await Todo.find({ owner: req.user.userId })
+    const { userId } = req.user
+
+    const todos = await Todo.find({ owner: userId })
 
     res.json(todos)
   } catch (err) {
@@ -30,7 +32,9 @@ const getTodos = async (req, res) => {
 
 const getTodosList = async (req, res) => {
   try {
-    const todos = await Todo.find({ list: req.params.id })
+    const { id } = req.params
+
+    const todos = await Todo.find({ list: id })
 
     res.json(todos)
   } catch (err) {
@@ -40,7 +44,9 @@ const getTodosList = async (req, res) => {
 
 const getTodosCompleted = async (req, res) => {
   try {
-    const todos = await Todo.find({ completed: req.params.completed })
+    const { completed } = req.params
+
+    const todos = await Todo.find({ completed })
 
     res.json(todos)
   } catch (err) {

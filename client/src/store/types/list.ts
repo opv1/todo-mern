@@ -6,7 +6,7 @@ export type ListType = {
   readonly _id: string
 }
 
-export interface ListState {
+export type ListState = {
   lists: any
   selectedList: any
 }
@@ -16,14 +16,14 @@ export enum ListActionTypes {
   LIST_SELECTED_SET = 'LIST_SELECTED_SET',
 }
 
-interface ListsSetAction {
+interface IListsSetAction {
   type: ListActionTypes.LISTS_SET
   payload: ListType[]
 }
 
-interface ListSelectedSetAction {
+interface IListSelectedSetAction {
   type: ListActionTypes.LIST_SELECTED_SET
   payload: ListType | null
 }
 
-export type ListAction = ListsSetAction | ListSelectedSetAction
+export type ListAction = IListsSetAction | IListSelectedSetAction

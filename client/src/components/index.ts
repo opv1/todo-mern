@@ -1,4 +1,4 @@
-import AddFormComponent from 'components/AddForm'
+import AddComponent from 'components/Add'
 import AlertComponent from 'components/Alert'
 import AuthComponent from 'components/Auth'
 import ListComponent from 'components/List'
@@ -13,7 +13,7 @@ import TodoComponent from 'components/Todo'
 import TodosComponent from 'components/Todos'
 
 export {
-  AddFormComponent,
+  AddComponent,
   AlertComponent,
   AuthComponent,
   ListComponent,

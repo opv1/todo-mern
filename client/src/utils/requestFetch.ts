@@ -24,7 +24,6 @@ export const requestFetch = async (
     }
 
     const response = await fetch(url, { method, body, headers })
-
     const data = await response.json()
 
     if (!response.ok) {
