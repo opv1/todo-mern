@@ -1,44 +1,39 @@
-import React from 'react'
-import { useHistory } from 'react-router'
+import React, { useState } from 'react'
 import { ListGroup, Form } from 'react-bootstrap'
 import { useActions } from 'hooks/useActions'
 import { BadgeComponent } from 'components/UI/index'
-import { ModalDataType } from 'store/types/modal'
+import { TodoType } from 'store/types/todo'
 
 interface Props {
-  data: ModalDataType
+  data: TodoType
 }
 
 const ListItemComponent: React.FC<Props> = ({ data }) => {
-  const history = useHistory()
+  const [todo] = useState(data)
   const { onSelectTodo, onDisplayModal, onCheckTodo } = useActions()
-
-  const onGoTodo = () => {
-    onSelectTodo(data.item)
-    history.push(`todos/${data.item._id}`)
-  }
 
   return (
     <ListGroup.Item className='list-item-component d-flex align-items-center'>
       <span
-        onClick={onGoTodo}
+        onClick={() => onSelectTodo(todo)}
         style={
-          data.item.completed
+          todo.completed
             ? { textDecoration: 'line-through' }
             : { textDecoration: 'none' }
         }
       >
-        {data.item.text}
+        {todo.text}
       </span>
       <Form.Check
         className='ml-2'
-        onChange={(event) => onCheckTodo(event.target.checked, data.item)}
+        onChange={(event) => onCheckTodo(event.target.checked, todo._id)}
         type='checkbox'
-        checked={data.item.completed}
+        checked={todo.completed}
       />
       <BadgeComponent
-        onClick={() => onDisplayModal(data)}
-        variant={'dark ml-2'}
+        className='ml-2'
+        onClick={() => onDisplayModal({ type: 'todo', item: todo })}
+        variant={'danger'}
         title={'Delete'}
       />
     </ListGroup.Item>

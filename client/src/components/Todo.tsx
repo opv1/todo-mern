@@ -9,12 +9,16 @@ interface Props {
   onSelectTodo?: (todo: TodoType) => void
 }
 
+type StylesType = {
+  [name: string]: string
+}
+
 const TodoComponent: React.FC<Props> = ({ todo, onSelectTodo }) => {
   const history = useHistory()
 
-  const onGoTodo = () => {
-    onSelectTodo!(todo)
-    history.push(`todos/${todo._id}`)
+  const styles: StylesType = {
+    fontWeight: 'bold',
+    color: todo.completed ? 'green' : 'red',
   }
 
   return (
@@ -25,11 +29,11 @@ const TodoComponent: React.FC<Props> = ({ todo, onSelectTodo }) => {
         <Card.Text>{todo.text}</Card.Text>
         <Card.Text>
           Completed:{' '}
-          <span style={{ fontWeight: 'bold' }}>{`${todo.completed}`}</span>
+          <span style={styles}>{todo.completed ? 'Yep' : 'Nope'}</span>
         </Card.Text>
         {onSelectTodo ? (
           <ButtonComponent
-            onClick={onGoTodo}
+            onClick={() => onSelectTodo(todo)}
             variant='primary'
             title='Go todo'
           />

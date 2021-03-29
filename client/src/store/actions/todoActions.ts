@@ -16,6 +16,10 @@ export const fetchingTodos = () => async (dispatch: Dispatch) => {
 
 export const onSelectTodo = (todo: TodoType) => async (dispatch: Dispatch) => {
   dispatch(actionCreators.todoSelectedSet(todo))
+
+  const { history } = store.getState().app
+
+  history.push(`todos/${todo._id}`)
 }
 
 export const onAddTodo = (text: string) => async (dispatch: Dispatch) => {
@@ -41,21 +45,16 @@ export const onAddTodo = (text: string) => async (dispatch: Dispatch) => {
   }
 }
 
-export const onDeleteTodo = (todo: TodoType) => async (dispatch: Dispatch) => {
+export const onDeleteTodo = (todoId: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(actionCreators.appLoading())
 
-    const res = await requestFetch(
-      'delete',
-      `/api/todo/${todo._id}`,
-      null,
-      true
-    )
+    const res = await requestFetch('delete', `/api/todo/${todoId}`, null, true)
 
     const { displayedTodos } = store.getState().todo
 
     const filteredTodos = [...displayedTodos].filter(
-      (copyTodo) => copyTodo._id !== todo._id
+      (todo) => todo._id !== todoId
     )
 
     dispatch(actionCreators.todosDisplayedSet(filteredTodos))
@@ -68,25 +67,25 @@ export const onDeleteTodo = (todo: TodoType) => async (dispatch: Dispatch) => {
   }
 }
 
-export const onCheckTodo = (completed: boolean, todo: TodoType) => async (
+export const onCheckTodo = (completed: boolean, todoId: string) => async (
   dispatch: Dispatch
 ) => {
   try {
     const res = await requestFetch(
       'put',
-      `/api/todo/${todo._id}`,
+      `/api/todo/${todoId}`,
       { completed },
       true
     )
 
     const { displayedTodos } = store.getState().todo
 
-    const filteredTodos = [...displayedTodos].filter((copyTodo) => {
-      if (copyTodo._id === todo._id) {
-        copyTodo.completed = !copyTodo.completed
+    const filteredTodos = [...displayedTodos].filter((todo) => {
+      if (todo._id === todoId) {
+        todo.completed = !todo.completed
       }
 
-      return copyTodo
+      return todo
     })
 
     dispatch(actionCreators.todosDisplayedSet(filteredTodos))

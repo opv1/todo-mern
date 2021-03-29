@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { useActions } from 'hooks/useActions'
 import { BadgeComponent } from 'components/UI/index'
-import { ModalDataType } from 'store/types/modal'
+import { ListType } from 'store/types/list'
 
 interface Props {
-  data: ModalDataType
+  data: ListType
   active: boolean
 }
 
 const SidebarItem: React.FC<Props> = ({ data, active }) => {
+  const [list] = useState(data)
   const { onSelectList, onDisplayModal } = useActions()
 
   return (
@@ -17,11 +18,11 @@ const SidebarItem: React.FC<Props> = ({ data, active }) => {
       className='sidebar-item-component d-flex align-items-center'
       active={active}
     >
-      <span onClick={() => onSelectList(data.item)}>{data.item.title}</span>
+      <span onClick={() => onSelectList(list)}>{list.title}</span>
       <BadgeComponent
         className='ml-2'
-        onClick={() => onDisplayModal(data)}
-        variant='dark'
+        onClick={() => onDisplayModal({ type: 'list', item: list })}
+        variant='danger'
         title='Delete'
       />
     </ListGroup.Item>

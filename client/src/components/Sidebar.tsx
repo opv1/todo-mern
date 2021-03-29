@@ -17,7 +17,7 @@ const SidebarComponent: React.FC = () => {
           lists.map((list: ListType) => (
             <SidebarItemComponent
               key={list._id}
-              data={{ type: 'list', item: list }}
+              data={list}
               active={selectedList && selectedList._id === list._id}
             />
           ))

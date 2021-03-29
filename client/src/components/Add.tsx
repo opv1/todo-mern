@@ -57,7 +57,7 @@ const AddComponent: React.FC<Props> = ({ onClick }) => {
           onClick={onUpdateForm}
           variant='primary'
           disabled={loading}
-          title='Show form'
+          title='Show add form'
         />
       )}
     </div>

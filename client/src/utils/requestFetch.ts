@@ -1,6 +1,6 @@
 import { getStorage } from 'utils/localStorage'
 
-interface HeadersType {
+type HeadersType = {
   [name: string]: string
 }
 

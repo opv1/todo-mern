@@ -9,7 +9,7 @@ const TodosComponent: React.FC = () => {
   const { onSelectTodo } = useActions()
 
   return (
-    <div className='todos-component d-flex justify-content-around flex-wrap'>
+    <div className='todos-component d-flex justify-content-center flex-wrap'>
       {selectedTodos.length !== 0 ? (
         selectedTodos.map((todo: TodoType) => (
           <TodoComponent

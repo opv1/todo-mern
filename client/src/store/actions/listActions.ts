@@ -51,14 +51,14 @@ export const onAddList = (title: string) => async (dispatch: Dispatch) => {
   }
 }
 
-export const onDeleteList = (list: ListType) => async (dispatch: Dispatch) => {
+export const onDeleteList = (listId: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(actionCreators.appLoading())
 
     const response = await requestFetch(
       'delete',
       '/api/todo',
-      { list: list._id },
+      { list: listId },
       true
     )
 
@@ -68,20 +68,13 @@ export const onDeleteList = (list: ListType) => async (dispatch: Dispatch) => {
       })
     }
 
-    const res = await requestFetch(
-      'delete',
-      `/api/list/${list._id}`,
-      null,
-      true
-    )
+    const res = await requestFetch('delete', `/api/list/${listId}`, null, true)
 
     const { lists, selectedList } = store.getState().list
 
-    const filteredLists = [...lists].filter(
-      (copyList) => copyList._id !== list._id
-    )
+    const filteredLists = [...lists].filter((list) => list._id !== listId)
 
-    if (selectedList && selectedList._id === list._id) {
+    if (selectedList && selectedList._id === listId) {
       dispatch(actionCreators.listSelectedSet(null))
     }
 

@@ -3,6 +3,7 @@ import { AppState, AppAction, AppActionTypes } from 'store/types/app'
 const initialState = {
   ready: false,
   loading: false,
+  history: null,
 }
 
 const appReducer = (state = initialState, action: AppAction): AppState => {
@@ -16,6 +17,11 @@ const appReducer = (state = initialState, action: AppAction): AppState => {
       return {
         ...state,
         loading: !state.loading,
+      }
+    case AppActionTypes.APP_HISTORY:
+      return {
+        ...state,
+        history: action.payload,
       }
     default:
       return state

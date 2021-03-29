@@ -15,8 +15,8 @@ const SelectComponent: React.FC = () => {
   const { filteringTodos } = useActions()
 
   const handlerChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setValue(event.target.value)
     window.valueSelect = event.target.value
+    setValue(event.target.value)
     filteringTodos(event.target.value)
   }
 

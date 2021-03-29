@@ -48,10 +48,7 @@ const ListComponent: React.FC = () => {
               <>
                 {displayedTodos.length !== 0 ? (
                   displayedTodos.map((todo: TodoType) => (
-                    <ListItemComponent
-                      key={todo._id}
-                      data={{ type: 'todo', item: todo }}
-                    />
+                    <ListItemComponent key={todo._id} data={todo} />
                   ))
                 ) : (
                   <ListGroup.Item style={{ pointerEvents: 'none' }}>

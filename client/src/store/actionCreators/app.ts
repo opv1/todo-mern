@@ -8,3 +8,8 @@ export const appReady = (ready: boolean): AppAction => ({
 export const appLoading = (): AppAction => ({
   type: AppActionTypes.APP_LOADING,
 })
+
+export const appHistory = (history: any): AppAction => ({
+  type: AppActionTypes.APP_HISTORY,
+  payload: history,
+})

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useHistory } from 'react-router'
 import { useTypeSelector } from 'hooks/useTypeSelector'
 import { useActions } from 'hooks/useActions'
 import Routes from 'Routes'
@@ -10,15 +11,22 @@ import {
 } from 'components/index'
 
 const App: React.FC = () => {
+  const history = useHistory()
   const { ready } = useTypeSelector((state) => state.app)
   const { user } = useTypeSelector((state) => state.user)
-  const { checkAuthUser, fetchingLists, fetchingTodos } = useActions()
+  const {
+    checkAuthUser,
+    initialHistory,
+    fetchingLists,
+    fetchingTodos,
+  } = useActions()
 
   const isAuth = !!user.accessToken
   const routes = Routes(isAuth)
 
   useEffect(() => {
     checkAuthUser()
+    initialHistory(history)
     // eslint-disable-next-line
   }, [])
 

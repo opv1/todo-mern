@@ -25,8 +25,8 @@ const ModalComponent: React.FC = () => {
         <ButtonComponent
           onClick={
             data.type === 'todo'
-              ? () => onDeleteTodo(data.item)
-              : () => onDeleteList(data.item)
+              ? () => onDeleteTodo(data.item._id)
+              : () => onDeleteList(data.item._id)
           }
           variant='primary'
           disabled={loading}

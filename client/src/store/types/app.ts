@@ -1,11 +1,13 @@
 export type AppState = {
   ready: boolean
   loading: boolean
+  history: any
 }
 
 export enum AppActionTypes {
   APP_READY = 'APP_READY',
   APP_LOADING = 'APP_LOADING',
+  APP_HISTORY = 'APP_HISTORY',
 }
 
 interface IAppReadyAction {
@@ -17,4 +19,9 @@ interface IAppLoadingAction {
   type: AppActionTypes.APP_LOADING
 }
 
-export type AppAction = IAppReadyAction | IAppLoadingAction
+interface IAppHistoryAction {
+  type: AppActionTypes.APP_HISTORY
+  payload: any
+}
+
+export type AppAction = IAppReadyAction | IAppLoadingAction | IAppHistoryAction
