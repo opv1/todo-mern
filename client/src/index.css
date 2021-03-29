@@ -21,6 +21,7 @@
 .sidebar-component,
 .list-component {
   width: 500px;
+  margin: 0.5rem;
 }
 
 .sidebar-title {
@@ -34,7 +35,8 @@
 
 .todo-component {
   margin: 10px;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .list-group-item span {
