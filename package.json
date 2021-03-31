@@ -1,7 +1,6 @@
 {
   "name": "todo-mern",
   "version": "0.1.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -10,15 +9,13 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.12.1"
+    "mongoose": "^5.12.2"
   },
   "devDependencies": {
     "concurrently": "^6.0.0",
