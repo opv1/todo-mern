@@ -8,9 +8,3 @@
 Stack: MERN + Redux + TypeScript
 
 ## [See the project](https://todo-mern-opv1.herokuapp.com)
-
-## Setup
-
-```
-npm run dev
-```
