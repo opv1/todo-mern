@@ -5,9 +5,9 @@
 
 ## Description
 
-Stack: MERN + TypeScript
+Stack: MERN + Redux + TypeScript
 
-## [See the project](https://todo-mern-opv1.herokuapp.com/)
+## [See the project](https://todo-mern-opv1.herokuapp.com)
 
 ## Setup
 

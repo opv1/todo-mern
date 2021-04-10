@@ -20,8 +20,8 @@
 
 .sidebar-component,
 .list-component {
-  width: 500px;
   margin: 0.5rem;
+  width: 500px;
 }
 
 .sidebar-title {
@@ -48,10 +48,10 @@
 }
 
 .list-title {
-  cursor: pointer;
-  border: none;
   margin: 0.5rem 0;
+  border: none;
   text-align: center;
+  cursor: pointer;
 }
 
 .badge {
