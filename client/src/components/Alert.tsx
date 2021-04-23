@@ -14,8 +14,8 @@ const AlertComponent: React.FC = () => {
   const { onCloseAlert } = useActions()
 
   useEffect(() => {
-    clearTimeout(window.timeoutId)
     window.timeoutId = setTimeout(() => onCloseAlert(), 3000)
+    return () => clearTimeout(window.timeoutId)
     // eslint-disable-next-line
   }, [alert])
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, KeyboardEvent } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { ListGroup, FormControl } from 'react-bootstrap'
 import { useTypeSelector } from 'hooks/useTypeSelector'
 import { useActions } from 'hooks/useActions'
@@ -16,7 +16,7 @@ const ListComponent: React.FC = () => {
   const { displayedTodos } = useTypeSelector((state) => state.todo)
   const { onRenameList, onAddTodo } = useActions()
 
-  const handlerKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+  const handlerKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === 'Enter' && valueRef.current!.value.length !== 0) {
       valueRef.current!.blur()
       onRenameList(valueRef.current!.value)

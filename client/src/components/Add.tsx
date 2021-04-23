@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState } from 'react'
 import { InputGroup, FormControl } from 'react-bootstrap'
 import { useTypeSelector } from 'hooks/useTypeSelector'
 import { ButtonComponent } from 'components/UI/index'
@@ -12,7 +12,7 @@ const AddComponent: React.FC<Props> = ({ onClick }) => {
   const [value, setValue] = useState<string>('')
   const { loading } = useTypeSelector((state) => state.app)
 
-  const handlerChange = (event: ChangeEvent<HTMLInputElement>) =>
+  const handlerChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setValue(event.target.value)
 
   const onUpdateForm = () => {

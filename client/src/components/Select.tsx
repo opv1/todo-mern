@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form } from 'react-bootstrap'
 import { useTypeSelector } from 'hooks/useTypeSelector'
 import { useActions } from 'hooks/useActions'
@@ -14,7 +14,7 @@ const SelectComponent: React.FC = () => {
   const { displayedTodos } = useTypeSelector((state) => state.todo)
   const { filteringTodos } = useActions()
 
-  const handlerChange = (event: ChangeEvent<HTMLSelectElement>) => {
+  const handlerChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     window.valueSelect = event.target.value
     setValue(event.target.value)
     filteringTodos(event.target.value)
