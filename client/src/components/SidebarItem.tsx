@@ -9,7 +9,7 @@ interface Props {
   active: boolean
 }
 
-const SidebarItem: React.FC<Props> = ({ data, active }) => {
+const SidebarItemComponent: React.FC<Props> = ({ data, active }) => {
   const [list] = useState(data)
   const { onSelectList, onDisplayModal } = useActions()
 
@@ -29,4 +29,4 @@ const SidebarItem: React.FC<Props> = ({ data, active }) => {
   )
 }
 
-export default SidebarItem
+export default SidebarItemComponent

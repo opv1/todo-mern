@@ -8,6 +8,7 @@ export const getStorage = () => {
   const data = localStorage.getItem(nameStorage)
 
   if (data !== null) return JSON.parse(data)
+  else return null
 }
 
 export const removeStorage = () => {
